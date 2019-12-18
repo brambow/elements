@@ -2,6 +2,8 @@
 
 <img src="./logo.png" height="250">
 
+[Demo](https://cartolab-gis.github.io/elements/)
+
 CartoLab Elements are a set of reusable and themeable React components for building user interfaces for map-based web applications. 
 
 ## Motivation
