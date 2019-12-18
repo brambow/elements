@@ -1,0 +1,98 @@
+{
+  "name": "@cartolab/elements",
+  "version": "1.0.0",
+  "description": "React components for map-based web applications",
+  "repository": {
+    "url": "https://github.com/cartolab-gis/elements",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/cartolab-gis/elements/issues"
+  },
+  "author": "Bates Rambow/CartoLab LLC",
+  "contributors": [
+    "Joshua Tanner",
+    "Benjamin Millard"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "start-storybook -p 9001",
+    "test": "jest --watch",
+    "build-prep": "del-cli dist && NODE_ENV=production rollup -c --context ",
+    "build-clean": "del-cli \"dist/**/*.test.js\" \"dist/**/*.stories.js\"",
+    "build": "yarn build-prep && yarn build-clean",
+    "build-storybook": "build-storybook -c .storybook -o docs",
+    "prepare": "yarn build && yarn build-storybook"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "dependencies": {
+    "@emotion/core": "^10.0.22",
+    "@mapbox/mapbox-gl-draw": "^1.1.2",
+    "@mapbox/togeojson": "^0.16.0",
+    "@reach/combobox": "^0.5.3",
+    "@rebass/forms": "^4.0.6",
+    "@turf/area": "^6.0.1",
+    "@turf/bbox": "^6.0.1",
+    "@turf/boolean-disjoint": "^6.0.2",
+    "@turf/length": "^6.0.2",
+    "csv2geojson": "^5.1.1",
+    "emotion-theming": "^10.0.19",
+    "numeral": "^2.0.6",
+    "react-icons": "^3.7.0",
+    "rebass": "^4.0.7",
+    "shpjs": "^3.4.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@mdx-js/react": "^1.5.1",
+    "@storybook/addon-knobs": "^5.2.5",
+    "@storybook/react": "^5.2.5",
+    "@storybook/theming": "^5.2.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@theme-ui/presets": "^0.2.44",
+    "babel-loader": "^8.0.6",
+    "del-cli": "^3.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
+    "lodash.merge": "^4.6.2",
+    "mapbox-gl": "^1.5.0",
+    "prettier": "^1.19.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "rollup": "^1.27.0",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-svg": "^2.0.0",
+    "storybook-addon-emotion-theme": "^2.1.1",
+    "theme-ui": "^0.2.49"
+  },
+  "peerDependencies": {
+    "mapbox-gl": "^1.5.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "files": [
+    "dist/"
+  ],
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.DS_Store
+
+node_modules/
+.vscode/
+
+src/config.js
+
+dist/
