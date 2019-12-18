@@ -37,7 +37,6 @@ In order to CartoLab Elements to work, your project must include the following p
 * react
 * react-dom
 * mapbox-gl
-* mapbox-gl-draw
 
 ### App Initialization
 In the entry point/top level of your application, enable Elements by importing and wrapping the app in the `<ElementsProvider>`. The Elements Provider does two things:
