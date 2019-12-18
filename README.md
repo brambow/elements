@@ -122,5 +122,12 @@ We hav emany ideas for enhancing CartoLab Elements over time. Some possibilities
 * Expanding support to other mapping APIs, like Leaflet and OpenLayers
 * Providing non-React versions (Vue, Vanilla JS, etc.)
 
+## Contributing 
 
-If you have an idea, question, or issue please open an issue and let us know. If you'd like to contribute, please read our guidelines in CONTRIBUTING.md.
+To contribute to this project please fork and merge all PRs from the `develop` branch. We use a modified version of GitFlow where the `master` branch represents a stable release and `develop` represents a set of features in progress for a future release.
+
+To run in development mode, install and run `yarn dev`. This will launch a development version of Storybook to create a development environment. Running `yarn test` will run tests against the code. We use Jest and React Testing Library for testing these components.
+
+
+
+If you have an idea, question, or issue please open an issue and let us know. 
