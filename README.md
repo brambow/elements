@@ -52,8 +52,8 @@ Example in the index.js file of an app created with Create React App:
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { ElementsProvider } from 'cartolab-components';
-import defaultTheme from 'cartolab-components/src/themes/rebass-default';
+import { ElementsProvider } from '@cartolab/elements';
+import defaultTheme from '@cartolab/elements/src/themes/defaultTheme';
 import App from './App';
 
 ReactDOM.render(
