@@ -24,7 +24,7 @@ b)	Compared to other mapping libraries, it has the fewest UI elements or plugins
 In the future we may consider expanding support beyond Mapbox to multiple mapping libraries.
 
 ## Comparison to other React mapping projects
-Elements is different from libraries like [react-map-gl](https://uber.github.io/react-map-gl/#/) and [react-mapbox-gl](https://github.com/alex3165/react-mapbox-gl) in that it is not an attempt to port the MapboxGL API into React Components. Instead, it is our philosphy that MapboxGL should manage the map and its WebGL Context, while React simply manages all the other UI elements in an application that need to interact with a map. Working with Elements, you should be able to use MapboxGL.js directly, or using one of these wrapper libraries (as long as you can pass in the map instance to Elements' Context).
+Elements is different from libraries like [react-map-gl](https://uber.github.io/react-map-gl/#/) and [react-mapbox-gl](https://github.com/alex3165/react-mapbox-gl) in that it is not an attempt to port the MapboxGL API into React Components. Instead, it is our philosphy that MapboxGL should manage the map and its WebGL Context, while React simply manages all the other UI elements in an application that need to interact with a map. Working with Elements, you should be able to use MapboxGL.js directly or use one of these wrapper libraries (as long as you can pass in the map instance to Elements' Context).
 
 
 ## Usage
