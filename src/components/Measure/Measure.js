@@ -35,8 +35,8 @@ const Measure = ({ sx, ...rest }) => {
     return null;
   }
 
-  const changeUnits = (e, { value }) => {
-    setUnits(value);
+  const changeUnits = e => {
+    setUnits(e.currentTarget.value);
   };
 
   async function startDraw(type) {
@@ -134,6 +134,7 @@ const Measure = ({ sx, ...rest }) => {
             border: 'none',
             paddingTop: 0
           }}
+          onChange={changeUnits}
           defaultValue={lengthOptions[0]}
         >
           {lengthOptions.map(option => (
@@ -157,6 +158,7 @@ const Measure = ({ sx, ...rest }) => {
             border: 'none',
             paddingTop: 0
           }}
+          onChange={changeUnits}
           defaultValue={areaOptions[0]}
         >
           {areaOptions.map(option => (
@@ -218,7 +220,7 @@ const Measure = ({ sx, ...rest }) => {
         p={2}
         color="background"
         height="32px"
-        width={120}
+        width={135}
         sx={{
           display: display,
           borderColor: 'white',
