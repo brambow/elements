@@ -21,7 +21,7 @@
     "build-prep": "del-cli dist && NODE_ENV=production rollup -c --context ",
     "build-clean": "del-cli \"dist/**/*.test.js\" \"dist/**/*.stories.js\"",
     "build": "yarn build-prep && yarn build-clean",
-    "build-storybook": "del-cli docs build-storybook -c .storybook -o docs",
+    "build-storybook": "del-cli docs && build-storybook -c .storybook -o docs",
     "prepare": "yarn build && yarn build-storybook"
   },
   "main": "dist/index.js",
