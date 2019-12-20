@@ -33,6 +33,17 @@ Elements is different from libraries like [react-map-gl](https://uber.github.io/
 or
 `yarn add @cartolab/elements`
 
+**Important:** When cloning the full source from github you need to add a `src/config.js` file that exports an object that has your Mapbox token. This is needed for the Storybook to run in dev mode. This should remain out of version control. There is a `config.template.js` file in `src` to get you started. Just copy it and remove 'template'. Example:
+
+``` javascript
+
+export default {
+  mapboxToken: 'your mapbox token'
+}
+
+```
+
+
 ### Peer Dependencies 
 In order to CartoLab Elements to work, your project must include the following packages:
 
@@ -125,9 +136,9 @@ We have many ideas for enhancing CartoLab Elements over time. Some possibilities
 
 ## Contributing 
 
-To contribute to this project please fork and merge all PRs from the `develop` branch. We use a modified version of GitFlow where the `master` branch represents a stable release and `develop` represents a set of features in progress for a future release.
-
 To run in development mode, install and run `yarn dev`. This will launch a development version of Storybook to create a development environment. Running `yarn test` will run tests against the code. We use Jest and React Testing Library for testing these components.
+
+**Important!** See the instructions under Installation on adding a `src/config.js` file for your Mapbox token or you will get errors when running `yarn dev`
 
 
 
