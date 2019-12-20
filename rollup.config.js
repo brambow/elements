@@ -35,9 +35,12 @@ export default [
 
     external: [
       'react-icons/fa',
+      'react-icons/md',
       '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css',
       'react-icons/all',
-      'react-dom/server'
+      'react-dom/server',
+      'theme-ui',
+      '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw'
     ]
   }
 ];
