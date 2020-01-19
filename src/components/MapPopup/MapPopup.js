@@ -9,7 +9,11 @@ const Container = props => {
   const { styles, properties, config } = props;
   return (
     <Box className="popup-container">
-      <Title properties={properties} config={config.title} />
+      {
+        (config.title && config.title.field) ? 
+          <Title properties={properties} config={config.title} /> :
+          null
+      }
       <List style={styles} properties={properties} config={config.attributes} />
     </Box>
   );
@@ -17,6 +21,7 @@ const Container = props => {
 
 const Title = props => {
   const { properties, config } = props;
+  if(!properties.hasOwnProperty(config.field)) return null;
   return (
     <Box
       {...props}
@@ -124,17 +129,35 @@ const MapPopup = props => {
   }
 
   const _build = (config, event) => {
-    new Popup()
-      .setLngLat(event.lngLat)
-      .setHTML(
-        ReactDOMServer.renderToString(
-          <Container
-            properties={event.features[0].properties}
-            config={config}
-          />
+    if(config.intercept) {
+      config.intercept(event.features[0].properties).then(function (properties) {
+        new Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(
+          ReactDOMServer.renderToString(
+            <Container
+              properties={properties}
+              config={config}
+            />
+          )
         )
-      )
-      .addTo(map);
+        .addTo(map);
+      }).catch(function (err) {
+        console.warn(err);
+      })
+    } else {
+      new Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(
+          ReactDOMServer.renderToString(
+            <Container
+              properties={event.features[0].properties}
+              config={config}
+            />
+          )
+        )
+        .addTo(map);
+    }
   };
 
   // register map click event for popup

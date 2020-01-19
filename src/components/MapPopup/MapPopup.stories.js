@@ -19,11 +19,24 @@ const popupLayers = [
     title: {
       field: 'name'
     }, // popup title field
+    intercept: function (properties) {
+      // mock getting some external data
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          resolve(Object.assign(properties, {'source': 'intercept'}))
+        }, 250)
+      })
+    },
     attributes: [
       {
         field: 'wikipedia', // original field name
         label: 'Wiki', // desired label
         type: 'link' // text, link, image
+      },
+      {
+         field: 'source',
+         label: 'Source',
+         type: 'text',
       },
       {
         field: 'postal',
