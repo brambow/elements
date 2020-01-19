@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from 'rebass';
+import { Flex } from '@theme-ui/components';
 
 const ButtonGroup = ({ buttons, sx, children, ...rest }) => {
   let content;

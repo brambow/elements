@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text } from 'rebass';
-import { Label, Checkbox } from '@rebass/forms';
+import { Box, Text, Label, Checkbox } from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';

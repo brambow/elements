@@ -1,24 +1,7 @@
-// //Base Component to give structure to all other major components
-
-// import React from 'react';
-// import { Box } from 'rebass';
-
-// const BaseComponent = props => {
-//   const [open, setOpen] = useState();
-
-//   return (
-//     <Box {...props} sx={{ fontFamily: 'body' }}>
-//       {props.children}
-//     </Box>
-//   );
-// };
-
-// export default BaseComponent;
-
 //Base Component to give structure to all other major components
 
 import React from 'react';
-import { Box } from 'rebass';
+import { Box } from '@theme-ui/components';
 import Panel from '../_common/PanelComponent';
 
 const BaseComponent = ({

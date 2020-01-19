@@ -3,7 +3,7 @@
 
 import React, { useState, useContext } from 'react';
 import Context from '../../DefaultContext';
-import { Flex, Button } from 'rebass';
+import { Flex, Button } from '@theme-ui/components';
 import { Combobox, ComboboxInput } from '@reach/combobox';
 import SearchSuggestions from './SearchSuggestions';
 import handleSearchInputChange from './util/handleSearchInputChange';

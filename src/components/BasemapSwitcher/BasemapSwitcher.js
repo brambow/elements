@@ -1,7 +1,7 @@
 //BasemapSwitcher  Component for changing basemaps
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Button } from 'rebass';
+import { Button } from '@theme-ui/components';
 import DefaultContext from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 import RadioGroup from '../_primitives/RadioGroup';

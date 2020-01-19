@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Flex, Button, Box, Text } from 'rebass';
-import { Select } from '@rebass/forms';
+import { Flex, Button, Box, Text, Select } from '@theme-ui/components';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';

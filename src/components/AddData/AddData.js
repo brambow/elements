@@ -1,6 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { Button, Flex, Box, Link, Text } from 'rebass';
-import { Input, Checkbox, Label } from '@rebass/forms';
+import {
+  Button,
+  Flex,
+  Box,
+  Link,
+  Text,
+  Input,
+  Checkbox,
+  Label
+} from '@theme-ui/components';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import bbox from '@turf/bbox';

@@ -32,7 +32,6 @@
     "@mapbox/togeojson": "^0.16.0",
     "@mdx-js/react": "^1.5.1",
     "@reach/combobox": "^0.5.3",
-    "@rebass/forms": "^4.0.6",
     "@theme-ui/components": "^0.2.50",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
@@ -42,7 +41,6 @@
     "emotion-theming": "^10.0.19",
     "numeral": "^2.0.6",
     "react-icons": "^3.7.0",
-    "rebass": "^4.0.7",
     "shpjs": "^3.4.3",
     "theme-ui": "^0.3.0-alpha.3"
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'rebass';
+import { Box } from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import childrenExist from '../../util/childrenExist';
 

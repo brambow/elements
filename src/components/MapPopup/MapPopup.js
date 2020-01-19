@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Context from '../../DefaultContext';
-import { Box } from 'rebass';
+import { Box } from '@theme-ui/components';
 import { Popup } from 'mapbox-gl';
 import mapExists from '../../util/mapExists';
 
@@ -9,11 +9,9 @@ const Container = props => {
   const { styles, properties, config } = props;
   return (
     <Box className="popup-container">
-      {
-        (config.title && config.title.field) ? 
-          <Title properties={properties} config={config.title} /> :
-          null
-      }
+      {config.title && config.title.field ? (
+        <Title properties={properties} config={config.title} />
+      ) : null}
       <List style={styles} properties={properties} config={config.attributes} />
     </Box>
   );
@@ -21,7 +19,7 @@ const Container = props => {
 
 const Title = props => {
   const { properties, config } = props;
-  if(!properties.hasOwnProperty(config.field)) return null;
+  if (!properties.hasOwnProperty(config.field)) return null;
   return (
     <Box
       {...props}
@@ -129,22 +127,22 @@ const MapPopup = props => {
   }
 
   const _build = (config, event) => {
-    if(config.intercept) {
-      config.intercept(event.features[0].properties).then(function (properties) {
-        new Popup()
-        .setLngLat(event.lngLat)
-        .setHTML(
-          ReactDOMServer.renderToString(
-            <Container
-              properties={properties}
-              config={config}
-            />
-          )
-        )
-        .addTo(map);
-      }).catch(function (err) {
-        console.warn(err);
-      })
+    if (config.intercept) {
+      config
+        .intercept(event.features[0].properties)
+        .then(function(properties) {
+          new Popup()
+            .setLngLat(event.lngLat)
+            .setHTML(
+              ReactDOMServer.renderToString(
+                <Container properties={properties} config={config} />
+              )
+            )
+            .addTo(map);
+        })
+        .catch(function(err) {
+          console.warn(err);
+        });
     } else {
       new Popup()
         .setLngLat(event.lngLat)

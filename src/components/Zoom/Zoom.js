@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button } from 'rebass';
+import { Button } from '@theme-ui/components';
 import Context from '../../DefaultContext';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Heading, Flex } from 'rebass';
+import { Button, Heading, Flex } from '@theme-ui/components';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';

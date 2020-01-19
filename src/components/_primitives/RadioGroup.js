@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'rebass';
+import { Box } from '@theme-ui/components';
 import RadioGroupItem from './RadioGroupItem';
 import childrenExist from '../../util/childrenExist';
 
