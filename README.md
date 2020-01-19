@@ -115,12 +115,12 @@ const App = () => {
 
 
 ## Theming
-CartoLab Elements are built with [Rebass](https://rebassjs.org/), which uses [Styled System](https://styled-system.com/) and the [System UI Theme Specification](https://system-ui.com/theme). This means that you can use any theme made for Rebass, Styled System, Theme-UI, or any other compliant theme with CartoLab Elements. 
+CartoLab Elements are built with [ThemeUI](https://theme-ui.com/), which uses [Styled System](https://styled-system.com/) and the [System UI Theme Specification](https://system-ui.com/theme). This means that you can use any theme made for Rebass, Styled System, Theme-UI, or any other compliant theme with CartoLab Elements. 
 
 We've provided a default theme to help you get started quickly. 
 
 ### Overriding Themes
-CartoLab Elements are extensions of Rebass elements, and therefore the `css` prop from Styled System and Emotion can be used in any component to override theme values. In general, it is preferrable to set styles in a theme file and create variants for different presentation options. The `css` prop override shuld be used sparingly or only for positioning of elements.
+CartoLab Elements are extensions of ThemeUI elements, and therefore the `css` prop from Styled System and Emotion can be used in any component to override theme values. In general, it is preferrable to set styles in a theme file and create variants for different presentation options. The `css` prop override shuld be used sparingly or only for positioning of elements.
 
 ## Component Playground and Docs
 You can explore CartoLab Elements in our interactive playground, built with [Storybook](https://storybook.js.org/). We've included documentation, code examples, and interactive exploration of various props and theming options.
