@@ -9,7 +9,11 @@ const Container = props => {
   const { styles, properties, config } = props;
   return (
     <Box className="popup-container">
-      <Title properties={properties} config={config.title} />
+      {
+        (config.title && config.title.field) ? 
+          <Title properties={properties} config={config.title} /> :
+          null
+      }
       <List style={styles} properties={properties} config={config.attributes} />
     </Box>
   );
@@ -17,6 +21,7 @@ const Container = props => {
 
 const Title = props => {
   const { properties, config } = props;
+  if(!properties.hasOwnProperty(config.field)) return null;
   return (
     <Box
       {...props}

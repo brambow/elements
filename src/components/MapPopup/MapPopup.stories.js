@@ -20,7 +20,6 @@ const popupLayers = [
       field: 'name'
     }, // popup title field
     intercept: function (properties) {
-      console.log(properties)
       // mock getting some external data
       return new Promise(function (resolve, reject) {
         setTimeout(function () {
