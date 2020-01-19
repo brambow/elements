@@ -124,17 +124,35 @@ const MapPopup = props => {
   }
 
   const _build = (config, event) => {
-    new Popup()
-      .setLngLat(event.lngLat)
-      .setHTML(
-        ReactDOMServer.renderToString(
-          <Container
-            properties={event.features[0].properties}
-            config={config}
-          />
+    if(config.intercept) {
+      config.intercept(event.features[0].properties).then(function (properties) {
+        new Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(
+          ReactDOMServer.renderToString(
+            <Container
+              properties={properties}
+              config={config}
+            />
+          )
         )
-      )
-      .addTo(map);
+        .addTo(map);
+      }).catch(function (err) {
+        console.warn(err);
+      })
+    } else {
+      new Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(
+          ReactDOMServer.renderToString(
+            <Container
+              properties={event.features[0].properties}
+              config={config}
+            />
+          )
+        )
+        .addTo(map);
+    }
   };
 
   // register map click event for popup
