@@ -22,7 +22,7 @@
     "build-clean": "del-cli \"dist/**/*.test.js\" \"dist/**/*.stories.js\"",
     "build": "yarn build-prep && yarn build-clean",
     "build-storybook": "del-cli docs && build-storybook -c .storybook -o docs",
-    "prepare": "yarn build && yarn build-storybook"
+    "prepare-build": "yarn build && yarn build-storybook"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -33,6 +33,7 @@
     "@mdx-js/react": "^1.5.1",
     "@reach/combobox": "^0.5.3",
     "@rebass/forms": "^4.0.6",
+    "@theme-ui/components": "^0.2.50",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "@turf/boolean-disjoint": "^6.0.2",
@@ -43,7 +44,7 @@
     "react-icons": "^3.7.0",
     "rebass": "^4.0.7",
     "shpjs": "^3.4.3",
-    "theme-ui": "^0.2.49"
+    "theme-ui": "^0.3.0-alpha.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
