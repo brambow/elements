@@ -7,13 +7,14 @@ const PanelComponent = ({ sx, children, ...rest }) => {
       {...rest}
       className="cl-panel-component"
       color="text"
-      bg="background"
       sx={{
+        ...sx,
+        bg: 'background',
         padding: 3,
         minWidth: '200px',
         maxWidth: '300px',
-        borderRadius: '4px',
-        ...sx
+        borderRadius: '4px'
+
         //to do: add box shadow, move to theme
       }}
     >
