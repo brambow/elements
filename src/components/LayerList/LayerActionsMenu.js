@@ -23,7 +23,7 @@ const LayerActionsMenu = ({ layerActions }) => {
       >
         ...
       </MenuButton>
-      <MenuPopover sx={{ zIndex: 3 }}>
+      <MenuPopover sx={{ zIndex: 3, fontFamily: 'body' }}>
         <MenuItems>
           {layerActions.map(action => {
             return (
