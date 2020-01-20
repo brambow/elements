@@ -18,6 +18,7 @@ const LayerList = ({ layers, legend = false, panel, ...rest }) => {
         layerInfo={item}
         map={map}
         legend={legend}
+        itemActions={item.actions}
       />
     );
   });
