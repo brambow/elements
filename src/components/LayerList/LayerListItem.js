@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, Label, Checkbox } from '@theme-ui/components';
+import { Flex, Box, Text, Label, Checkbox } from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
 import toggleLayerVisibility from './util/toggleLayerVisibility';
 import LayerActionsMenu from './LayerActionsMenu';
 
-const LayerListItem = ({ layerInfo, map, legend, itemActions }) => {
+const LayerListItem = ({
+  layerInfo,
+  map,
+  legend,
+  showActions,
+  itemActions
+}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
 
   const layerIds = layerInfo.layerIds;
 
+  const defaultLayerActions = [
+    {
+      title: 'Move Up',
+      action: () => {
+        alert('still need to do some real actions');
+      }
+    },
+    {
+      title: 'Move Down',
+      action: () => {
+        alert('still need to do some real actions');
+      }
+    }
+  ];
+
   let layerActions;
 
   if (itemActions && itemActions.length > 0) {
-    layerActions = [
-      {
-        title: 'Transparency',
-        action: () => {
-          console.log('hey');
-        }
-      },
-      ...itemActions
-    ];
+    layerActions = [...defaultLayerActions, ...itemActions];
   } else {
-    layerActions = [
-      {
-        title: 'Transparency',
-        action: () => {
-          console.log('hey');
-        }
-      }
-    ];
+    layerActions = defaultLayerActions;
   }
 
   const handleChange = e => {
@@ -66,14 +72,24 @@ const LayerListItem = ({ layerInfo, map, legend, itemActions }) => {
     }
   }, [map, layerInfo]);
 
+  let actionMenuSlot;
+
+  if (showActions) {
+    actionMenuSlot = <LayerActionsMenu layerActions={layerActions} />;
+  } else {
+    actionMenuSlot = null;
+  }
+
   return (
     <Box className="listItem">
       <ListItem key={layerInfo.layerName}>
-        <Label>
-          <Checkbox onChange={handleChange} checked={isChecked} />
-          <Text pt={1}>{layerInfo.layerName}</Text>
-          <LayerActionsMenu layerActions={layerActions} />
-        </Label>
+        <Flex>
+          <Label>
+            <Checkbox onChange={handleChange} checked={isChecked} />
+            <Text pt={1}>{layerInfo.layerName}</Text>
+          </Label>
+          {actionMenuSlot}
+        </Flex>
       </ListItem>
       <ListItem
         css={{ display: legend && style ? '' : 'none' }}

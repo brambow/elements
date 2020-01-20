@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui';
 import {
   Menu,
-  MenuList,
+  // MenuList,
   MenuButton,
   MenuItem,
   MenuPopover,
@@ -12,16 +12,24 @@ import '@reach/menu-button/styles.css';
 
 const LayerActionsMenu = ({ layerActions }) => {
   return (
-    <Menu>
-      <MenuButton sx={{ bg: 'background' }}>...</MenuButton>
+    <Menu className="cl-layer-list-action-menu">
+      <MenuButton
+        sx={{
+          color: 'text',
+          bg: 'background',
+          borderStyle: 'none',
+          fontSize: 1
+        }}
+      >
+        ...
+      </MenuButton>
       <MenuPopover sx={{ zIndex: 3 }}>
         <MenuItems>
           {layerActions.map(action => {
             return (
               <MenuItem
-                // sx={{ zIndex: 2 }}
-                onClick={() => {
-                  action.action;
+                onSelect={() => {
+                  action.action();
                 }}
               >
                 {action.title}

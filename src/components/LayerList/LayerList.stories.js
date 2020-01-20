@@ -58,4 +58,12 @@ storiesOf('LayerList', module)
         <LayerList layers={layers} legend panel={true} />
       </ElementsProvider>
     );
+  })
+  .add('With Action Menu', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <LayerList layers={layers} showActions panel={true} />
+      </ElementsProvider>
+    );
   });
