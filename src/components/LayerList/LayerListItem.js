@@ -18,28 +18,13 @@ const LayerListItem = ({
 
   const layerIds = layerInfo.layerIds;
 
-  const defaultLayerActions = [
-    {
-      title: 'Move Up',
-      action: () => {
-        alert('still need to do some real actions');
-      }
-    },
-    {
-      title: 'Move Down',
-      action: () => {
-        alert('still need to do some real actions');
-      }
-    }
-  ];
+  // let layerActions;
 
-  let layerActions;
-
-  if (itemActions && itemActions.length > 0) {
-    layerActions = [...defaultLayerActions, ...itemActions];
-  } else {
-    layerActions = defaultLayerActions;
-  }
+  // if (itemActions && itemActions.length > 0) {
+  //   layerActions = itemActions;
+  // } else {
+  //   layerActions = null;
+  // }
 
   const handleChange = e => {
     const checked = e.currentTarget.checked;
@@ -75,7 +60,7 @@ const LayerListItem = ({
   let actionMenuSlot;
 
   if (showActions) {
-    actionMenuSlot = <LayerActionsMenu layerActions={layerActions} />;
+    actionMenuSlot = <LayerActionsMenu layerActions={itemActions} />;
   } else {
     actionMenuSlot = null;
   }
