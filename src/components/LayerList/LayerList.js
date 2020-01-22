@@ -5,7 +5,7 @@ import LayerListItem from './LayerListItem';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 
-const LayerList = ({ layers, legend = false, panel, ...rest }) => {
+const LayerList = ({ layers, legend = false, panel, showActions, ...rest }) => {
   const config = useContext(Context);
   const map = config.map;
 
@@ -18,6 +18,8 @@ const LayerList = ({ layers, legend = false, panel, ...rest }) => {
         layerInfo={item}
         map={map}
         legend={legend}
+        itemActions={item.actions}
+        showActions={showActions}
       />
     );
   });

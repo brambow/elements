@@ -10,19 +10,51 @@ import mapOptions from '../../util/mockMapOptions';
 const layers = [
   {
     layerIds: ['national-park'], //fill
-    layerName: 'National Parks'
+    layerName: 'National Parks',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
   },
   {
     layerIds: ['water', 'water-shadow'], //fill
-    layerName: 'Water'
+    layerName: 'Water',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
   },
   {
     layerIds: ['road-motorway-trunk'], //line
-    layerName: 'Motorway'
+    layerName: 'Motorway',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
   },
   {
     layerIds: ['road-number-shield'], //symbol
     layerName: 'Road Shield',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ],
     legendStyle: () => {
       return (
         <svg width="25" height="25">
@@ -56,6 +88,14 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList layers={layers} legend panel={true} />
+      </ElementsProvider>
+    );
+  })
+  .add('With Action Menu', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <LayerList layers={layers} showActions panel={true} />
       </ElementsProvider>
     );
   });

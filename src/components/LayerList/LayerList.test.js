@@ -10,7 +10,15 @@ jest.mock('./util/toggleLayerVisibility', () => jest.fn());
 const layers = [
   {
     layerIds: ['national-park'], //fill
-    layerName: 'National Parks'
+    layerName: 'National Parks',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
   },
   {
     layerIds: ['water', 'water-shadow'], //fill
@@ -65,5 +73,14 @@ describe('LayerList component', () => {
     fireEvent.click(checkbox);
 
     expect(toggleLayerVisibility).toHaveBeenCalled();
+  });
+  it('showAction prop displays a menu for item actions', () => {
+    const { getByText } = render(
+      <ElementsProvider mapOverride={mockMapContext}>
+        <LayerList layers={layers} showActions />{' '}
+      </ElementsProvider>
+    );
+    const actionBtn = getByText('...');
+    expect(actionBtn).toBeInTheDocument();
   });
 });
