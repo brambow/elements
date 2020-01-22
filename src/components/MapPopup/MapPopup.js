@@ -136,6 +136,7 @@ const MapPopup = props => {
   const { layers, showActions } = props;
   const config = useContext(Context);
   const map = config.map;
+  const popupContainer = document.createElement('div');
 
   if (!mapExists(map)) {
     return null;
@@ -146,34 +147,31 @@ const MapPopup = props => {
       config
         .intercept(event.features[0].properties)
         .then(function(properties) {
+          ReactDOM.render(
+            React.createElement(Container, { properties, config, showActions }),
+            popupContainer
+          );
+
           new Popup()
             .setLngLat(event.lngLat)
-            .setHTML(
-              ReactDOM.renderToString(
-                <Container
-                  properties={properties}
-                  config={config}
-                  showActions={showActions}
-                />
-              )
-            )
+            .setDOMContent(popupContainer)
             .addTo(map);
         })
         .catch(function(err) {
           console.warn(err);
         });
     } else {
+      ReactDOM.render(
+        React.createElement(Container, {
+          properties: event.features[0].properties,
+          config,
+          showActions
+        }),
+        popupContainer
+      );
       new Popup()
         .setLngLat(event.lngLat)
-        .setHTML(
-          ReactDOM.renderToString(
-            <Container
-              properties={event.features[0].properties}
-              config={config}
-              showActions={showActions}
-            />
-          )
-        )
+        .setDOMContent(popupContainer)
         .addTo(map);
     }
   };
