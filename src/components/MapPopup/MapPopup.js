@@ -1,18 +1,33 @@
 import React, { useContext } from 'react';
-import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import Context from '../../DefaultContext';
 import { Box } from '@theme-ui/components';
 import { Popup } from 'mapbox-gl';
 import mapExists from '../../util/mapExists';
+import PopupActionsMenu from './PopupActionsMenu';
 
 const Container = props => {
-  const { styles, properties, config } = props;
+  const { styles, properties, config, showActions } = props;
+
+  let actionsMenu;
+  if (showActions) {
+    if (config.actions && config.actions.length > 0) {
+      actionsMenu = <PopupActionsMenu popupActions={config.actions} />;
+    } else {
+      console.warn('You passed a showActions prop but no actions');
+      actionsMenu = null;
+    }
+  } else {
+    actionsMenu = null;
+  }
+
   return (
     <Box className="popup-container">
       {config.title && config.title.field ? (
         <Title properties={properties} config={config.title} />
       ) : null}
       <List style={styles} properties={properties} config={config.attributes} />
+      {actionsMenu}
     </Box>
   );
 };
@@ -118,7 +133,7 @@ const List = props => {
 };
 
 const MapPopup = props => {
-  const { layers } = props;
+  const { layers, showActions } = props;
   const config = useContext(Context);
   const map = config.map;
 
@@ -134,8 +149,12 @@ const MapPopup = props => {
           new Popup()
             .setLngLat(event.lngLat)
             .setHTML(
-              ReactDOMServer.renderToString(
-                <Container properties={properties} config={config} />
+              ReactDOM.renderToString(
+                <Container
+                  properties={properties}
+                  config={config}
+                  showActions={showActions}
+                />
               )
             )
             .addTo(map);
@@ -147,10 +166,11 @@ const MapPopup = props => {
       new Popup()
         .setLngLat(event.lngLat)
         .setHTML(
-          ReactDOMServer.renderToString(
+          ReactDOM.renderToString(
             <Container
               properties={event.features[0].properties}
               config={config}
+              showActions={showActions}
             />
           )
         )
