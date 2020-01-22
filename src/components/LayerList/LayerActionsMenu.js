@@ -2,7 +2,6 @@
 import { jsx } from 'theme-ui';
 import {
   Menu,
-  // MenuList,
   MenuButton,
   MenuItem,
   MenuPopover,
