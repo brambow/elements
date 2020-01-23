@@ -62,8 +62,10 @@ const popupLayers = [
     actions: [
       {
         title: 'Custom Action',
-        action: () => {
-          alert('insert custom functions here');
+        action: feature => {
+          alert(
+            `${feature.properties.name} in the "${feature.layer.id}" map layer `
+          );
         }
       }
     ]

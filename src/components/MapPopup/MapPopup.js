@@ -7,12 +7,14 @@ import mapExists from '../../util/mapExists';
 import PopupActionsMenu from './PopupActionsMenu';
 
 const Container = props => {
-  const { styles, properties, config, showActions } = props;
+  const { styles, properties, config, showActions, feature } = props;
 
   let actionsMenu;
   if (showActions) {
     if (config.actions && config.actions.length > 0) {
-      actionsMenu = <PopupActionsMenu popupActions={config.actions} />;
+      actionsMenu = (
+        <PopupActionsMenu popupActions={config.actions} feature={feature} />
+      );
     } else {
       console.warn('You passed a showActions prop but no actions');
       actionsMenu = null;
@@ -143,12 +145,18 @@ const MapPopup = props => {
   }
 
   const _build = (config, event) => {
+    const feature = event.features[0];
     if (config.intercept) {
       config
-        .intercept(event.features[0].properties)
+        .intercept(feature.properties)
         .then(function(properties) {
           ReactDOM.render(
-            React.createElement(Container, { properties, config, showActions }),
+            React.createElement(Container, {
+              properties,
+              config,
+              showActions,
+              feature: feature ? feature : null
+            }),
             popupContainer
           );
 
@@ -163,9 +171,10 @@ const MapPopup = props => {
     } else {
       ReactDOM.render(
         React.createElement(Container, {
-          properties: event.features[0].properties,
+          properties: feature.properties,
           config,
-          showActions
+          showActions,
+          feature: feature ? feature : null
         }),
         popupContainer
       );

@@ -13,7 +13,7 @@ import '@reach/menu-button/styles.css';
 - Doesn't seem to be hooked up to theme
 */
 
-const PopupActionsMenu = ({ popupActions }) => {
+const PopupActionsMenu = ({ feature, popupActions }) => {
   if (popupActions && popupActions.length > 0) {
     return (
       <Menu className="cl-popup-action-menu">
@@ -37,7 +37,7 @@ const PopupActionsMenu = ({ popupActions }) => {
                 <MenuItem
                   key={action.title}
                   onSelect={() => {
-                    action.action();
+                    action.action(feature);
                   }}
                 >
                   {action.title}
