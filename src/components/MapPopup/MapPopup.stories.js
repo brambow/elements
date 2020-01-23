@@ -19,13 +19,13 @@ const popupLayers = [
     title: {
       field: 'name'
     }, // popup title field
-    intercept: function (properties) {
+    intercept: function(properties) {
       // mock getting some external data
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          resolve(Object.assign(properties, {'source': 'intercept'}))
-        }, 250)
-      })
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve(Object.assign(properties, { source: 'intercept' }));
+        }, 250);
+      });
     },
     attributes: [
       {
@@ -34,9 +34,9 @@ const popupLayers = [
         type: 'link' // text, link, image
       },
       {
-         field: 'source',
-         label: 'Source',
-         type: 'text',
+        field: 'source',
+        label: 'Source',
+        type: 'text'
       },
       {
         field: 'postal',
@@ -58,6 +58,16 @@ const popupLayers = [
             .replace(' ', '_')}.jpg`;
         }
       }
+    ],
+    actions: [
+      {
+        title: 'Custom Action',
+        action: feature => {
+          alert(
+            `${feature.properties.name} in the "${feature.layer.id}" map layer `
+          );
+        }
+      }
     ]
   }
 ];
@@ -69,6 +79,14 @@ storiesOf('Popup', module)
       <ElementsProvider>
         <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
         <MapPopup layers={popupLayers} />
+      </ElementsProvider>
+    );
+  })
+  .add('With Action Menu', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
+        <MapPopup layers={popupLayers} showActions />
       </ElementsProvider>
     );
   });

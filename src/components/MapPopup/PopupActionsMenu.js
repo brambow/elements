@@ -9,28 +9,35 @@ import {
 } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 
-const LayerActionsMenu = ({ layerActions }) => {
-  if (layerActions && layerActions.length > 0) {
+/*TODO:
+- Doesn't seem to be hooked up to theme
+*/
+
+const PopupActionsMenu = ({ feature, popupActions }) => {
+  if (popupActions && popupActions.length > 0) {
     return (
-      <Menu className="cl-layer-list-action-menu">
+      <Menu className="cl-popup-action-menu">
         <MenuButton
           sx={{
             color: 'text',
-            bg: 'background',
+            bg: 'white', //why does theme 'background' not work?
             borderStyle: 'none',
-            fontSize: 1
+            fontSize: 1,
+            float: 'right'
           }}
         >
           ...
         </MenuButton>
-        <MenuPopover sx={{ zIndex: 3, fontFamily: 'body' }}>
+        <MenuPopover sx={{ zIndex: 3, fontFamily: 'roboto, sans-serif' }}>
+          {' '}
+          {/* why is fontFamily:'body' not working? */}
           <MenuItems>
-            {layerActions.map(action => {
+            {popupActions.map(action => {
               return (
                 <MenuItem
                   key={action.title}
                   onSelect={() => {
-                    action.action();
+                    action.action(feature);
                   }}
                 >
                   {action.title}
@@ -44,4 +51,4 @@ const LayerActionsMenu = ({ layerActions }) => {
   } else return null;
 };
 
-export default LayerActionsMenu;
+export default PopupActionsMenu;

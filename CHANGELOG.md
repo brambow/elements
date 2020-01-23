@@ -5,6 +5,7 @@
 - replace  `rebass` components with `themeui`
 - update themeui to 0.3.0
 - remove unused dependencies
+- add action menus for LayerList and Popup components
 
 # 1.0.1 - 1.0.4
 
