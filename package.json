@@ -1,6 +1,6 @@
 {
   "name": "@cartolab/elements",
-  "version": "1.1.0-alpha.0",
+  "version": "1.1.0-alpha.1",
   "description": "React components for map-based web applications",
   "repository": {
     "url": "https://github.com/cartolab-gis/elements",
