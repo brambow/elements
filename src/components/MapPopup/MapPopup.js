@@ -135,7 +135,7 @@ const List = props => {
 };
 
 const MapPopup = props => {
-  const { layers, showActions } = props;
+  const { layers, showActions, disabled } = props;
   const config = useContext(Context);
   const map = config.map;
   const popupContainer = document.createElement('div');
@@ -144,63 +144,65 @@ const MapPopup = props => {
     return null;
   }
 
-  const _build = (config, event) => {
-    const feature = event.features[0];
-    if (config.intercept) {
-      config
-        .intercept(feature.properties)
-        .then(function(properties) {
-          ReactDOM.render(
-            React.createElement(Container, {
-              properties,
-              config,
-              showActions,
-              feature: feature ? feature : null
-            }),
-            popupContainer
-          );
+  if (!disabled) {
+    const _build = (config, event) => {
+      const feature = event.features[0];
+      if (config.intercept) {
+        config
+          .intercept(feature.properties)
+          .then(function(properties) {
+            ReactDOM.render(
+              React.createElement(Container, {
+                properties,
+                config,
+                showActions,
+                feature: feature ? feature : null
+              }),
+              popupContainer
+            );
 
-          new Popup()
-            .setLngLat(event.lngLat)
-            .setDOMContent(popupContainer)
-            .addTo(map);
-        })
-        .catch(function(err) {
-          console.warn(err);
-        });
-    } else {
-      ReactDOM.render(
-        React.createElement(Container, {
-          properties: feature.properties,
-          config,
-          showActions,
-          feature: feature ? feature : null
-        }),
-        popupContainer
-      );
-      new Popup()
-        .setLngLat(event.lngLat)
-        .setDOMContent(popupContainer)
-        .addTo(map);
-    }
-  };
+            new Popup()
+              .setLngLat(event.lngLat)
+              .setDOMContent(popupContainer)
+              .addTo(map);
+          })
+          .catch(function(err) {
+            console.warn(err);
+          });
+      } else {
+        ReactDOM.render(
+          React.createElement(Container, {
+            properties: feature.properties,
+            config,
+            showActions,
+            feature: feature ? feature : null
+          }),
+          popupContainer
+        );
+        new Popup()
+          .setLngLat(event.lngLat)
+          .setDOMContent(popupContainer)
+          .addTo(map);
+      }
+    };
 
-  // register map click event for popup
-  const _registerEvent = config => {
-    try {
-      map.off('click', config.layerId, _build.bind(this, config));
-      map.on('click', config.layerId, _build.bind(this, config));
-    } catch (err) {
-      // map has not loaded yet.
-      // console.warn(err);
-    }
-  };
+    // register map click event for popup
+    const _registerEvent = config => {
+      try {
+        map.off('click', config.layerId, _build.bind(this, config));
+        map.on('click', config.layerId, _build.bind(this, config));
+      } catch (err) {
+        // map has not loaded yet.
+        // console.warn(err);
+      }
+    };
 
-  // REGISTER popup
-  // FOR EACH layer in configuration
-  layers.forEach(config => {
-    _registerEvent(config);
-  });
+    // REGISTER popup
+    // FOR EACH layer in configuration
+    layers.forEach(config => {
+      _registerEvent(config);
+    });
+  }
 
   return null; // no component returned for popup
 };
