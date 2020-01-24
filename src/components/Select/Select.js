@@ -26,7 +26,9 @@ const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
   const [selectActive, setSelectActive] = useState(false);
   // @options:currentMode - off, draw_polygon, draw_point
   const [currentMode, setCurrentMode] = useState(null);
-  const [activeSelectLayers, setActiveSelectLayers] = useState([]);
+  const [activeSelectLayers, setActiveSelectLayers] = useState(
+    selectableLayers
+  );
   const [selectedFeatures, setSelectedFeatures] = useState({});
   const [selectControl, setSelectControl] = useState();
   const [alert, setAlert] = useState(null);
