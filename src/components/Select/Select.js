@@ -20,7 +20,7 @@ function pointEvent(e) {
   }
 }
 
-const Select = ({ selectableLayers, panel, ...rest }) => {
+const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
   const [selectActive, setSelectActive] = useState(false);
@@ -156,12 +156,18 @@ const Select = ({ selectableLayers, panel, ...rest }) => {
     });
   }
 
-  const layersSection = (
-    <div>
-      <Heading fontSize={[2]}>Selectable Layers</Heading>
-      <List>{layerOptions}</List>
-    </div>
-  );
+  let layersSection;
+
+  if (showSelectableLayers) {
+    layersSection = (
+      <div>
+        <Heading fontSize={[2]}>Selectable Layers</Heading>
+        <List>{layerOptions}</List>
+      </div>
+    );
+  } else {
+    layersSection = null;
+  }
 
   //use the logic below to accept whether the component should be rendered in a Panel or not.
   const drawButtons = (

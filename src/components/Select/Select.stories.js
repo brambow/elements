@@ -37,6 +37,21 @@ storiesOf('Select', module)
         <Select
           selectableLayers={['states-layer', 'rivers-layer']}
           panel={true}
+          showSelectableLayers
+        />
+      </ElementsProvider>
+    );
+  })
+  .add('No Layer Section Display', () => {
+    return (
+      <ElementsProvider>
+        <Map
+          mapOptions={customMapOptions}
+          mapLayers={[...mapLayers, geojsonLayer]}
+        />
+        <Select
+          selectableLayers={['states-layer', 'rivers-layer']}
+          panel={true}
         />
       </ElementsProvider>
     );
