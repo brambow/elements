@@ -37,12 +37,11 @@ storiesOf('Select', module)
         <Select
           selectableLayers={['states-layer', 'rivers-layer']}
           panel={true}
-          showSelectableLayers
         />
       </ElementsProvider>
     );
   })
-  .add('No Layer Section Display', () => {
+  .add('Layer Section Display', () => {
     return (
       <ElementsProvider>
         <Map
@@ -52,6 +51,28 @@ storiesOf('Select', module)
         <Select
           selectableLayers={['states-layer', 'rivers-layer']}
           panel={true}
+          showSelectableLayers
+        />
+      </ElementsProvider>
+    );
+  })
+  .add('Custom Callback', () => {
+    return (
+      <ElementsProvider>
+        <Map
+          mapOptions={customMapOptions}
+          mapLayers={[...mapLayers, geojsonLayer]}
+        />
+        <Select
+          selectableLayers={['states-layer', 'rivers-layer']}
+          panel={true}
+          onSelectCallback={(selectionGeometry, selectedFeatures) => {
+            for (let [key, value] of Object.entries(selectedFeatures)) {
+              alert(
+                `${key}: ${selectedFeatures[key].length} selected Features`
+              );
+            }
+          }}
         />
       </ElementsProvider>
     );
