@@ -181,7 +181,7 @@ const Select = ({
   if (showSelectableLayers) {
     layersSection = (
       <div>
-        <Heading fontSize={[2]}>Selectable Layers</Heading>
+        <Heading sx={{ mt: 2, fontSize: [1, 2] }}>Selectable Layers</Heading>
         <List>{layerOptions}</List>
       </div>
     );
@@ -192,7 +192,9 @@ const Select = ({
   //use the logic below to accept whether the component should be rendered in a Panel or not.
   const drawButtons = (
     <div>
-      <Heading fontSize={[2]}>Selection Mode</Heading>
+      <Heading sx={{ marginBottom: 2, fontSize: [1, 2] }}>
+        Selection Mode
+      </Heading>
       <Flex>
         <ButtonGroup className="select-modes">
           <Button
