@@ -20,16 +20,25 @@ function pointEvent(e) {
   }
 }
 
-const Select = ({ selectableLayers, panel, ...rest }) => {
+const Select = ({
+  selectableLayers,
+  showSelectableLayers,
+  onSelectCallback, //callback(selectionShape, selectedFeatures)
+  panel,
+  ...rest
+}) => {
   const config = useContext(Context);
   const { map } = config;
   const [selectActive, setSelectActive] = useState(false);
   // @options:currentMode - off, draw_polygon, draw_point
   const [currentMode, setCurrentMode] = useState(null);
-  const [activeSelectLayers, setActiveSelectLayers] = useState([]);
+  const [activeSelectLayers, setActiveSelectLayers] = useState(
+    selectableLayers
+  );
   const [selectedFeatures, setSelectedFeatures] = useState({});
   const [selectControl, setSelectControl] = useState();
   const [alert, setAlert] = useState(null);
+  const [selectionGeometry, setSelectionGeometry] = useState(null);
 
   useEffect(() => {
     if (!mapExists(map)) return;
@@ -38,6 +47,17 @@ const Select = ({ selectableLayers, panel, ...rest }) => {
     }
     _startSelect(currentMode);
   }, [currentMode]);
+
+  useEffect(() => {
+    if (selectionGeometry && selectionGeometry.geometry) {
+      const geom = selectionGeometry.geometry;
+      if (Object.keys(selectedFeatures).length > 0) {
+        if (onSelectCallback) {
+          onSelectCallback(geom, selectedFeatures);
+        }
+      }
+    }
+  }, [selectedFeatures, selectionGeometry]);
 
   if (!mapExists(map)) return null;
 
@@ -70,6 +90,7 @@ const Select = ({ selectableLayers, panel, ...rest }) => {
 
   listener['pointEvent'] = e => {
     const point = e.point;
+    setSelectionGeometry(point);
     selectByPoint(
       activeSelectLayers,
       point,
@@ -82,6 +103,7 @@ const Select = ({ selectableLayers, panel, ...rest }) => {
 
   const _polyEvent = (e, select) => {
     const polygon = e.features[0];
+    setSelectionGeometry(polygon);
     selectByPolygon(
       activeSelectLayers,
       polygon,
@@ -156,17 +178,25 @@ const Select = ({ selectableLayers, panel, ...rest }) => {
     });
   }
 
-  const layersSection = (
-    <div>
-      <Heading fontSize={[2]}>Selectable Layers</Heading>
-      <List>{layerOptions}</List>
-    </div>
-  );
+  let layersSection;
+
+  if (showSelectableLayers) {
+    layersSection = (
+      <div>
+        <Heading sx={{ mt: 2, fontSize: [1, 2] }}>Selectable Layers</Heading>
+        <List>{layerOptions}</List>
+      </div>
+    );
+  } else {
+    layersSection = null;
+  }
 
   //use the logic below to accept whether the component should be rendered in a Panel or not.
   const drawButtons = (
     <div>
-      <Heading fontSize={[2]}>Selection Mode</Heading>
+      <Heading sx={{ marginBottom: 2, fontSize: [1, 2] }}>
+        Selection Mode
+      </Heading>
       <Flex>
         <ButtonGroup className="select-modes">
           <Button
