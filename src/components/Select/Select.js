@@ -20,7 +20,13 @@ function pointEvent(e) {
   }
 }
 
-const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
+const Select = ({
+  selectableLayers,
+  showSelectableLayers,
+  onSelectCallback, //callback(selectionShape, selectedFeatures)
+  panel,
+  ...rest
+}) => {
   const config = useContext(Context);
   const { map } = config;
   const [selectActive, setSelectActive] = useState(false);
@@ -32,6 +38,7 @@ const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
   const [selectedFeatures, setSelectedFeatures] = useState({});
   const [selectControl, setSelectControl] = useState();
   const [alert, setAlert] = useState(null);
+  const [selectionGeometry, setSelectionGeometry] = useState(null);
 
   useEffect(() => {
     if (!mapExists(map)) return;
@@ -40,6 +47,15 @@ const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
     }
     _startSelect(currentMode);
   }, [currentMode]);
+
+  useEffect(() => {
+    if (selectionGeometry && selectionGeometry.geometry) {
+      const geom = selectionGeometry.geometry;
+      if (Object.keys(selectedFeatures).length > 0) {
+        onSelectCallback(geom, selectedFeatures);
+      }
+    }
+  }, [selectedFeatures, selectionGeometry]);
 
   if (!mapExists(map)) return null;
 
@@ -72,6 +88,7 @@ const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
 
   listener['pointEvent'] = e => {
     const point = e.point;
+    setSelectionGeometry(point);
     selectByPoint(
       activeSelectLayers,
       point,
@@ -84,6 +101,7 @@ const Select = ({ selectableLayers, showSelectableLayers, panel, ...rest }) => {
 
   const _polyEvent = (e, select) => {
     const polygon = e.features[0];
+    setSelectionGeometry(polygon);
     selectByPolygon(
       activeSelectLayers,
       polygon,
