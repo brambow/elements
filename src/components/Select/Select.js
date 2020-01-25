@@ -52,7 +52,9 @@ const Select = ({
     if (selectionGeometry && selectionGeometry.geometry) {
       const geom = selectionGeometry.geometry;
       if (Object.keys(selectedFeatures).length > 0) {
-        onSelectCallback(geom, selectedFeatures);
+        if (onSelectCallback) {
+          onSelectCallback(geom, selectedFeatures);
+        }
       }
     }
   }, [selectedFeatures, selectionGeometry]);
