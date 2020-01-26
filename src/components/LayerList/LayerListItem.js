@@ -47,11 +47,13 @@ const LayerListItem = ({
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility === 'none' ? false : true;
           setIsChecked(checked);
-          setStyle(
-            layerInfo.legendStyle
-              ? layerInfo.legendStyle()
-              : buildStyle(map.getLayer(layerIds[0]))
-          );
+          if(legend) {
+            setStyle(
+              layerInfo.legendStyle
+                ? layerInfo.legendStyle()
+                : buildStyle(map.getLayer(layerIds[0]))
+            );
+          }
         });
       }
     }
@@ -76,12 +78,16 @@ const LayerListItem = ({
           {actionMenuSlot}
         </Flex>
       </ListItem>
-      <ListItem
-        css={{ display: legend && style ? '' : 'none' }}
-        key={layerInfo.layerName + '-legend'}
-      >
-        {style}
-      </ListItem>
+      {(legend) ? 
+        <ListItem
+          css={{ display: legend && style ? '' : 'none' }}
+          key={layerInfo.layerName + '-legend'}
+        >
+          {style}
+        </ListItem>
+        :
+        null
+      }
     </Box>
   );
 };
