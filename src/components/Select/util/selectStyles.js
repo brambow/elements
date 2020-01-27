@@ -1,6 +1,6 @@
 const selectStyles = {
   fill: {
-    paint: { 'fill-color': 'aqua', 'fill-opacity': 0.7 }
+    paint: { 'fill-color': 'aqua', 'fill-opacity': 0.3 }
   },
   line: {
     paint: { 'line-color': 'aqua', 'line-width': 3 }
