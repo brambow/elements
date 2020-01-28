@@ -36,7 +36,7 @@ export default function selectByPoint(
         };
       }
 
-      const layerType = selectedFeatures[0].layer.type;
+      let layerType = selectedFeatures[0].layer.type;
       const sourceName = `${layers[i]}-selected-src`;
 
       const src = sourceExists(map, sourceName);
@@ -49,7 +49,8 @@ export default function selectByPoint(
         let paint;
         switch (layerType) {
           case 'fill':
-            paint = selectStyles.fill.paint;
+            layerType = 'line';
+            paint = selectStyles.line.paint;
             break;
           case 'line':
             paint = selectStyles.fill.line;

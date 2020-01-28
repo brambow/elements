@@ -57,13 +57,16 @@ export default function selectByPolygon(
         Object.keys(existingSelection).length > 0 &&
         existingSelection.constructor === Object
       ) {
-        updateObj[layers[i]] = [...existingSelection[layers[i]], ...selectedFeatures];
+        updateObj[layers[i]] = [
+          ...existingSelection[layers[i]],
+          ...selectedFeatures
+        ];
         newSelection = {
           [layers[i]]: [...existingSelection[layers[i]], ...selectedFeatures]
         };
       }
 
-      const layerType = selectedFeatures[0].layer.type;
+      let layerType = selectedFeatures[0].layer.type;
       const sourceName = `${layers[i]}-selected-src`;
 
       const src = sourceExists(map, sourceName);
@@ -76,7 +79,9 @@ export default function selectByPolygon(
         let paint;
         switch (layerType) {
           case 'fill':
-            paint = selectStyles.fill.paint;
+            //style fill layer selections with line
+            layerType = 'line';
+            paint = selectStyles.line.paint;
             break;
           case 'line':
             paint = selectStyles.line.paint;
