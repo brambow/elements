@@ -24,6 +24,7 @@ const Select = ({
   selectableLayers,
   showSelectableLayers,
   onSelectCallback, //callback(selectionShape, selectedFeatures)
+  selectStyles,
   panel,
   ...rest
 }) => {
@@ -96,7 +97,8 @@ const Select = ({
       point,
       map,
       selectedFeatures,
-      setSelectedFeatures
+      setSelectedFeatures,
+      selectStyles //optional
     );
     selectControl.deleteAll();
   };
@@ -109,7 +111,8 @@ const Select = ({
       polygon,
       map,
       selectedFeatures,
-      setSelectedFeatures
+      setSelectedFeatures,
+      selectStyles //optional
     );
     select.deleteAll();
     setCurrentMode('none');

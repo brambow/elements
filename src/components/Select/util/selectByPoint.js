@@ -1,13 +1,14 @@
 import sourceExists from '../../../util/sourceExists';
 import layerExists from '../../../util/layerExists';
-import selectStyles from '../util/selectStyles';
+import defaultSelectStyles from './defaultSelectStyles';
 
 export default function selectByPoint(
   layers,
   point,
   map,
   existingSelection,
-  setSelectedFeatures
+  setSelectedFeatures,
+  selectStyles
 ) {
   var updateObj = {};
   for (let i = 0; i < layers.length; i++) {
@@ -36,7 +37,7 @@ export default function selectByPoint(
         };
       }
 
-      const layerType = selectedFeatures[0].layer.type;
+      let layerType = selectedFeatures[0].layer.type;
       const sourceName = `${layers[i]}-selected-src`;
 
       const src = sourceExists(map, sourceName);
@@ -46,16 +47,27 @@ export default function selectByPoint(
           data: { type: 'FeatureCollection', features: selectedFeatures }
         });
 
+        let style = defaultSelectStyles;
+        if (
+          selectStyles &&
+          selectStyles.fill &&
+          selectStyles.circle &&
+          selectStyles.line
+        ) {
+          style = selectStyles;
+        }
+
         let paint;
         switch (layerType) {
           case 'fill':
-            paint = selectStyles.fill.paint;
+            layerType = 'line';
+            paint = style.line.paint;
             break;
           case 'line':
-            paint = selectStyles.fill.line;
+            paint = style.line.paint;
             break;
           case 'circle':
-            paint = selectStyles.fill.circle;
+            paint = style.circle.paint;
             break;
           default:
             return null;
@@ -64,7 +76,7 @@ export default function selectByPoint(
         if (!lyr) {
           map.addLayer({
             id: `${layers[i]}-selected`,
-            type: 'fill',
+            type: layerType,
             source: sourceName,
             paint: paint
           });
@@ -74,7 +86,7 @@ export default function selectByPoint(
         if (!lyr) {
           map.addLayer({
             id: `${layers[i]}-selected`,
-            type: 'fill',
+            type: layerType,
             source: sourceName,
             paint: paint
           });

@@ -1,14 +1,15 @@
 import sourceExists from '../../../util/sourceExists';
 import layerExists from '../../../util/layerExists';
 import disjoint from '@turf/boolean-disjoint';
-import selectStyles from '../util/selectStyles';
+import defaultSelectStyles from './defaultSelectStyles';
 
 export default function selectByPolygon(
   layers,
   polygon,
   map,
   existingSelection,
-  setSelectedFeatures
+  setSelectedFeatures,
+  selectStyles
 ) {
   var updateObj = {};
   for (let i = 0; i < layers.length; i++) {
@@ -57,13 +58,16 @@ export default function selectByPolygon(
         Object.keys(existingSelection).length > 0 &&
         existingSelection.constructor === Object
       ) {
-        updateObj[layers[i]] = [...existingSelection[layers[i]], ...selectedFeatures];
+        updateObj[layers[i]] = [
+          ...existingSelection[layers[i]],
+          ...selectedFeatures
+        ];
         newSelection = {
           [layers[i]]: [...existingSelection[layers[i]], ...selectedFeatures]
         };
       }
 
-      const layerType = selectedFeatures[0].layer.type;
+      let layerType = selectedFeatures[0].layer.type;
       const sourceName = `${layers[i]}-selected-src`;
 
       const src = sourceExists(map, sourceName);
@@ -73,16 +77,28 @@ export default function selectByPolygon(
           data: { type: 'FeatureCollection', features: selectedFeatures }
         });
 
+        let style = defaultSelectStyles;
+        if (
+          selectStyles &&
+          selectStyles.fill &&
+          selectStyles.circle &&
+          selectStyles.line
+        ) {
+          style = selectStyles;
+        }
+
         let paint;
         switch (layerType) {
           case 'fill':
-            paint = selectStyles.fill.paint;
+            //style fill layer selections with line
+            layerType = 'line';
+            paint = style.line.paint;
             break;
           case 'line':
-            paint = selectStyles.line.paint;
+            paint = style.line.paint;
             break;
           case 'circle':
-            paint = selectStyles.circle.paint;
+            paint = style.circle.paint;
             break;
           default:
             return null;
