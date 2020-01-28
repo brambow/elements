@@ -53,19 +53,20 @@ export default function selectByPoint(
             paint = selectStyles.line.paint;
             break;
           case 'line':
-            paint = selectStyles.fill.line;
+            paint = selectStyles.line.paint;
             break;
           case 'circle':
-            paint = selectStyles.fill.circle;
+            paint = selectStyles.circle.paint;
             break;
           default:
             return null;
         }
         const lyr = layerExists(map, `${layers[i]}-selected`);
+        console.log(layerType);
         if (!lyr) {
           map.addLayer({
             id: `${layers[i]}-selected`,
-            type: 'fill',
+            type: layerType,
             source: sourceName,
             paint: paint
           });
@@ -75,7 +76,7 @@ export default function selectByPoint(
         if (!lyr) {
           map.addLayer({
             id: `${layers[i]}-selected`,
-            type: 'fill',
+            type: layerType,
             source: sourceName,
             paint: paint
           });
