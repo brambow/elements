@@ -3,7 +3,7 @@ const selectStyles = {
     paint: { 'fill-color': 'aqua', 'fill-opacity': 0.3 }
   },
   line: {
-    paint: { 'line-color': 'aqua', 'line-width': 3 }
+    paint: { 'line-color': 'aqua', 'line-width': 4 }
   },
   circle: {
     paint: {
