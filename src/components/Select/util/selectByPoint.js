@@ -62,7 +62,6 @@ export default function selectByPoint(
             return null;
         }
         const lyr = layerExists(map, `${layers[i]}-selected`);
-        console.log(layerType);
         if (!lyr) {
           map.addLayer({
             id: `${layers[i]}-selected`,
