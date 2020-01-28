@@ -25,6 +25,23 @@ const geojsonLayer = {
     'line-color': 'blue'
   }
 };
+
+const customStyles = {
+  fill: {
+    paint: { 'fill-color': 'red', 'fill-opacity': 0.3 }
+  },
+  line: {
+    paint: { 'line-color': 'red', 'line-width': 3 }
+  },
+  circle: {
+    paint: {
+      'circle-color': 'red',
+      'circle-opacity': 0.7,
+      'circle-radius': 10
+    }
+  }
+};
+
 storiesOf('Select', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
@@ -73,6 +90,21 @@ storiesOf('Select', module)
               );
             }
           }}
+        />
+      </ElementsProvider>
+    );
+  })
+  .add('Custom Selection Style', () => {
+    return (
+      <ElementsProvider>
+        <Map
+          mapOptions={customMapOptions}
+          mapLayers={[...mapLayers, geojsonLayer]}
+        />
+        <Select
+          selectableLayers={['states-layer', 'rivers-layer']}
+          panel={true}
+          selectStyles={customStyles}
         />
       </ElementsProvider>
     );

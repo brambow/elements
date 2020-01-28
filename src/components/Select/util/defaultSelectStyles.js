@@ -1,4 +1,4 @@
-const selectStyles = {
+const defaultSelectStyles = {
   fill: {
     paint: { 'fill-color': 'aqua', 'fill-opacity': 0.3 }
   },
@@ -14,4 +14,4 @@ const selectStyles = {
   }
 };
 
-export default selectStyles;
+export default defaultSelectStyles;
