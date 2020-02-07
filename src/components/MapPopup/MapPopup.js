@@ -1,13 +1,16 @@
+/** @jsx jsx */
+import { jsx } from 'theme-ui';
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Context from '../../DefaultContext';
-import { Box } from '@theme-ui/components';
+import { Box, Link, Image, Text } from '@theme-ui/components';
+import List from '../_primitives/List';
+import ListItem from '../_primitives/ListItem';
 import { Popup } from 'mapbox-gl';
 import mapExists from '../../util/mapExists';
 import PopupActionsMenu from './PopupActionsMenu';
 
-const Container = props => {
-  const { styles, properties, config, showActions, feature } = props;
+const Container = ({ properties, config, showActions, feature }) => {
 
   let actionsMenu;
   if (showActions) {
@@ -24,22 +27,20 @@ const Container = props => {
   }
 
   return (
-    <Box className="popup-container">
-      {config.title && config.title.field ? (
-        <Title properties={properties} config={config.title} />
-      ) : null}
-      <List style={styles} properties={properties} config={config.attributes} />
-      {actionsMenu}
-    </Box>
+      <Box>
+        {config.title && config.title.field ? (
+          <Title properties={properties} config={config.title} />
+        ) : null}
+        <Items properties={properties} config={config.attributes} />
+        {actionsMenu}
+      </Box>
   );
 };
 
-const Title = props => {
-  const { properties, config } = props;
+const Title = ({ properties, config }) => {
   if (!properties.hasOwnProperty(config.field)) return null;
   return (
     <Box
-      {...props}
       sx={{
         fontWeight: 700,
         margin: '0 0 5px 0',
@@ -49,40 +50,36 @@ const Title = props => {
         borderBottomStyle: 'solid',
         borderColor: 'gray'
       }}
-      className="popup-title"
     >
       {properties[config.field]}
     </Box>
   );
 };
 
-const List = props => {
-  const { properties, config } = props;
+const Items = ({ properties, config })=> {
   const _text = value => {
-    return <span className="popup-type-text">{value}</span>;
+    return <Text sx={{display: 'inline'}}>{value}</Text>;
   };
 
   const _link = value => {
     return (
-      <span className="popup-type-link">
-        <a href={value} target="_blank" rel="nofollow">
-          view link
-        </a>
-      </span>
+      <Link href={value} target="_blank" rel="nofollow">
+        view link
+      </Link>
     );
   };
 
   const _image = value => {
     return (
-      <span className="popup-type-image">
-        <a href={value} target="_blank" rel="nofollow">
-          <img
-            className="popup-img"
-            style={{ minHeight: 100, width: '100%' }}
-            src={value}
-          />
-        </a>
-      </span>
+      <Link href={value} target="_blank" rel="nofollow">
+        <Image
+          sx = {{
+            minHeight: 100,
+            width: '100%',
+          }}
+          src={value}
+        />
+      </Link>
     );
   };
 
@@ -107,35 +104,54 @@ const List = props => {
     })
     .map((attribute, idx) => {
       return (
-        <li className="popup-list-item" key={idx}>
-          <span
-            className="list-strong"
-            style={{ fontWeight: 600, marginRight: '3px' }}
-          >
-            {attribute.label}:
-          </span>
-          {attribute.expression
-            ? _buildValue(
-                attribute.type,
-                attribute.expression(properties[attribute.field])
-              )
-            : _buildValue(attribute.type, properties[attribute.field])}
-        </li>
+        <ListItem 
+          sx={{
+            margin: 0,
+            padding: 0,
+          }}
+          key={idx}>
+          <Box>
+            <Text
+              sx = {{
+                display: 'inline',
+                fontWeight: 600,
+                marginRight: '3px',
+                color: 'secondary'
+              }}
+            >
+              {attribute.label}:
+            </Text>
+            {attribute.expression
+              ? _buildValue(
+                  attribute.type,
+                  attribute.expression(properties[attribute.field])
+                )
+              : _buildValue(attribute.type, properties[attribute.field])}
+          </Box>
+        </ListItem>
       );
     });
 
   return (
-    <ul
-      style={{ margin: 0, padding: 0, listStyle: 'none' }}
-      className="popup-list"
-    >
-      {attributes}
-    </ul>
+    <Box
+      sx={{
+        maxHeight: '200px',
+        overflow: 'scroll',
+      }}>
+      <List
+        sx={{
+          margin: 0,
+          padding: 0,
+          listStyle: 'none'
+        }}
+      >
+        {attributes}
+      </List>
+    </Box>
   );
 };
 
-const MapPopup = props => {
-  const { layers, showActions, disabled } = props;
+const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
   const config = useContext(Context);
   const map = config.map;
   const popupContainer = document.createElement('div');
