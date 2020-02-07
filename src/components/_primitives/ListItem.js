@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@theme-ui/components';
 
 const ListItem = props => {
-  const { children, selectable } = props;
+  const { children, selectable, sx } = props;
 
   const style = selectable
     ? {
@@ -11,9 +11,10 @@ const ListItem = props => {
           cursor: 'pointer',
           bg: 'primary',
           color: 'background'
-        }
+        },
+        ...sx
       }
-    : { padding: 2 };
+    : { padding: 2, ...sx };
 
   return (
     <Box {...props} as="li" sx={style}>
