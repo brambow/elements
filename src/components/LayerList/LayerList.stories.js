@@ -6,6 +6,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, number } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
+import mapLayers from '../../util/mockMapLayers';
 
 const layers = [
   {
@@ -73,6 +74,22 @@ const layers = [
   }
 ];
 
+const layersWithDDS = [
+  ...layers,
+  {
+    layerIds: ['states-layer'], //fill
+    layerName: 'US States',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
+  }
+];
+
 storiesOf('LayerList', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
@@ -88,6 +105,14 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList layers={layers} legend panel={true} />
+      </ElementsProvider>
+    );
+  })
+  .add('With Data Driven Styles', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} mapLayers={mapLayers}/>
+        <LayerList layers={layersWithDDS} legend panel={true} />
       </ElementsProvider>
     );
   })

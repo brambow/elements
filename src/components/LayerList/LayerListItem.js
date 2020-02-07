@@ -18,14 +18,6 @@ const LayerListItem = ({
 
   const layerIds = layerInfo.layerIds;
 
-  // let layerActions;
-
-  // if (itemActions && itemActions.length > 0) {
-  //   layerActions = itemActions;
-  // } else {
-  //   layerActions = null;
-  // }
-
   const handleChange = e => {
     const checked = e.currentTarget.checked;
     layerIds.map(layerId => {
@@ -67,6 +59,19 @@ const LayerListItem = ({
     actionMenuSlot = null;
   }
 
+  const LegendListItem = () => {
+    return(
+      <Box>
+        <ListItem
+            css={{ display: legend && style ? '' : 'none' }}
+            key={layerInfo.layerName + '-legend'}
+          >
+            {style}
+        </ListItem>
+      </Box>
+    )
+  }
+
   return (
     <Box className="listItem">
       <ListItem key={layerInfo.layerName}>
@@ -79,12 +84,7 @@ const LayerListItem = ({
         </Flex>
       </ListItem>
       {(legend) ? 
-        <ListItem
-          css={{ display: legend && style ? '' : 'none' }}
-          key={layerInfo.layerName + '-legend'}
-        >
-          {style}
-        </ListItem>
+        <LegendListItem />
         :
         null
       }
