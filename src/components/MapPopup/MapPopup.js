@@ -151,17 +151,22 @@ const Items = ({ properties, config })=> {
   );
 };
 
-const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
-  const config = useContext(Context);
-  const map = config.map;
-  const popupContainer = document.createElement('div');
+// Singleton To Point to Same Function In Memory
+const _popup = (() => {
+  var instance;
+  var showActions;
+  var popupContainer;
+  var map;
+  var config;
 
-  if (!mapExists(map)) {
-    return null;
-  }
+  const createInstance = (showActions, popupContainer, map, config) => {
 
-  if (!disabled) {
-    const _build = (config, event) => {
+    showActions = showActions;
+    popupContainer = popupContainer;
+    map = map;
+    config = config;
+
+    return (event) => {
       const feature = event.features[0];
       if (config.intercept) {
         config
@@ -200,21 +205,72 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
           .setDOMContent(popupContainer)
           .addTo(map);
       }
-    };
+    }
+  };
 
-    // register map click event for popup
-    const _registerEvent = config => {
-      try {
-        map.off('click', config.layerId, _build.bind(this, config));
-        map.on('click', config.layerId, _build.bind(this, config));
-      } catch (err) {
-        // map has not loaded yet.
-        // console.warn(err);
+  return {
+    getInstance: (showActions, popupContainer, map, config) => {
+      if (!instance) {
+        instance = createInstance(showActions, popupContainer, map, config);
       }
-    };
+      return instance;
+    },
+    created : () => {
+      if(!instance) {
+        return false;
+      }
+      return true;
+    }
+  };
+})();
 
-    // REGISTER popup
-    // FOR EACH layer in configuration
+const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
+
+  const config = useContext(Context);
+  const map = config.map;
+  const popupContainer = document.createElement('div');
+
+  if (!mapExists(map)) {
+    return null;
+  }
+
+  // register map click event for popup
+  const _registerEvent = config => {
+    let popup = _popup.getInstance(showActions, popupContainer, map, config);
+    try {
+      map.off('click', config.layerId, popup);
+      map.on('click', config.layerId, popup);
+    } catch (err) {
+      // map has not loaded yet.
+      // console.warn(err);
+    }
+  };
+
+  const _deregisterEvent = config => {
+    let popup = _popup.getInstance(showActions, popupContainer, map, config);
+    try {
+      map.off('click', config.layerId, popup);
+    } catch (err) {
+      // map has not loaded yet.
+      // console.warn(err);
+    }
+  }
+
+  if(disabled) {
+    // Unregister any click events
+    if(_popup.created()) {
+      layers.forEach(config => {
+        _deregisterEvent(config);
+      });
+    }
+  } else {
+    if(_popup.created()) {
+      // reset any existing events
+      layers.forEach(config => {
+        _deregisterEvent(config);
+      });
+    }
+    // initial register
     layers.forEach(config => {
       _registerEvent(config);
     });
