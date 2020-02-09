@@ -24,7 +24,7 @@ const popupLayers = [
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
           resolve(Object.assign(properties, { source: 'intercept' }));
-        }, 250);
+        }, 150);
       });
     },
     attributes: [

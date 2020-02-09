@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Context from '../../DefaultContext';
-import { Box, Link, Image, Text } from '@theme-ui/components';
+import { Box, Link, Image, Text, Spinner } from '@theme-ui/components';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import { Popup } from 'mapbox-gl';
@@ -169,6 +169,17 @@ const _popup = (() => {
     return (event) => {
       const feature = event.features[0];
       if (config.intercept) {
+        // Initial render loading icon
+        ReactDOM.render(
+          <Box><Spinner /></Box>,
+          popupContainer
+        );
+
+        const mapPopup = new Popup()
+          .setLngLat(event.lngLat)
+          .setDOMContent(popupContainer)
+          .addTo(map);
+        
         config
           .intercept(feature.properties)
           .then(function(properties) {
@@ -181,11 +192,7 @@ const _popup = (() => {
               }),
               popupContainer
             );
-
-            new Popup()
-              .setLngLat(event.lngLat)
-              .setDOMContent(popupContainer)
-              .addTo(map);
+            mapPopup.setDOMContent(popupContainer);
           })
           .catch(function(err) {
             console.warn(err);
@@ -200,6 +207,7 @@ const _popup = (() => {
           }),
           popupContainer
         );
+
         new Popup()
           .setLngLat(event.lngLat)
           .setDOMContent(popupContainer)
