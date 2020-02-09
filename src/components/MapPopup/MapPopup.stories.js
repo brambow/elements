@@ -24,7 +24,7 @@ const popupLayers = [
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
           resolve(Object.assign(properties, { source: 'intercept' }));
-        }, 250);
+        }, 150);
       });
     },
     attributes: [
@@ -80,7 +80,7 @@ storiesOf('Popup', module)
         <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
         <MapPopup 
           layers={popupLayers}  
-          disabled={boolean('Disabled', true)} />
+          disabled={boolean('Disabled', false)} />
       </ElementsProvider>
     );
   })
