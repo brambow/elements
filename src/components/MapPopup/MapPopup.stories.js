@@ -80,7 +80,7 @@ storiesOf('Popup', module)
         <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
         <MapPopup 
           layers={popupLayers}  
-          disabled={boolean('Disabled', true)} />
+          disabled={boolean('Disabled', false)} />
       </ElementsProvider>
     );
   })
