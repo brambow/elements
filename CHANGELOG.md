@@ -8,6 +8,8 @@
 - add action menus for LayerList and Popup components
 - add callback with selected features to Select
 - allow users to pass custom selection styles to Select
+- fix: add ability to disable popup
+- add loading indicator for popup data
 
 # 1.0.1 - 1.0.4
 
