@@ -3,7 +3,7 @@ import MapPopup from './MapPopup';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import mapLayers from '../../util/mockMapLayers';
@@ -24,7 +24,7 @@ const popupLayers = [
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
           resolve(Object.assign(properties, { source: 'intercept' }));
-        }, 250);
+        }, 150);
       });
     },
     attributes: [
@@ -78,7 +78,9 @@ storiesOf('Popup', module)
     return (
       <ElementsProvider>
         <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
-        <MapPopup layers={popupLayers} />
+        <MapPopup 
+          layers={popupLayers}  
+          disabled={boolean('Disabled', false)} />
       </ElementsProvider>
     );
   })
@@ -86,7 +88,10 @@ storiesOf('Popup', module)
     return (
       <ElementsProvider>
         <Map mapOptions={customMapOptions} mapLayers={mapLayers} />
-        <MapPopup layers={popupLayers} showActions />
+        <MapPopup 
+          layers={popupLayers} 
+          disabled={boolean('Disabled', false)}
+          showActions />
       </ElementsProvider>
     );
   });
