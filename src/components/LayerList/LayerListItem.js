@@ -35,7 +35,7 @@ const LayerListItem = ({
     let layerVisibility, checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
-        map.on('idle', () => {
+        map.once('idle', () => {
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility === 'none' ? false : true;
           setIsChecked(checked);
