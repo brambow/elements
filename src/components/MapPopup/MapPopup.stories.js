@@ -13,6 +13,8 @@ const customMapOptions = Object.assign({}, mapOptions, {
   zoom: 3
 });
 
+var tmp = ">>>";
+
 const popupLayers = [
   {
     layerId: 'states-layer', // id of layer on map
@@ -62,10 +64,14 @@ const popupLayers = [
     actions: [
       {
         title: 'Custom Action',
-        action: feature => {
-          alert(
-            `${feature.properties.name} in the "${feature.layer.id}" map layer `
-          );
+        action: (feature, setLoading) => {
+          setLoading(true);
+          setTimeout(() => {
+            alert(
+              `${feature.properties.name} in the "${feature.layer.id}" map layer `
+            );
+            setLoading(false);
+          }, 1500)
         }
       }
     ]
