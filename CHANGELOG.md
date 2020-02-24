@@ -1,4 +1,4 @@
-# Unreleased (1.1.0-alpha)
+# Unreleased (1.1.0-beta)
 
 - add  `intercept` method to MapPopup for adding external data source capabilities
 - make title in Popup conditional
