@@ -13,8 +13,6 @@ const customMapOptions = Object.assign({}, mapOptions, {
   zoom: 3
 });
 
-var tmp = ">>>";
-
 const popupLayers = [
   {
     layerId: 'states-layer', // id of layer on map
