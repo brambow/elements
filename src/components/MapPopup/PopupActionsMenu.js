@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
+import { useState } from 'react';
+import { Spinner } from '@theme-ui/components';
 import {
   Menu,
   MenuButton,
@@ -14,6 +16,8 @@ import '@reach/menu-button/styles.css';
 */
 
 const PopupActionsMenu = ({ feature, popupActions }) => {
+  const [loading, setLoading] = useState(false);
+
   if (popupActions && popupActions.length > 0) {
     return (
       <Menu className="cl-popup-action-menu">
@@ -26,7 +30,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
             float: 'right'
           }}
         >
-          ...
+          {(loading) ? <Spinner size={14} /> : '...'}
         </MenuButton>
         <MenuPopover sx={{ zIndex: 3, fontFamily: 'roboto, sans-serif' }}>
           {' '}
@@ -37,7 +41,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
                 <MenuItem
                   key={action.title}
                   onSelect={() => {
-                    action.action(feature);
+                    action.action(feature, setLoading);
                   }}
                 >
                   {action.title}

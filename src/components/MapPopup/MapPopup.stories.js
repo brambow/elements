@@ -62,10 +62,14 @@ const popupLayers = [
     actions: [
       {
         title: 'Custom Action',
-        action: feature => {
-          alert(
-            `${feature.properties.name} in the "${feature.layer.id}" map layer `
-          );
+        action: (feature, setLoading) => {
+          setLoading(true);
+          setTimeout(() => {
+            alert(
+              `${feature.properties.name} in the "${feature.layer.id}" map layer `
+            );
+            setLoading(false);
+          }, 1500)
         }
       }
     ]
