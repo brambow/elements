@@ -14,6 +14,8 @@ const buildStyle = lyr => {
     switch (type) {
       case 'fill':
         return fill(lyr.paint);
+      case 'circle':
+        return circle(lyr.paint);
       case 'line':
         return line(lyr.paint);
       case 'symbol':
@@ -118,6 +120,42 @@ const buildStyle = lyr => {
         <Items />
       </List>
     );
+  }
+
+  // common style characteristics
+  // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity
+  function circle(paint) {
+    try {
+      let cc, csc; // circle-color, circle-stroke-color
+      cc = paint.get('circle-color');
+      csc = paint.get('circle-stroke-color');
+      console.log(cc)
+      return (
+        <List sx={{
+          margin: 0,
+          padding: 0,
+        }}>
+          <ListItem sx={{
+            margin: 0,
+            padding: 0,
+          }}>
+            <svg width="25" height="25">
+              <circle 
+                cx="12.5"
+                cy="12.5"
+                r="12"
+                sx={{
+                  fill: cc.value.value.toString(),
+                  stroke: csc.value.value.toString()
+                }}
+              />
+            </svg>
+          </ListItem>
+        </List>
+      )
+    } catch (err) {
+      console.warn(err);
+    }
   }
 
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
