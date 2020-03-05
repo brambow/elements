@@ -87,6 +87,10 @@ const layersWithDDS = [
         }
       }
     ]
+  },
+  {
+    layerIds: ['dc-art-layer'],
+    layerName: 'DC Art Galleries'
   }
 ];
 

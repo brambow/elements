@@ -40,6 +40,17 @@ const geojsonLayer = [{
     
     'fill-outline-color': 'rgba(238, 75, 106, 1)'
   }
+}, {
+  'id': 'dc-art-layer',
+  'type': 'circle',
+  'source': {
+    'type': 'geojson',
+    'data': 'https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/washington-dc-public-art.geojson'
+  },
+  'paint': {
+    'circle-radius': 6,
+    'circle-color': '#B42222'
+  },
 }];
 
 export default geojsonLayer;
