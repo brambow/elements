@@ -1,4 +1,4 @@
-# Unreleased (1.1.0-beta)
+# 1.1.0
 
 - add  `intercept` method to MapPopup for adding external data source capabilities
 - make title in Popup conditional
@@ -10,6 +10,7 @@
 - allow users to pass custom selection styles to Select
 - fix: add ability to disable popup
 - add loading indicator for popup data
+- support circle types in Legend
 
 # 1.0.1 - 1.0.4
 
