@@ -11,7 +11,6 @@ import mapExists from '../../util/mapExists';
 import PopupActionsMenu from './PopupActionsMenu';
 
 const Container = ({ properties, config, showActions, feature }) => {
-
   let actionsMenu;
   if (showActions) {
     if (config.actions && config.actions.length > 0) {
@@ -27,13 +26,13 @@ const Container = ({ properties, config, showActions, feature }) => {
   }
 
   return (
-      <Box>
-        {config.title && config.title.field ? (
-          <Title properties={properties} config={config.title} />
-        ) : null}
-        <Items properties={properties} config={config.attributes} />
-        {actionsMenu}
-      </Box>
+    <Box>
+      {config.title && config.title.field ? (
+        <Title properties={properties} config={config.title} />
+      ) : null}
+      <Items properties={properties} config={config.attributes} />
+      {actionsMenu}
+    </Box>
   );
 };
 
@@ -56,9 +55,9 @@ const Title = ({ properties, config }) => {
   );
 };
 
-const Items = ({ properties, config })=> {
+const Items = ({ properties, config }) => {
   const _text = value => {
-    return <Text sx={{display: 'inline'}}>{value}</Text>;
+    return <Text sx={{ display: 'inline' }}>{value}</Text>;
   };
 
   const _link = value => {
@@ -73,9 +72,9 @@ const Items = ({ properties, config })=> {
     return (
       <Link href={value} target="_blank" rel="nofollow">
         <Image
-          sx = {{
+          sx={{
             minHeight: 100,
-            width: '100%',
+            width: '100%'
           }}
           src={value}
         />
@@ -104,15 +103,16 @@ const Items = ({ properties, config })=> {
     })
     .map((attribute, idx) => {
       return (
-        <ListItem 
+        <ListItem
           sx={{
             margin: 0,
-            padding: 0,
+            padding: 0
           }}
-          key={idx}>
+          key={idx}
+        >
           <Box>
             <Text
-              sx = {{
+              sx={{
                 display: 'inline',
                 fontWeight: 600,
                 marginRight: '3px',
@@ -135,9 +135,11 @@ const Items = ({ properties, config })=> {
   return (
     <Box
       sx={{
-        maxHeight: '200px',
-        overflow: 'scroll',
-      }}>
+        maxHeight: '250px',
+        overflowY: 'auto',
+        overflowX: 'auto'
+      }}
+    >
       <List
         sx={{
           margin: 0,
@@ -160,18 +162,19 @@ const _popup = (() => {
   var config;
 
   const createInstance = (showActions, popupContainer, map, config) => {
-
     showActions = showActions;
     popupContainer = popupContainer;
     map = map;
     config = config;
 
-    return (event) => {
+    return event => {
       const feature = event.features[0];
       if (config.intercept) {
         // Initial render loading icon
         ReactDOM.render(
-          <Box><Spinner /></Box>,
+          <Box>
+            <Spinner />
+          </Box>,
           popupContainer
         );
 
@@ -179,7 +182,7 @@ const _popup = (() => {
           .setLngLat(event.lngLat)
           .setDOMContent(popupContainer)
           .addTo(map);
-        
+
         config
           .intercept(feature.properties)
           .then(function(properties) {
@@ -213,7 +216,7 @@ const _popup = (() => {
           .setDOMContent(popupContainer)
           .addTo(map);
       }
-    }
+    };
   };
 
   return {
@@ -223,8 +226,8 @@ const _popup = (() => {
       }
       return instance;
     },
-    created : () => {
-      if(!instance) {
+    created: () => {
+      if (!instance) {
         return false;
       }
       return true;
@@ -233,7 +236,6 @@ const _popup = (() => {
 })();
 
 const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
-
   const config = useContext(Context);
   const map = config.map;
   const popupContainer = document.createElement('div');
@@ -262,17 +264,17 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
       // map has not loaded yet.
       // console.warn(err);
     }
-  }
+  };
 
-  if(disabled) {
+  if (disabled) {
     // Unregister any click events
-    if(_popup.created()) {
+    if (_popup.created()) {
       layers.forEach(config => {
         _deregisterEvent(config);
       });
     }
   } else {
-    if(_popup.created()) {
+    if (_popup.created()) {
       // reset any existing events
       layers.forEach(config => {
         _deregisterEvent(config);

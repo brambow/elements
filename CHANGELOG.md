@@ -1,3 +1,6 @@
+# 1.1.1
+- hotfix for overflow scroll 'auto'
+
 # 1.1.0
 
 - add  `intercept` method to MapPopup for adding external data source capabilities
