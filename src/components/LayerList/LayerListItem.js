@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Checkbox } from '@theme-ui/components';
+import { Flex, Box, Text, Label, Checkbox, Radio } from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -11,7 +11,8 @@ const LayerListItem = ({
   map,
   legend,
   showActions,
-  itemActions
+  itemActions,
+  group
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
@@ -39,7 +40,7 @@ const LayerListItem = ({
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility === 'none' ? false : true;
           setIsChecked(checked);
-          if(legend) {
+          if (legend) {
             setStyle(
               layerInfo.legendStyle
                 ? layerInfo.legendStyle()
@@ -60,34 +61,36 @@ const LayerListItem = ({
   }
 
   const LegendListItem = () => {
-    return(
+    return (
       <Box>
         <ListItem
-            css={{ display: legend && style ? '' : 'none' }}
-            key={layerInfo.layerName + '-legend'}
-          >
-            {style}
+          css={{ display: legend && style ? '' : 'none' }}
+          key={layerInfo.layerName + '-legend'}
+        >
+          {style}
         </ListItem>
       </Box>
-    )
-  }
+    );
+  };
+
+  const inputType = group ? (
+    <Radio name={group} value={isChecked} />
+  ) : (
+    <Checkbox onChange={handleChange} checked={isChecked} />
+  );
 
   return (
     <Box className="listItem">
       <ListItem key={layerInfo.layerName}>
         <Flex>
           <Label>
-            <Checkbox onChange={handleChange} checked={isChecked} />
+            {inputType}
             <Text pt={1}>{layerInfo.layerName}</Text>
           </Label>
           {actionMenuSlot}
         </Flex>
       </ListItem>
-      {(legend) ? 
-        <LegendListItem />
-        :
-        null
-      }
+      {legend ? <LegendListItem /> : null}
     </Box>
   );
 };

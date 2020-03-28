@@ -19,7 +19,8 @@ const layers = [
           alert('insert custom functions here');
         }
       }
-    ]
+    ],
+    group: 'test'
   },
   {
     layerIds: ['water', 'water-shadow'], //fill
@@ -31,7 +32,8 @@ const layers = [
           alert('insert custom functions here');
         }
       }
-    ]
+    ],
+    group: 'test'
   },
   {
     layerIds: ['road-motorway-trunk'], //line
@@ -115,7 +117,7 @@ storiesOf('LayerList', module)
   .add('With Data Driven Styles', () => {
     return (
       <ElementsProvider>
-        <Map mapOptions={mapOptions} mapLayers={mapLayers}/>
+        <Map mapOptions={mapOptions} mapLayers={mapLayers} />
         <LayerList layers={layersWithDDS} legend panel={true} />
       </ElementsProvider>
     );
@@ -125,6 +127,14 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList layers={layers} showActions panel={true} />
+      </ElementsProvider>
+    );
+  })
+  .add('Groups', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <LayerList layers={layers} panel={true} />
       </ElementsProvider>
     );
   });

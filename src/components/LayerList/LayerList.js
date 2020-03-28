@@ -20,6 +20,7 @@ const LayerList = ({ layers, legend = false, panel, showActions, ...rest }) => {
         legend={legend}
         itemActions={item.actions}
         showActions={showActions}
+        group={item.group}
       />
     );
   });
