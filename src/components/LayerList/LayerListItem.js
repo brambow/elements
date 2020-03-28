@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Checkbox } from '@theme-ui/components';
+import { Flex, Box, Text, Label, Checkbox } from 'theme-ui';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -39,7 +39,7 @@ const LayerListItem = ({
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility === 'none' ? false : true;
           setIsChecked(checked);
-          if(legend) {
+          if (legend) {
             setStyle(
               layerInfo.legendStyle
                 ? layerInfo.legendStyle()
@@ -60,17 +60,17 @@ const LayerListItem = ({
   }
 
   const LegendListItem = () => {
-    return(
+    return (
       <Box>
         <ListItem
-            css={{ display: legend && style ? '' : 'none' }}
-            key={layerInfo.layerName + '-legend'}
-          >
-            {style}
+          css={{ display: legend && style ? '' : 'none' }}
+          key={layerInfo.layerName + '-legend'}
+        >
+          {style}
         </ListItem>
       </Box>
-    )
-  }
+    );
+  };
 
   return (
     <Box className="listItem">
@@ -83,11 +83,7 @@ const LayerListItem = ({
           {actionMenuSlot}
         </Flex>
       </ListItem>
-      {(legend) ? 
-        <LegendListItem />
-        :
-        null
-      }
+      {legend ? <LegendListItem /> : null}
     </Box>
   );
 };

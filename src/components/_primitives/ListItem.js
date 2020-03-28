@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@theme-ui/components';
+import { Box } from 'theme-ui';
 
 const ListItem = props => {
   const { children, selectable, sx } = props;

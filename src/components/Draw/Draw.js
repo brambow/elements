@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button } from '@theme-ui/components';
+import { Button } from 'theme-ui';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';

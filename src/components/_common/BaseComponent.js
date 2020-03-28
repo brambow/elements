@@ -1,7 +1,7 @@
 //Base Component to give structure to all other major components
 
 import React from 'react';
-import { Box } from '@theme-ui/components';
+import { Box } from 'theme-ui';
 import Panel from '../_common/PanelComponent';
 
 const BaseComponent = ({
