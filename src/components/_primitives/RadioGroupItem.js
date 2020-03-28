@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, Radio } from '@theme-ui/components';
+import { Label, Radio } from 'theme-ui';
 
 const RadioGroupItem = props => {
   const { name, item, defaultChecked, checkedChanged } = props;

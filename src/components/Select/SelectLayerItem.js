@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, Label, Checkbox } from '@theme-ui/components';
+import { Text, Label, Checkbox } from 'theme-ui';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 

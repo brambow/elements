@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Box } from '@theme-ui/components';
+import { Box } from 'theme-ui';
 import mapboxgl from 'mapbox-gl';
 import DefaultContext from '../../DefaultContext';
 

@@ -1,7 +1,7 @@
 /* Bookmarks component. Allows users to save and recall map position (zoom, center) information */
 
 import React, { useContext, useState, useEffect } from 'react';
-import { Button, Flex, Box, Text, Input } from '@theme-ui/components';
+import { Button, Flex, Box, Text, Input } from 'theme-ui';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
 import saveBookmark from './util/saveBookmark';

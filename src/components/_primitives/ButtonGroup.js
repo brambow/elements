@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@theme-ui/components';
+import { Flex } from 'theme-ui';
 
 const ButtonGroup = ({ buttons, sx, children, ...rest }) => {
   let content;

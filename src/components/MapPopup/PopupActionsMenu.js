@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui';
 import { useState } from 'react';
-import { Spinner } from '@theme-ui/components';
+import { Spinner } from 'theme-ui';
 import {
   Menu,
   MenuButton,
@@ -30,7 +30,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
             float: 'right'
           }}
         >
-          {(loading) ? <Spinner size={14} /> : '...'}
+          {loading ? <Spinner size={14} /> : '...'}
         </MenuButton>
         <MenuPopover sx={{ zIndex: 3, fontFamily: 'roboto, sans-serif' }}>
           {' '}

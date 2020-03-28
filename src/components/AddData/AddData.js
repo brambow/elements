@@ -8,7 +8,7 @@ import {
   Input,
   Checkbox,
   Label
-} from '@theme-ui/components';
+} from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import bbox from '@turf/bbox';

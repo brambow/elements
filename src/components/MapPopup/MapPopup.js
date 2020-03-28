@@ -3,7 +3,7 @@ import { jsx } from 'theme-ui';
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import Context from '../../DefaultContext';
-import { Box, Link, Image, Text, Spinner } from '@theme-ui/components';
+import { Box, Link, Image, Text, Spinner } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import { Popup } from 'mapbox-gl';

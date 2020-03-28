@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Flex } from 'theme-ui';
 import React from 'react';
-import { Box, Text } from '@theme-ui/components';
+import { Box, Text } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 

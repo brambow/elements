@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@theme-ui/components';
+import { Card } from 'theme-ui';
 
 const PanelComponent = ({ sx, children, ...rest }) => {
   return (

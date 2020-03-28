@@ -1,6 +1,6 @@
 {
   "name": "@cartolab/elements",
-  "version": "1.1.1",
+  "version": "1.2.0-alpha.0",
   "description": "React components for map-based web applications",
   "repository": {
     "url": "https://github.com/cartolab-gis/elements",
@@ -31,7 +31,6 @@
     "@mapbox/togeojson": "^0.16.0",
     "@reach/combobox": "^0.5.3",
     "@reach/menu-button": "^0.7.3",
-    "@theme-ui/components": "^0.2.50",
     "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "@turf/boolean-disjoint": "^6.0.2",
@@ -41,7 +40,7 @@
     "numeral": "^2.0.6",
     "react-icons": "^3.7.0",
     "shpjs": "^3.4.3",
-    "theme-ui": "^0.3.0-alpha.3"
+    "theme-ui": "^0.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
