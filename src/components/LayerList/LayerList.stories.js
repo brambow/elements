@@ -19,8 +19,7 @@ const layers = [
           alert('insert custom functions here');
         }
       }
-    ],
-    group: 'test'
+    ]
   },
   {
     layerIds: ['water', 'water-shadow'], //fill
@@ -32,8 +31,7 @@ const layers = [
           alert('insert custom functions here');
         }
       }
-    ],
-    group: 'test'
+    ]
   },
   {
     layerIds: ['road-motorway-trunk'], //line
@@ -73,6 +71,64 @@ const layers = [
         </svg>
       );
     }
+  }
+];
+
+const layers2 = [
+  {
+    layerIds: ['road-motorway-trunk'], //line
+    layerName: 'Motorway',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ]
+  },
+  {
+    layerIds: ['road-number-shield'], //symbol
+    layerName: 'Road Shield',
+    actions: [
+      {
+        title: 'Custom Action',
+        action: () => {
+          alert('insert custom functions here');
+        }
+      }
+    ],
+    legendStyle: () => {
+      return (
+        <svg width="25" height="25">
+          <rect
+            x="0"
+            y="0"
+            rx="0"
+            ry="0"
+            width="25"
+            height="7.5"
+            style={{ fill: 'red', borderWidth: 3 }}
+          />
+        </svg>
+      );
+    }
+  }
+];
+
+const groupLayers = [
+  {
+    groupName: 'test',
+    layers: [
+      {
+        layerIds: ['national-park'], //fill
+        layerName: 'National Parks'
+      },
+      {
+        layerIds: ['water', 'water-shadow'], //fill
+        layerName: 'Water'
+      }
+    ]
   }
 ];
 
@@ -134,7 +190,7 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList layers={layers} panel={true} />
+        <LayerList layers={layers2} groupLayers={groupLayers} panel={true} />
       </ElementsProvider>
     );
   });
