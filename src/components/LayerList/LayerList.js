@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import List from '../_primitives/List';
+import ListItem from '../_primitives/ListItem';
 import BaseComponent from '../_common/BaseComponent';
 import LayerListItem from './LayerListItem';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
+import { Checkbox, Flex, Text, Label, Box } from 'theme-ui';
 
 const LayerList = ({
   layers,
@@ -48,14 +50,26 @@ const LayerList = ({
         );
       });
 
-      return <div key={group.groupName}>{layerItems}</div>;
+      return (
+        <ListItem>
+          <Box>
+            <Flex sx={{ flexDirection: 'column' }}>
+              <Label>
+                <Checkbox />
+                <Text pt={1}>{group.groupName}</Text>
+              </Label>
+              {layerItems}
+            </Flex>
+          </Box>
+        </ListItem>
+      );
     });
   }
 
   return (
     <BaseComponent panel={panel} {...rest}>
       <List>{listItems}</List>
-      <List>{groupItems}</List>
+      <List> {groupItems}</List>
     </BaseComponent>
   );
 };

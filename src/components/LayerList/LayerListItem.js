@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Checkbox, Radio } from '@theme-ui/components';
+import {
+  Flex,
+  Box,
+  Text,
+  Label,
+  Checkbox,
+  Radio,
+  Heading
+} from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -21,7 +29,6 @@ const LayerListItem = ({
 
   const handleChange = e => {
     const checked = e.currentTarget.checked;
-    console.log(checked);
     layerIds.map(layerId => {
       if (checked) {
         setIsChecked(true);
@@ -34,10 +41,10 @@ const LayerListItem = ({
   };
 
   const handleRadioChange = e => {
-    const value = e.currentTarget.checked;
-    console.log(checked);
+    const value = e.currentTarget.value;
+    console.log(value);
     layerIds.map(layerId => {
-      if (checked) {
+      if (value === layerId) {
         setIsChecked(true);
         toggleLayerVisibility(map, layerId, true);
       } else {
@@ -93,10 +100,10 @@ const LayerListItem = ({
       name={group}
       onChange={e => {
         console.log(e);
-        handleChange(e);
+        handleRadioChange(e);
       }}
-      value={layerInfo.layerName}
-      defaultChecked={true}
+      value={layerInfo.layerIds}
+      // defaultChecked={true}
     />
   ) : (
     <Checkbox onChange={handleChange} checked={isChecked} />
