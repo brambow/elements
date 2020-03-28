@@ -21,6 +21,21 @@ const LayerListItem = ({
 
   const handleChange = e => {
     const checked = e.currentTarget.checked;
+    console.log(checked);
+    layerIds.map(layerId => {
+      if (checked) {
+        setIsChecked(true);
+        toggleLayerVisibility(map, layerId, true);
+      } else {
+        setIsChecked(false);
+        toggleLayerVisibility(map, layerId, false);
+      }
+    });
+  };
+
+  const handleRadioChange = e => {
+    const value = e.currentTarget.checked;
+    console.log(checked);
     layerIds.map(layerId => {
       if (checked) {
         setIsChecked(true);
@@ -74,7 +89,15 @@ const LayerListItem = ({
   };
 
   const inputType = group ? (
-    <Radio name={group} value={isChecked} />
+    <Radio
+      name={group}
+      onChange={e => {
+        console.log(e);
+        handleChange(e);
+      }}
+      value={layerInfo.layerName}
+      defaultChecked={true}
+    />
   ) : (
     <Checkbox onChange={handleChange} checked={isChecked} />
   );
