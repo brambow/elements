@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Flex,
-  Box,
-  Text,
-  Label,
-  Checkbox,
-  Radio,
-  Heading
-} from '@theme-ui/components';
+import { Flex, Box, Text, Label, Radio } from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
-import toggleLayerVisibility from './util/toggleLayerVisibility';
 import LayerActionsMenu from './LayerActionsMenu';
 
 const GroupLayerItem = ({
