@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Checkbox } from '@theme-ui/components';
+import {
+  Flex,
+  Box,
+  Text,
+  Label,
+  Checkbox,
+  Radio,
+  Heading
+} from '@theme-ui/components';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
 import toggleLayerVisibility from './util/toggleLayerVisibility';
 import LayerActionsMenu from './LayerActionsMenu';
 
-const LayerListItem = ({
+const GroupLayerItem = ({
   layerInfo,
   map,
   legend,
   showActions,
-  itemActions
+  itemActions,
+  group,
+  callback, //toggleGroupLayers,
+  activeOnLoad
 }) => {
-  const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
 
   const layerIds = layerInfo.layerIds;
 
-  const handleChange = e => {
-    const checked = e.currentTarget.checked;
-    layerIds.map(layerId => {
-      if (checked) {
-        setIsChecked(true);
-        toggleLayerVisibility(map, layerId, true);
-      } else {
-        setIsChecked(false);
-        toggleLayerVisibility(map, layerId, false);
-      }
-    });
+  const handleRadioChange = e => {
+    const value = e.currentTarget.value.split(',');
+    callback(value);
   };
 
   useEffect(() => {
@@ -38,7 +40,6 @@ const LayerListItem = ({
         map.once('idle', () => {
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility === 'none' ? false : true;
-          setIsChecked(checked);
           if (legend) {
             setStyle(
               layerInfo.legendStyle
@@ -77,7 +78,15 @@ const LayerListItem = ({
       <ListItem key={layerInfo.layerName}>
         <Flex>
           <Label>
-            <Checkbox onChange={handleChange} checked={isChecked} />
+            <Radio
+              name={group}
+              onChange={e => {
+                console.log(e);
+                handleRadioChange(e);
+              }}
+              value={layerInfo.layerIds}
+              defaultChecked={activeOnLoad}
+            />
             <Text pt={1}>{layerInfo.layerName}</Text>
           </Label>
           {actionMenuSlot}
@@ -88,4 +97,4 @@ const LayerListItem = ({
   );
 };
 
-export default LayerListItem;
+export default GroupLayerItem;
