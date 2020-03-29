@@ -41,16 +41,18 @@ const LayerListItem = ({
   };
 
   const handleRadioChange = e => {
-    const value = e.currentTarget.value;
-    console.log(value);
-    layerIds.map(layerId => {
-      if (value === layerId) {
-        setIsChecked(true);
-        toggleLayerVisibility(map, layerId, true);
-      } else {
-        setIsChecked(false);
-        toggleLayerVisibility(map, layerId, false);
-      }
+    const value = e.currentTarget.value.split(',');
+    value.map(val => {
+      layerIds.map(layerId => {
+        console.log(val, layerId);
+        if (val === layerId) {
+          setIsChecked(true);
+          toggleLayerVisibility(map, layerId, true);
+        } else {
+          setIsChecked(false);
+          toggleLayerVisibility(map, layerId, false);
+        }
+      });
     });
   };
 
