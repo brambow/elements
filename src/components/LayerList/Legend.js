@@ -128,7 +128,43 @@ const buildStyle = lyr => {
 
   // common style characteristics
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity
+  // function circle(paint) {
+  //   try {
+  //     let cc, csc; // circle-color, circle-stroke-color
+  //     cc = paint.get('circle-color');
+  //     csc = paint.get('circle-stroke-color');
+      
+  //     return (
+  //       <List sx={{
+  //         margin: 0,
+  //         padding: 0,
+  //       }}>
+  //         <ListItem sx={{
+  //           margin: 0,
+  //           padding: 0,
+  //         }}>
+  //           <svg width="16" height="16">
+  //             <circle 
+  //               cx="8"
+  //               cy="8"
+  //               r="7.5"
+  //               sx={{
+  //                 fill: cc.value.value.toString(),
+  //                 stroke: csc.value.value.toString()
+  //               }}
+  //             />
+  //           </svg>
+  //         </ListItem>
+  //       </List>
+  //     )
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // }
+
+  // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
+<<<<<<< HEAD
     try {
       let cc, csc; // circle-color, circle-stroke-color
       cc = paint.get('circle-color');
@@ -163,7 +199,88 @@ const buildStyle = lyr => {
       );
     } catch (err) {
       console.warn(err);
+=======
+    // circle-color, circle-stroke-color, circle-radius
+    let cc, /*csc,*/ cr; 
+
+    // Is circle-color a data driven paint style?
+    cc = paint.get('circle-color').value.value.toString();
+    // if(paint.get('circle-color').value._parameters && paint.get('circle-color').value._parameters.hasOwnProperty('stops')) {
+    //   cc = paint.get('circle-color').value._parameters.stops;
+    // } else {
+    //   cc = [paint.get('circle-color').value.value.toString()];
+    // }
+
+    // Is circle-stroke-color a data driven paint style?
+    // csc = paint.get('circle-stroke-color').value.value.toString()
+    // if(paint.get('circle-stroke-color').value._parameters && paint.get('circle-stroke-color').value._parameters.hasOwnProperty('stops')) {
+    //   csc = paint.get('circle-color').value._parameters.stops;
+    // } else {
+    //   csc = [paint.get('circle-stroke-color').value.value.toString()];
+    // }
+
+    // Is circle-radius a data driven paint style?
+    if(paint.get('circle-radius').value._parameters && paint.get('circle-radius').value._parameters.hasOwnProperty('stops')) {
+      cr = paint.get('circle-radius').value._parameters.stops;
+    } else {
+      cr = [paint.get('circle-radius').value.value.toString()];
     }
+
+    const Items = () => {
+      let styles = [];
+      if(cr.length > 1) {
+        styles = cr.map((l) => {
+          return [...l]
+        });
+      } else {
+        styles = [[null, cr[0]]];
+      }
+      
+      const svgs = styles.map((s, i) => {
+        let cr = +s[1] + +s[1] * 0.75; 
+        return(
+          <ListItem key={i} sx={{
+            margin: 0,
+            padding: 0,
+            display: 'flex'
+          }}>
+            <Box sx={{textAlign: 'center'}}>
+              <svg width={cr} height={cr}>
+                <circle 
+                  cx={cr/2.0}
+                  cy={cr/2.0}
+                  r={cr/2.0 - 0.5}
+                  sx={{
+                    fill: cc,
+                  }}
+                />
+              </svg> 
+            </Box>
+            <Box sx={{ lineHeight: (s[1] >= 10) ? `${(+s[1] * 1.8388 - 7.5)}px` : '15px' }}>
+              <Text sx={{ padding: '3px' }}>
+                {s[0]}
+              </Text>
+            </Box>
+          </ListItem>
+        )
+      })
+
+      return(
+        <Box>
+          {svgs}
+        </Box>
+      )
+>>>>>>> feat: add support for gdata driven circle-radius
+    }
+
+    return (
+      <List sx={{
+        margin: 0,
+        padding: 0,
+      }}>
+        <Items />
+      </List>
+    );
   }
 
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient

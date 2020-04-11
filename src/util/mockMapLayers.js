@@ -48,15 +48,15 @@ const footballStadiums = {
       stops: [
         [60000, 5],
         [65000, 10],
-        [70000, 15],
-        [75000, 20]
+        [70000, 20],
+        [75000, 30]
       ]
     },
     'circle-opacity': 0.8,
-    'circle-color': 'rgb(171, 72, 33)'
+    'circle-color': '#d3be1e'
   }
 
-}
+};
 
 const layers = [statesLayer, dcArtLayer, footballStadiums];
 
