@@ -122,42 +122,6 @@ const buildStyle = lyr => {
     );
   }
 
-  // common style characteristics
-  // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity
-  // function circle(paint) {
-  //   try {
-  //     let cc, csc; // circle-color, circle-stroke-color
-  //     cc = paint.get('circle-color');
-  //     csc = paint.get('circle-stroke-color');
-      
-  //     return (
-  //       <List sx={{
-  //         margin: 0,
-  //         padding: 0,
-  //       }}>
-  //         <ListItem sx={{
-  //           margin: 0,
-  //           padding: 0,
-  //         }}>
-  //           <svg width="16" height="16">
-  //             <circle 
-  //               cx="8"
-  //               cy="8"
-  //               r="7.5"
-  //               sx={{
-  //                 fill: cc.value.value.toString(),
-  //                 stroke: csc.value.value.toString()
-  //               }}
-  //             />
-  //           </svg>
-  //         </ListItem>
-  //       </List>
-  //     )
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // }
-
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
