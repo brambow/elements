@@ -149,6 +149,10 @@ const layersWithDDS = [
   {
     layerIds: ['dc-art-layer'],
     layerName: 'DC Art Galleries'
+  },
+  {
+    layerIds: ['football-stadiums-layer'],
+    layerName: ['Football Stadiums']
   }
 ];
 
