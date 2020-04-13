@@ -128,42 +128,6 @@ const buildStyle = lyr => {
 
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
-<<<<<<< HEAD
-    try {
-      let cc, csc; // circle-color, circle-stroke-color
-      cc = paint.get('circle-color');
-      csc = paint.get('circle-stroke-color');
-      // console.log(cc)
-      return (
-        <List
-          sx={{
-            margin: 0,
-            padding: 0
-          }}
-        >
-          <ListItem
-            sx={{
-              margin: 0,
-              padding: 0
-            }}
-          >
-            <svg width="25" height="25">
-              <circle
-                cx="12.5"
-                cy="12.5"
-                r="12"
-                sx={{
-                  fill: cc.value.value.toString(),
-                  stroke: csc.value.value.toString()
-                }}
-              />
-            </svg>
-          </ListItem>
-        </List>
-      );
-    } catch (err) {
-      console.warn(err);
-=======
     // circle-color, circle-stroke-color, circle-radius
     let cc, /*csc,*/ cr; 
 
@@ -234,7 +198,6 @@ const buildStyle = lyr => {
           {svgs}
         </Box>
       )
->>>>>>> feat: add support for gdata driven circle-radius
     }
 
     return (
