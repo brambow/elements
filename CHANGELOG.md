@@ -1,3 +1,8 @@
+# UPCOMING (1.2.0)
+- update to ThemeUI v 0.3.1
+- add radio group option to LayerList
+- add graduated circle symbols to Legend 
+
 # 1.1.1
 - hotfix for overflow scroll 'auto'
 
