@@ -2,6 +2,8 @@
 - update to ThemeUI v 0.3.1
 - add radio group option to LayerList
 - add graduated circle symbols to Legend 
+- bugfix: allow multiple popup layers
+- new component: Home button
 
 # 1.1.1
 - hotfix for overflow scroll 'auto'
