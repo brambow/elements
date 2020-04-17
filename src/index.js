@@ -10,6 +10,7 @@ export { default as RadioGroupItem } from './components/_primitives/RadioGroupIt
 
 export { default as Map } from './components/Map/Map';
 
+export { default as Home } from './components/Home/Home';
 export { default as AddData } from './components/AddData/AddData';
 export { default as BasemapSwitcher } from './components/BasemapSwitcher/BasemapSwitcher';
 export { default as Bookmarks } from './components/Bookmarks/Bookmarks';
