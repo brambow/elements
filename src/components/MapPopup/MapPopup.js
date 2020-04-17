@@ -9,6 +9,7 @@ import ListItem from '../_primitives/ListItem';
 import { Popup } from 'mapbox-gl';
 import mapExists from '../../util/mapExists';
 import PopupActionsMenu from './PopupActionsMenu';
+import debounce from 'lodash.merge';
 
 const Container = ({ properties, config, showActions, feature }) => {
   let actionsMenu;
@@ -161,14 +162,24 @@ const _popup = (() => {
   var map;
   var config;
   var configs = {}; // {layerId: {...config}}
+  var busy = false;
+  var setBusy = (duration) => {
+    busy = true;
+    setTimeout(() => {
+      busy = false;
+    }, duration);
+  } 
 
   const createInstance = (showActions, popupContainer, map, config) => {
     showActions = showActions;
     popupContainer = popupContainer;
     map = map;
     config = config;
-
-    return event => {
+    return async event => {
+      if(busy) {
+        return;
+      }
+      setBusy(10);
       const feature = event.features[0];
       config = configs[feature.layer.id]
       if (config.intercept) {
