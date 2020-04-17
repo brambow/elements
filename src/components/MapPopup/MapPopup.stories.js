@@ -15,6 +15,17 @@ const customMapOptions = Object.assign({}, mapOptions, {
 
 const popupLayers = [
   {
+    layerId: 'football-stadiums-layer',
+    title: {
+      field: 'name1'
+    },
+    attributes: [{
+      field: 'conference',
+      label: 'Conference',
+      type: 'text'
+    }]
+  },
+  {
     layerId: 'states-layer', // id of layer on map
     title: {
       field: 'name'
@@ -73,17 +84,6 @@ const popupLayers = [
         }
       }
     ]
-  },
-  {
-    layerId: 'football-stadiums-layer',
-    title: {
-      field: 'name1'
-    },
-    attributes: [{
-      field: 'conference',
-      label: 'Conference',
-      type: 'text'
-    }]
   }
 ];
 
