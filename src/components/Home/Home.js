@@ -9,14 +9,11 @@ const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
   return (
-    <BaseComponent
-      {...rest}
-      className="cl-home-button"
-      sx={{
-        ...sx
-      }}
-    >
+    <BaseComponent {...rest} className="cl-home-button">
       <Button
+        sx={{
+          ...sx
+        }}
         data-testid="home-button"
         onClick={e => {
           if (mapExists(map)) {
