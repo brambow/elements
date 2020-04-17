@@ -73,6 +73,17 @@ const popupLayers = [
         }
       }
     ]
+  },
+  {
+    layerId: 'football-stadiums-layer',
+    title: {
+      field: 'name1'
+    },
+    attributes: [{
+      field: 'conference',
+      label: 'Conference',
+      type: 'text'
+    }]
   }
 ];
 

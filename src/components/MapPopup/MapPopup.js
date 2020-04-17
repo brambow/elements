@@ -160,6 +160,7 @@ const _popup = (() => {
   var popupContainer;
   var map;
   var config;
+  var configs = {}; // {layerId: {...config}}
 
   const createInstance = (showActions, popupContainer, map, config) => {
     showActions = showActions;
@@ -169,6 +170,7 @@ const _popup = (() => {
 
     return event => {
       const feature = event.features[0];
+      config = configs[feature.layer.id]
       if (config.intercept) {
         // Initial render loading icon
         ReactDOM.render(
@@ -221,6 +223,9 @@ const _popup = (() => {
 
   return {
     getInstance: (showActions, popupContainer, map, config) => {
+      if (!configs[config.layerId]) {
+        configs[config.layerId] = {...config};
+      }
       if (!instance) {
         instance = createInstance(showActions, popupContainer, map, config);
       }
