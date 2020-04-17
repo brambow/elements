@@ -9,7 +9,6 @@ import ListItem from '../_primitives/ListItem';
 import { Popup } from 'mapbox-gl';
 import mapExists from '../../util/mapExists';
 import PopupActionsMenu from './PopupActionsMenu';
-import debounce from 'lodash.merge';
 
 const Container = ({ properties, config, showActions, feature }) => {
   let actionsMenu;
