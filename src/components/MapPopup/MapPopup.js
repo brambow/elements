@@ -180,7 +180,7 @@ const _popup = (() => {
       }
       setBusy(10);
       const feature = event.features[0];
-      config = configs[feature.layer.id]
+      config = configs[feature.layer.id];
       if (config.intercept) {
         // Initial render loading icon
         ReactDOM.render(
