@@ -160,15 +160,27 @@ const _popup = (() => {
   var popupContainer;
   var map;
   var config;
+  var configs = {}; // {layerId: {...config}}
+  var busy = false;
+  var setBusy = (duration) => {
+    busy = true;
+    setTimeout(() => {
+      busy = false;
+    }, duration);
+  } 
 
   const createInstance = (showActions, popupContainer, map, config) => {
     showActions = showActions;
     popupContainer = popupContainer;
     map = map;
     config = config;
-
     return event => {
+      if(busy) {
+        return;
+      }
+      setBusy(10);
       const feature = event.features[0];
+      config = configs[feature.layer.id];
       if (config.intercept) {
         // Initial render loading icon
         ReactDOM.render(
@@ -221,6 +233,9 @@ const _popup = (() => {
 
   return {
     getInstance: (showActions, popupContainer, map, config) => {
+      if (!configs[config.layerId]) {
+        configs[config.layerId] = {...config};
+      }
       if (!instance) {
         instance = createInstance(showActions, popupContainer, map, config);
       }
