@@ -174,7 +174,7 @@ const _popup = (() => {
     popupContainer = popupContainer;
     map = map;
     config = config;
-    return async event => {
+    return event => {
       if(busy) {
         return;
       }
