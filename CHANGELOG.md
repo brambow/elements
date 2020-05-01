@@ -1,18 +1,21 @@
 # UPCOMING (1.2.0)
+
 - update to ThemeUI v 0.3.1
 - add radio group option to LayerList
-- add graduated circle symbols to Legend 
+- add graduated circle symbols to Legend
 - bugfix: allow multiple popup layers
 - new component: Home button
+- useElements hook
 
 # 1.1.1
+
 - hotfix for overflow scroll 'auto'
 
 # 1.1.0
 
-- add  `intercept` method to MapPopup for adding external data source capabilities
+- add `intercept` method to MapPopup for adding external data source capabilities
 - make title in Popup conditional
-- replace  `rebass` components with `themeui`
+- replace `rebass` components with `themeui`
 - update themeui to 0.3.0
 - remove unused dependencies
 - add action menus for LayerList and Popup components
