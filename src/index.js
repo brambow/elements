@@ -1,6 +1,7 @@
 export { default as ElementsContext } from './DefaultContext';
 export { default as ElementsProvider } from './components/_common/ElementsProvider';
 export { default as ElementsConsumer } from './components/_common/ElementsConsumer';
+export { default as useElements } from './util/useElements';
 
 export { default as ButtonGroup } from './components/_primitives/ButtonGroup';
 export { default as List } from './components/_primitives/List';
