@@ -78,7 +78,9 @@ const LayerListItem = ({
         <Flex>
           <Label>
             <Checkbox onChange={handleChange} checked={isChecked} />
-            <Text pt={1}>{layerInfo.layerName}</Text>
+            <Text pt={1} sx={{ fontWeight: 'bold' }}>
+              {layerInfo.layerName}
+            </Text>
           </Label>
           {actionMenuSlot}
         </Flex>

@@ -87,6 +87,7 @@ const buildStyle = lyr => {
             key={i}
             sx={{
               margin: 0,
+              marginLeft: '15%',
               padding: 0,
               display: 'flex'
             }}
@@ -96,8 +97,8 @@ const buildStyle = lyr => {
                 <rect
                   x="0"
                   y="0"
-                  rx="5"
-                  ry="5"
+                  rx="0"
+                  ry="0"
                   width="25"
                   height="25"
                   sx={{ fill: s[1], stroke: s[2], strokeWidth: 3 }}
@@ -129,7 +130,7 @@ const buildStyle = lyr => {
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
-    let cc, /*csc,*/ cr; 
+    let cc, /*csc,*/ cr;
 
     // Is circle-color a data driven paint style?
     cc = paint.get('circle-color').value.value.toString();
@@ -148,7 +149,10 @@ const buildStyle = lyr => {
     // }
 
     // Is circle-radius a data driven paint style?
-    if(paint.get('circle-radius').value._parameters && paint.get('circle-radius').value._parameters.hasOwnProperty('stops')) {
+    if (
+      paint.get('circle-radius').value._parameters &&
+      paint.get('circle-radius').value._parameters.hasOwnProperty('stops')
+    ) {
       cr = paint.get('circle-radius').value._parameters.stops;
     } else {
       cr = [paint.get('circle-radius').value.value.toString()];
@@ -156,55 +160,59 @@ const buildStyle = lyr => {
 
     const Items = () => {
       let styles = [];
-      if(cr.length > 1) {
-        styles = cr.map((l) => {
-          return [...l]
+      if (cr.length > 1) {
+        styles = cr.map(l => {
+          return [...l];
         });
       } else {
         styles = [[null, cr[0]]];
       }
-      
+
       const svgs = styles.map((s, i) => {
-        let cr = +s[1] + +s[1] * 0.75; 
-        return(
-          <ListItem key={i} sx={{
-            margin: 0,
-            padding: 0,
-            display: 'flex'
-          }}>
-            <Box sx={{textAlign: 'center'}}>
+        let cr = +s[1] + +s[1] * 0.75;
+        return (
+          <ListItem
+            key={i}
+            sx={{
+              margin: 0,
+              marginLeft: '15%',
+              padding: 0,
+              display: 'flex'
+            }}
+          >
+            <Box sx={{ textAlign: 'center' }}>
               <svg width={cr} height={cr}>
-                <circle 
-                  cx={cr/2.0}
-                  cy={cr/2.0}
-                  r={cr/2.0 - 0.5}
+                <circle
+                  cx={cr / 2.0}
+                  cy={cr / 2.0}
+                  r={cr / 2.0 - 0.5}
                   sx={{
-                    fill: cc,
+                    fill: cc
                   }}
                 />
-              </svg> 
+              </svg>
             </Box>
-            <Box sx={{ lineHeight: (s[1] >= 10) ? `${(+s[1] * 1.8388 - 7.5)}px` : '15px' }}>
-              <Text sx={{ padding: '3px' }}>
-                {s[0]}
-              </Text>
+            <Box
+              sx={{
+                lineHeight: s[1] >= 10 ? `${+s[1] * 1.8388 - 7.5}px` : '15px'
+              }}
+            >
+              <Text sx={{ padding: '3px' }}>{s[0]}</Text>
             </Box>
           </ListItem>
-        )
-      })
+        );
+      });
 
-      return(
-        <Box>
-          {svgs}
-        </Box>
-      )
-    }
+      return <Box>{svgs}</Box>;
+    };
 
     return (
-      <List sx={{
-        margin: 0,
-        padding: 0,
-      }}>
+      <List
+        sx={{
+          margin: 0,
+          padding: 0
+        }}
+      >
         <Items />
       </List>
     );
@@ -221,10 +229,11 @@ const buildStyle = lyr => {
           <List
             sx={{
               margin: 0,
+              marginLeft: '15%',
               padding: 0
             }}
           >
-            <ListItem sx={{ margin: 0, padding: 0 }}>
+            <ListItem sx={{ margin: 0, marginLeft: '15%', padding: 0 }}>
               <svg width="25" height="25">
                 <rect
                   x="0"

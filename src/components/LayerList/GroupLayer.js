@@ -101,7 +101,9 @@ const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
         <Flex sx={{ flexDirection: 'column' }}>
           <Label>
             <Checkbox checked={isChecked} onChange={handleChange} />
-            <Text pt={1}>{group.groupName}</Text>
+            <Text pt={1} sx={{ fontWeight: 'bold' }}>
+              {group.groupName}
+            </Text>
           </Label>
           <List>{layerItems}</List>
         </Flex>
