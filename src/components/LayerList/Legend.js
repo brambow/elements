@@ -87,7 +87,7 @@ const buildStyle = lyr => {
             key={i}
             sx={{
               margin: 0,
-              marginLeft: '15%',
+              marginLeft: 4,
               padding: 0,
               display: 'flex'
             }}
@@ -175,7 +175,7 @@ const buildStyle = lyr => {
             key={i}
             sx={{
               margin: 0,
-              marginLeft: '15%',
+              marginLeft: 4,
               padding: 0,
               display: 'flex'
             }}
@@ -250,7 +250,7 @@ const buildStyle = lyr => {
               key={i}
               sx={{
                 margin: 0,
-                marginLeft: '15%',
+                marginLeft: 4,
                 padding: 0,
                 display: 'flex',
                 alignItems: 'bottom'
@@ -298,11 +298,11 @@ const buildStyle = lyr => {
           <List
             sx={{
               margin: 0,
-              marginLeft: '15%',
+              marginLeft: 4,
               padding: 0
             }}
           >
-            <ListItem sx={{ margin: 0, marginLeft: '15%', padding: 0 }}>
+            <ListItem sx={{ margin: 0, marginLeft: 4, padding: 0 }}>
               <svg width="25" height="25">
                 <rect
                   x="0"
