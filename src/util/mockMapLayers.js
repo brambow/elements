@@ -77,6 +77,7 @@ const riverLakeCenterlines = {
         [5, 'purple']
       ]
     }
+    // 'line-color': 'blue'
   }
 };
 

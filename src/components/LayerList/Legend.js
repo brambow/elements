@@ -220,74 +220,75 @@ const buildStyle = lyr => {
 
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
+    let lc;
     console.log(paint.get('line-color'));
-    if (paint.get('line-color').value.kind === 'source') {
-      let lc;
+    const kind = paint.get('line-color').value.kind;
+    if (kind === 'source' || kind === 'constant') {
       //is it a data-driven style?
       if (
         paint.get('line-color').value._parameters &&
         paint.get('line-color').value._parameters.hasOwnProperty('stops')
       ) {
         lc = paint.get('line-color').value._parameters.stops;
-
-        const Items = () => {
-          let styles = [];
-          if (lc.length > 1) {
-            styles = lc.map(l => {
-              return [...l];
-            });
-          } else {
-            styles = [[null, lc[0]]];
-          }
-
-          const svgs = styles.map((s, i) => {
-            return (
-              <ListItem
-                key={i}
-                sx={{
-                  margin: 0,
-                  marginLeft: '15%',
-                  padding: 0,
-                  display: 'flex',
-                  alignItems: 'bottom'
-                }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <svg width="25" height="25">
-                    <rect
-                      x="0"
-                      y="0"
-                      rx="0"
-                      ry="0"
-                      width="25"
-                      height="7.5"
-                      sx={{ fill: s, strokeWidth: 2 }}
-                    />
-                  </svg>
-                </Box>
-                <Box>
-                  <Text /* sx={{ padding: '3px' }} */>{s[0]}</Text>
-                </Box>
-              </ListItem>
-            );
-          });
-
-          return <Box>{svgs}</Box>;
-        };
-
-        return (
-          <List
-            sx={{
-              margin: 0,
-              padding: 0
-            }}
-          >
-            <Items />
-          </List>
-        );
       } else {
-        console.log('line layer is not data driven');
+        lc = [paint.get('line-color').value.value.toString()];
       }
+
+      const Items = () => {
+        let styles = [];
+        if (lc.length > 1) {
+          styles = lc.map(l => {
+            return [...l];
+          });
+        } else {
+          styles = [[null, lc[0]]];
+        }
+
+        const svgs = styles.map((s, i) => {
+          return (
+            <ListItem
+              key={i}
+              sx={{
+                margin: 0,
+                marginLeft: '15%',
+                padding: 0,
+                display: 'flex',
+                alignItems: 'bottom'
+              }}
+            >
+              <Box sx={{ textAlign: 'center' }}>
+                <svg width="25" height="25">
+                  <rect
+                    x="0"
+                    y="0"
+                    rx="0"
+                    ry="0"
+                    width="25"
+                    height="7.5"
+                    sx={{ fill: s, strokeWidth: 2 }}
+                  />
+                </svg>
+              </Box>
+              <Box>
+                <Text /* sx={{ padding: '3px' }} */>{s[0]}</Text>
+              </Box>
+            </ListItem>
+          );
+        });
+
+        return <Box>{svgs}</Box>;
+      };
+
+      return (
+        <List
+          sx={{
+            margin: 0,
+            padding: 0
+          }}
+        >
+          <Items />
+        </List>
+      );
     } else if (paint.get('line-color').value.kind === 'composite') {
       try {
         lc = paint
