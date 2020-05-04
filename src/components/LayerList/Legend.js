@@ -130,7 +130,7 @@ const buildStyle = lyr => {
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
-    let cc, /*csc,*/ cr;
+    let cc, /*csc,*/ cr, flexGrow, textAlign;
 
     // Is circle-color a data driven paint style?
     cc = paint.get('circle-color').value.value.toString();
@@ -153,8 +153,12 @@ const buildStyle = lyr => {
       paint.get('circle-radius').value._parameters &&
       paint.get('circle-radius').value._parameters.hasOwnProperty('stops')
     ) {
+      flexGrow = 6;
+      textAlign = 'center';
       cr = paint.get('circle-radius').value._parameters.stops;
     } else {
+      flexGrow = 1;
+      textAlign = 'left';
       cr = [paint.get('circle-radius').value.value.toString()];
     }
 
@@ -180,7 +184,7 @@ const buildStyle = lyr => {
               display: 'flex'
             }}
           >
-            <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ flexGrow: flexGrow, textAlign: textAlign }}>
               <svg width={cr} height={cr}>
                 <circle
                   cx={cr / 2.0}
@@ -194,6 +198,7 @@ const buildStyle = lyr => {
             </Box>
             <Box
               sx={{
+                flexGrow: 1,
                 lineHeight: s[1] >= 10 ? `${+s[1] * 1.8388 - 7.5}px` : '15px'
               }}
             >
