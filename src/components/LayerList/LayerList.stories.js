@@ -153,6 +153,10 @@ const layersWithDDS = [
   {
     layerIds: ['football-stadiums-layer'],
     layerName: ['Football Stadiums']
+  },
+  {
+    layerIds: ['river-centerlines-layer'],
+    layerName: ['River Centerlines']
   }
 ];
 

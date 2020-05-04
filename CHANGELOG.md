@@ -6,6 +6,8 @@
 - bugfix: allow multiple popup layers
 - new component: Home button
 - useElements hook
+- legend support for data driven styles on lines
+- minor style improvements to LayerList
 
 # 1.1.1
 
