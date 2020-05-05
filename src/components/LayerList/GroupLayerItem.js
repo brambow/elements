@@ -72,7 +72,6 @@ const GroupLayerItem = ({
             <Radio
               name={group}
               onChange={e => {
-                console.log(e);
                 handleRadioChange(e);
               }}
               value={layerInfo.layerIds}

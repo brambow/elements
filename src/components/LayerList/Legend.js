@@ -226,7 +226,6 @@ const buildStyle = lyr => {
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
     let lc;
-    console.log(paint.get('line-color'));
     const kind = paint.get('line-color').value.kind;
     if (kind === 'source' || kind === 'constant') {
       //is it a data-driven style?
