@@ -151,7 +151,8 @@ const buildStyle = lyr => {
     // Is circle-radius a data driven paint style?
     if (
       paint.get('circle-radius').value._parameters &&
-      paint.get('circle-radius').value._parameters.hasOwnProperty('stops')
+      paint.get('circle-radius').value._parameters.hasOwnProperty('stops') &&
+      paint.get('circle-radius').value.kind === 'source'
     ) {
       flexGrow = 6;
       textAlign = 'center';
@@ -160,6 +161,9 @@ const buildStyle = lyr => {
       flexGrow = 1;
       textAlign = 'left';
       cr = [paint.get('circle-radius').value.value.toString()];
+      if(+cr[0] < 8) {
+        cr = ["8"];
+      }
     }
 
     const Items = () => {

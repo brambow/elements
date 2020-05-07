@@ -31,8 +31,15 @@ const dcArtLayer = {
       'https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/washington-dc-public-art.geojson'
   },
   paint: {
-    'circle-radius': 8,
-    'circle-color': '#B42222'
+    'circle-color': '#B42222',
+    'circle-radius': {
+      stops: [
+        [8, 3],
+        [12, 4],
+        [16, 5],
+        [18, 6]
+      ]
+    }
   }
 };
 
