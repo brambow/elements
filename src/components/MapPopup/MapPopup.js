@@ -102,6 +102,7 @@ const Items = ({ properties, config }) => {
       return properties[attribute.field];
     })
     .map((attribute, idx) => {
+      const label = attribute.label ? `${attribute.label}:` : null;
       return (
         <ListItem
           sx={{
@@ -119,7 +120,7 @@ const Items = ({ properties, config }) => {
                 color: 'secondary'
               }}
             >
-              {attribute.label}:
+              {label}
             </Text>
             {attribute.expression
               ? _buildValue(
@@ -162,12 +163,12 @@ const _popup = (() => {
   var config;
   var configs = {}; // {layerId: {...config}}
   var busy = false;
-  var setBusy = (duration) => {
+  var setBusy = duration => {
     busy = true;
     setTimeout(() => {
       busy = false;
     }, duration);
-  } 
+  };
 
   const createInstance = (showActions, popupContainer, map, config) => {
     showActions = showActions;
@@ -175,7 +176,7 @@ const _popup = (() => {
     map = map;
     config = config;
     return event => {
-      if(busy) {
+      if (busy) {
         return;
       }
       setBusy(10);
@@ -234,7 +235,7 @@ const _popup = (() => {
   return {
     getInstance: (showActions, popupContainer, map, config) => {
       if (!configs[config.layerId]) {
-        configs[config.layerId] = {...config};
+        configs[config.layerId] = { ...config };
       }
       if (!instance) {
         instance = createInstance(showActions, popupContainer, map, config);
