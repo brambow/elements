@@ -1,8 +1,8 @@
-//Base Component to give structure to all other major components
+// Base Component to give structure to all other major components
 
 import React from 'react';
 import { Box } from 'theme-ui';
-import Panel from '../_common/PanelComponent';
+import Panel from "./PanelComponent";
 
 const BaseComponent = ({
   children,
@@ -31,8 +31,8 @@ const BaseComponent = ({
     position: 'absolute',
     top: _top,
     left: _left,
-    bottom: bottom,
-    right: right,
+    bottom,
+    right,
     zIndex: 2,
     bg: 'transparent',
     ...sx

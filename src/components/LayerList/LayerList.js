@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
+import { Checkbox, Flex, Text, Label, Box } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import BaseComponent from '../_common/BaseComponent';
 import LayerListItem from './LayerListItem';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
-import { Checkbox, Flex, Text, Label, Box } from 'theme-ui';
 import GroupLayer from './GroupLayer';
 
 const LayerList = ({
@@ -17,7 +17,7 @@ const LayerList = ({
   ...rest
 }) => {
   const config = useContext(Context);
-  const map = config.map;
+  const {map} = config;
 
   if (!mapExists(map)) return null;
 

@@ -11,7 +11,7 @@ import {
 } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 
-/*TODO:
+/* TODO:
 - Doesn't seem to be hooked up to theme
 */
 
@@ -24,7 +24,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
         <MenuButton
           sx={{
             color: 'text',
-            bg: 'white', //why does theme 'background' not work?
+            bg: 'white', // why does theme 'background' not work?
             borderStyle: 'none',
             fontSize: 1,
             float: 'right'
@@ -52,7 +52,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
         </MenuPopover>
       </Menu>
     );
-  } else return null;
+  } return null;
 };
 
 export default PopupActionsMenu;

@@ -2,17 +2,17 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import { Button, Flex, Box, Text, Input } from 'theme-ui';
+import { FaBookmark } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
 import saveBookmark from './util/saveBookmark';
 import loadBookmark from './util/loadBookmark';
-import { FaBookmark } from 'react-icons/fa';
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 
 const Bookmarks = ({ panel, ...rest }) => {
   const config = useContext(Context);
-  const map = config.map;
+  const {map} = config;
   const existingBookmarks = JSON.parse(
     window.localStorage.getItem('ccBookmarks')
   )
@@ -54,7 +54,7 @@ const Bookmarks = ({ panel, ...rest }) => {
         onChange={e => {
           setBookmarkName(e.currentTarget.value);
         }}
-      ></Input>
+       />
       <Button
         sx={{
           borderTopLeftRadius: 0,

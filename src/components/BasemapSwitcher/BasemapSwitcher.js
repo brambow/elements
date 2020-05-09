@@ -1,4 +1,4 @@
-//BasemapSwitcher  Component for changing basemaps
+// BasemapSwitcher  Component for changing basemaps
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Button } from 'theme-ui';
@@ -26,7 +26,7 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      map.setStyle('mapbox://styles/mapbox/' + basemapValue);
+      map.setStyle(`mapbox://styles/mapbox/${  basemapValue}`);
     } else {
       didMountRef.current = true;
     }
@@ -35,14 +35,12 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
   useEffect(() => {
     if (mapExists(map)) {
       map.on('load', () => {
-        map.setStyle('mapbox://styles/mapbox/' + basemapValue);
+        map.setStyle(`mapbox://styles/mapbox/${  basemapValue}`);
       });
     }
   }, [map]);
 
-  const basemapOptions = basemaps
-    ? basemaps
-    : [
+  const basemapOptions = basemaps || [
         {
           name: 'streets',
           key: 'streets',

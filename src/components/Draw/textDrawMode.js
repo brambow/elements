@@ -1,14 +1,14 @@
-//custom text mode for mapbox draw
+// custom text mode for mapbox draw
 import mapboxgl from 'mapbox-gl';
 
-let TextMode = {};
+const TextMode = {};
 
 // /**
 //  * @param {String} HTML representing a single element
 //  * @return {Element}
 //  */
 function htmlToElement(html) {
-  var template = document.createElement('template');
+  const template = document.createElement('template');
   html = html.trim(); // Never return a text node of whitespace as the result
   template.innerHTML = html;
   return template.content.firstChild;
@@ -18,7 +18,7 @@ function htmlToElement(html) {
 // The `opts` argument comes from `draw.changeMode('lotsofpoints', {count:7})`.
 // The value returned should be an object and will be passed to all other lifecycle functions
 TextMode.onSetup = function(opts) {
-  var state = {};
+  const state = {};
   // state.count = opts.count || 0;
   return state;
 };
@@ -26,7 +26,7 @@ TextMode.onSetup = function(opts) {
 // Whenever a user clicks on the map, Draw will call `onClick`
 TextMode.onClick = function(state, e) {
   // `this.newFeature` takes geojson and makes a DrawFeature
-  var point = this.newFeature({
+  const point = this.newFeature({
     type: 'Feature',
     // properties: {
     //   count: state.count

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Button } from 'theme-ui';
+import { FaHome } from 'react-icons/fa';
 import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
-import { FaHome } from 'react-icons/fa';
 import mapExists from '../../util/mapExists';
 
 const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {

@@ -6,7 +6,7 @@ import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 
 const buildStyle = lyr => {
-  let type = lyr.type;
+  const {type} = lyr;
 
   // https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers
   try {
@@ -40,7 +40,7 @@ const buildStyle = lyr => {
 
   // fill-color, fill-opacity, fill-outline-color, fill-pattern
   function fill(paint) {
-    let fc, foc;
+    let fc; let foc;
 
     // Is this a data driven paint style?
     if (
@@ -130,7 +130,7 @@ const buildStyle = lyr => {
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
-    let cc, /*csc,*/ cr, flexGrow, textAlign;
+    let cc; /* csc, */ let cr; let flexGrow; let textAlign;
 
     // Is circle-color a data driven paint style?
     cc = paint.get('circle-color').value.value.toString();
@@ -177,7 +177,7 @@ const buildStyle = lyr => {
       }
 
       const svgs = styles.map((s, i) => {
-        let cr = +s[1] + +s[1] * 0.75;
+        const cr = +s[1] + +s[1] * 0.75;
         return (
           <ListItem
             key={i}
@@ -188,7 +188,7 @@ const buildStyle = lyr => {
               display: 'flex'
             }}
           >
-            <Box sx={{ flexGrow: flexGrow, textAlign: textAlign }}>
+            <Box sx={{ flexGrow, textAlign }}>
               <svg width={cr} height={cr}>
                 <circle
                   cx={cr / 2.0}
@@ -230,9 +230,9 @@ const buildStyle = lyr => {
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
     let lc;
-    const kind = paint.get('line-color').value.kind;
+    const {kind} = paint.get('line-color').value;
     if (kind === 'source' || kind === 'constant') {
-      //is it a data-driven style?
+      // is it a data-driven style?
       if (
         paint.get('line-color').value._parameters &&
         paint.get('line-color').value._parameters.hasOwnProperty('stops')
@@ -297,7 +297,7 @@ const buildStyle = lyr => {
           <Items />
         </List>
       );
-    } else if (paint.get('line-color').value.kind === 'composite') {
+    } if (paint.get('line-color').value.kind === 'composite') {
       try {
         lc = paint
           .get('line-color')
@@ -331,7 +331,7 @@ const buildStyle = lyr => {
         return false;
       }
     } else {
-      //todo: determine color from other line types
+      // todo: determine color from other line types
       return false;
     }
   }

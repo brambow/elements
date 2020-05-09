@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ListItem from '../_primitives/ListItem';
 import { Checkbox, Flex, Text, Label, Box } from 'theme-ui';
+import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 import toggleLayerVisibility from './util/toggleLayerVisibility';
 import GroupLayerItem from './GroupLayerItem';
@@ -41,7 +41,7 @@ const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
   // }, [map, layerInfo]);
 
   const handleChange = e => {
-    const checked = e.currentTarget.checked;
+    const {checked} = e.currentTarget;
     if (checked) {
       setIsChecked(true);
       layers.map(layerId => {
@@ -56,7 +56,7 @@ const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
   };
 
   const toggleGroupLayers = layerArray => {
-    //make sure layers sent in are in the group
+    // make sure layers sent in are in the group
     const onLayers = layers.filter(layer => {
       return layerArray.includes(layer);
     });
@@ -90,7 +90,7 @@ const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
         // showActions={item.showActions}
         group={group.groupName}
         callback={toggleGroupLayers}
-        activeOnLoad={idx === 0 ? true : false}
+        activeOnLoad={idx === 0}
       />
     );
   });

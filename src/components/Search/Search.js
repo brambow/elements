@@ -1,16 +1,16 @@
-//Search Component for interacting with geocoding services or feature searches
-//to do: consider using reach-ui combobox
+// Search Component for interacting with geocoding services or feature searches
+// to do: consider using reach-ui combobox
 
 import React, { useState, useContext } from 'react';
-import Context from '../../DefaultContext';
 import { Flex, Button } from 'theme-ui';
 import { Combobox, ComboboxInput } from '@reach/combobox';
+import { FaSearchLocation } from 'react-icons/fa';
+import mapboxgl from 'mapbox-gl';
+import Context from '../../DefaultContext';
 import SearchSuggestions from './SearchSuggestions';
 import handleSearchInputChange from './util/handleSearchInputChange';
 import handleSearchSubmit from './util/handleSearchSubmit';
-import { FaSearchLocation } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';
-import mapboxgl from 'mapbox-gl';
 
 /*
  * @class Search
@@ -20,7 +20,7 @@ import mapboxgl from 'mapbox-gl';
 const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
-  //hooks to set state
+  // hooks to set state
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
@@ -59,7 +59,7 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
             autoComplete="off"
             value={searchValue}
             onChange={e => {
-              //RTL tests don't like 'e' need to figure this out
+              // RTL tests don't like 'e' need to figure this out
               if (e && e.currentTarget) {
                 handleSearchInputChange(
                   e.currentTarget.value,
@@ -76,13 +76,13 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
           />
         </Combobox>
         <Button
-          //TO DO: figure out better place for these styles
-          bg={bg} //should we allow this or just enforce theme decisions?
+          // TO DO: figure out better place for these styles
+          bg={bg} // should we allow this or just enforce theme decisions?
           sx={{
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
             marginLeft: '-0.175rem'
-          }} //to line up with input
+          }} // to line up with input
           onClick={() => {
             handleSearchSubmit(searchValue, onSearchComplete, mapboxToken);
           }}

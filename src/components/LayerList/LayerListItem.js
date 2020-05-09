@@ -16,10 +16,10 @@ const LayerListItem = ({
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
 
-  const layerIds = layerInfo.layerIds;
+  const {layerIds} = layerInfo;
 
   const handleChange = e => {
-    const checked = e.currentTarget.checked;
+    const {checked} = e.currentTarget;
     layerIds.map(layerId => {
       if (checked) {
         setIsChecked(true);
@@ -32,12 +32,12 @@ const LayerListItem = ({
   };
 
   useEffect(() => {
-    let layerVisibility, checked;
+    let layerVisibility; let checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
         map.once('idle', () => {
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
-          checked = layerVisibility === 'none' ? false : true;
+          checked = layerVisibility !== 'none';
           setIsChecked(checked);
           if (legend) {
             setStyle(
@@ -64,7 +64,7 @@ const LayerListItem = ({
       <Box>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
-          key={layerInfo.layerName + '-legend'}
+          key={`${layerInfo.layerName  }-legend`}
         >
           {style}
         </ListItem>

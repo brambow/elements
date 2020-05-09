@@ -1,11 +1,11 @@
 // @description Load various file format
 // returns GeoJSON
-import csv2geojson from 'csv2geojson'; //csv
-import togeojson from '@mapbox/togeojson'; //kml, gpx
-import shpjs from 'shpjs'; //zipped shapefile
+import csv2geojson from 'csv2geojson'; // csv
+import togeojson from '@mapbox/togeojson'; // kml, gpx
+import shpjs from 'shpjs'; // zipped shapefile
 
 const config = {
-  maxFileSize: 10e7 //in bytes, 100 mb
+  maxFileSize: 10e7 // in bytes, 100 mb
 };
 
 class Importer {
@@ -30,17 +30,15 @@ class Importer {
         error: 'File must be less than 20mb',
         fileDetails: this.fileDetails
       });
-    } else {
-      if (this.fileExt.toLowerCase() == 'zip') {
+    } else if (this.fileExt.toLowerCase() == 'zip') {
         this.reader.readAsArrayBuffer(this.file);
       } else {
         this.reader.readAsText(this.file, 'UTF-8');
       }
-    }
   }
 
   _getExtension() {
-    var fArr = this.file.name.split('.');
+    const fArr = this.file.name.split('.');
     return fArr[fArr.length - 1];
   }
 
@@ -74,7 +72,7 @@ class Importer {
 
   _handleJSON(evt) {
     try {
-      let res = JSON.parse(evt.target.result);
+      const res = JSON.parse(evt.target.result);
       if (res.type && res.type.toLowerCase() == 'topology') {
         this._handleTopoJSON(evt);
       } else {
@@ -89,12 +87,12 @@ class Importer {
   }
 
   _handleCSV(evt) {
-    let latitudes = ['y', 'lat', 'latitude'];
-    let longitudes = ['x', 'lng', 'lon', 'long', 'longitude'];
-    var latitude = undefined;
-    var longitude = undefined;
-    let csv = evt.target.result;
-    let header = csv.split('\n')[0].split(',');
+    const latitudes = ['y', 'lat', 'latitude'];
+    const longitudes = ['x', 'lng', 'lon', 'long', 'longitude'];
+    let latitude;
+    let longitude;
+    const csv = evt.target.result;
+    const header = csv.split('\n')[0].split(',');
     header.forEach(column => {
       if (latitudes.indexOf(column.toLowerCase().trim()) !== -1) {
         latitude = column.trim();
@@ -120,11 +118,11 @@ class Importer {
   }
 
   _handleKML(evt) {
-    let xml = new window.DOMParser().parseFromString(
+    const xml = new window.DOMParser().parseFromString(
       evt.target.result,
       'application/xml'
     );
-    let geojson = togeojson.kml(xml, { style: true });
+    const geojson = togeojson.kml(xml, { style: true });
     this.cb(this.fileDetails, geojson);
   }
 
@@ -137,11 +135,11 @@ class Importer {
   }
 
   _handleGPX(evt) {
-    let xml = new window.DOMParser().parseFromString(
+    const xml = new window.DOMParser().parseFromString(
       evt.target.result,
       'application/xml'
     );
-    let geojson = togeojson.gpx(xml);
+    const geojson = togeojson.gpx(xml);
     this.cb(this.fileDetails, geojson);
   }
 
@@ -150,14 +148,14 @@ class Importer {
   }
 
   _handleSHP(evt) {
-    let geojson = shpjs.parseZip(evt.target.result);
+    const geojson = shpjs.parseZip(evt.target.result);
     this.cb(this.fileDetails, geojson);
   }
 
   _notRecognized() {
     console.log('sorry, i didnt recognize this format');
     this.cb({
-      error: 'File format ' + this.fileExt + ' not recognized.',
+      error: `File format ${  this.fileExt  } not recognized.`,
       fileDetails: this.fileDetails
     });
   }

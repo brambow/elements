@@ -1,4 +1,4 @@
-//MapInfo Component for viewing position info
+// MapInfo Component for viewing position info
 
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import numeral from 'numeral';

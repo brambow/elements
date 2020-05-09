@@ -1,6 +1,6 @@
 import allowMapInteractions from './allowMapInteractions';
 
-let StaticMode = {};
+const StaticMode = {};
 
 StaticMode.onSetup = function() {
   this.setActionableState(); // default actionable state is false for all actions

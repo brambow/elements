@@ -19,7 +19,7 @@ const SelectLayerItem = ({
   }, [activeSelectLayers]);
 
   const handleChange = e => {
-    const checked = e.currentTarget.checked;
+    const {checked} = e.currentTarget;
     if (checked) {
       if (!activeSelectLayers.includes(layerName)) {
         setActiveSelectLayers([...activeSelectLayers, layerName]);

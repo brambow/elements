@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from 'theme-ui';
-import ListItem from '../_primitives/ListItem';
+import ListItem from "./ListItem";
 import childrenExist from '../../util/childrenExist';
 
 const List = ({ items, children, sx, ...rest }) => {
@@ -22,9 +22,9 @@ const List = ({ items, children, sx, ...rest }) => {
         ))}
       </Box>
     );
-  } else {
+  } 
     return false;
-  }
+  
 };
 
 export default List;

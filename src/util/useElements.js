@@ -1,4 +1,4 @@
-//hook to import Elements context
+// hook to import Elements context
 import React, { useContext } from 'react';
 import Context from '../DefaultContext';
 

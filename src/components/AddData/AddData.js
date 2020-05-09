@@ -9,9 +9,9 @@ import {
   Checkbox,
   Label
 } from 'theme-ui';
+import bbox from '@turf/bbox';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
-import bbox from '@turf/bbox';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
@@ -21,19 +21,19 @@ const importer = new Importer();
 
 const AddData = ({ layers, panel, ...rest }) => {
   const config = useContext(Context);
-  const map = config.map;
+  const {map} = config;
 
   // state
   const [tab, setTab] = useState('file'); // file, url, layers
   const [tmpLayers, setTmpLayers] = useState([]); // added layers
-  const [file, setFile] = useState(null); //file to upload
+  const [file, setFile] = useState(null); // file to upload
 
   const _addLayer = (sourceId, geojson) => {
     // add multiple layers based on source geometry
     // Point, MultiPoint
     // LineString, MultiLineString
     // Polygon, MultiPolygon
-    let geomTypes = [];
+    const geomTypes = [];
     geojson.features.map(feature => {
       if (geomTypes.indexOf(feature.geometry.type) == -1)
         geomTypes.push(feature.geometry.type);
@@ -55,7 +55,7 @@ const AddData = ({ layers, panel, ...rest }) => {
     });
 
     function _type(geomType) {
-      let type = undefined;
+      let type;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -74,7 +74,7 @@ const AddData = ({ layers, panel, ...rest }) => {
     }
 
     function _paint(geomType) {
-      let paint = undefined;
+      let paint;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -105,7 +105,7 @@ const AddData = ({ layers, panel, ...rest }) => {
     }
 
     function _filter(geomType) {
-      let filter = undefined;
+      let filter;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -126,7 +126,7 @@ const AddData = ({ layers, panel, ...rest }) => {
 
   const _addSource = (fileDetails, geojson) => {
     if (!geojson || !fileDetails) return;
-    let sourceId = fileDetails.fileName;
+    const sourceId = fileDetails.fileName;
     map.addSource(sourceId, {
       type: 'geojson',
       data: geojson
@@ -136,7 +136,7 @@ const AddData = ({ layers, panel, ...rest }) => {
   };
 
   const _zoomToLayer = geojson => {
-    let bounds = bbox(geojson);
+    const bounds = bbox(geojson);
     map.fitBounds(bounds);
   };
 
@@ -240,8 +240,8 @@ const AddData = ({ layers, panel, ...rest }) => {
   const FileBody = () => {
     const supportedFileExt = ['.geojson', '.kml', '.gpx', '.csv', '.zip (shp)'];
     const supported = () => {
-      let title = 'Supported File Extensions:';
-      let subtitle = supportedFileExt.join(', ');
+      const title = 'Supported File Extensions:';
+      const subtitle = supportedFileExt.join(', ');
       return (
         <Box>
           <Text sx={{ fontSize: 0 }}>{title}</Text>
@@ -317,14 +317,14 @@ const AddData = ({ layers, panel, ...rest }) => {
 
   const LayerBody = () => {
     const items = () => {
-      let isVisible = layerId => {
-        let layerVisibility = map.getLayoutProperty(layerId, 'visibility');
-        let checked = layerVisibility === 'none' ? false : true;
+      const isVisible = layerId => {
+        const layerVisibility = map.getLayoutProperty(layerId, 'visibility');
+        const checked = layerVisibility !== 'none';
         return checked;
       };
 
-      let handleChange = layerId => {
-        let checked = isVisible(layerId);
+      const handleChange = layerId => {
+        const checked = isVisible(layerId);
         if (checked) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
         } else {

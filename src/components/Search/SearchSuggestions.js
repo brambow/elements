@@ -20,7 +20,7 @@ const SearchSuggestions = ({ suggestions, setSearchInput }) => {
     });
 
     return (
-      //to do: how to put style into theme or sx syntax
+      // to do: how to put style into theme or sx syntax
       <ComboboxPopover style={{ backgroundColor: '#fff' }}>
         <ComboboxList
           style={{ padding: 4, fontSize: 10 }}
@@ -30,7 +30,7 @@ const SearchSuggestions = ({ suggestions, setSearchInput }) => {
         </ComboboxList>
       </ComboboxPopover>
     );
-  } else return null;
+  } return null;
 };
 
 export default SearchSuggestions;

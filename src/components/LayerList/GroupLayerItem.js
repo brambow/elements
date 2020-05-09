@@ -12,12 +12,12 @@ const GroupLayerItem = ({
   showActions,
   itemActions,
   group,
-  callback, //toggleGroupLayers,
+  callback, // toggleGroupLayers,
   activeOnLoad
 }) => {
   const [style, setStyle] = useState();
 
-  const layerIds = layerInfo.layerIds;
+  const {layerIds} = layerInfo;
 
   const handleRadioChange = e => {
     const value = e.currentTarget.value.split(',');
@@ -25,12 +25,12 @@ const GroupLayerItem = ({
   };
 
   useEffect(() => {
-    let layerVisibility, checked;
+    let layerVisibility; let checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
         map.once('idle', () => {
           layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
-          checked = layerVisibility === 'none' ? false : true;
+          checked = layerVisibility !== 'none';
           if (legend) {
             setStyle(
               layerInfo.legendStyle
@@ -56,7 +56,7 @@ const GroupLayerItem = ({
       <Box>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
-          key={layerInfo.layerName + '-legend'}
+          key={`${layerInfo.layerName  }-legend`}
         >
           {style}
         </ListItem>

@@ -18,7 +18,7 @@ const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
   };
 
   useEffect(() => {
-    //init the map
+    // init the map
     map = new mapboxgl.Map(mapOptions);
     setMap(map);
 
