@@ -6,4 +6,5 @@ export default function loadBookmark(map, bookmark) {
     center: bookmark.center,
     zoom: bookmark.zoom
   });
+  return true;
 }

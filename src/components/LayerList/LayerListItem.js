@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Checkbox } from '@theme-ui/components';
+import { Flex, Box, Text, Label, Checkbox } from 'theme-ui';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -16,23 +16,26 @@ const LayerListItem = ({
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
 
-  const {layerIds} = layerInfo;
+  const { layerIds } = layerInfo;
 
-  const handleChange = e => {
-    const {checked} = e.currentTarget;
-    layerIds.map(layerId => {
+  const handleChange = (e) => {
+    const { checked } = e.currentTarget;
+    layerIds.map((layerId) => {
       if (checked) {
         setIsChecked(true);
         toggleLayerVisibility(map, layerId, true);
+        return true;
       } else {
         setIsChecked(false);
         toggleLayerVisibility(map, layerId, false);
+        return true;
       }
     });
   };
 
   useEffect(() => {
-    let layerVisibility; let checked;
+    let layerVisibility;
+    let checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
         map.once('idle', () => {
@@ -64,7 +67,7 @@ const LayerListItem = ({
       <Box>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
-          key={`${layerInfo.layerName  }-legend`}
+          key={`${layerInfo.layerName}-legend`}
         >
           {style}
         </ListItem>

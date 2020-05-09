@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Flex, Text, Label, Box } from 'theme-ui';
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 import toggleLayerVisibility from './util/toggleLayerVisibility';
 import GroupLayerItem from './GroupLayerItem';
-import mapExists from '../../util/mapExists';
+// import mapExists from '../../util/mapExists';
 
 const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
   const [isChecked, setIsChecked] = useState(showOnLoad);
 
-  let layers = group.layers.map(layer => {
-    const ids = layer.layerIds.map(id => {
+  let layers = group.layers.map((layer) => {
+    const ids = layer.layerIds.map((id) => {
       return id;
     });
     return ids;
@@ -40,41 +40,46 @@ const GroupLayer = ({ group, map, legend, showOnLoad = true }) => {
   //   }
   // }, [map, layerInfo]);
 
-  const handleChange = e => {
-    const {checked} = e.currentTarget;
+  const handleChange = (e) => {
+    const { checked } = e.currentTarget;
     if (checked) {
       setIsChecked(true);
-      layers.map(layerId => {
+      layers.map((layerId) => {
         toggleLayerVisibility(map, layerId, true);
+        return true;
       });
     } else {
       setIsChecked(false);
-      layers.map(layerId => {
+      layers.map((layerId) => {
         toggleLayerVisibility(map, layerId, false);
+        return true;
       });
     }
   };
 
-  const toggleGroupLayers = layerArray => {
+  const toggleGroupLayers = (layerArray) => {
     // make sure layers sent in are in the group
-    const onLayers = layers.filter(layer => {
+    const onLayers = layers.filter((layer) => {
       return layerArray.includes(layer);
     });
 
-    const offLayers = layers.filter(layer => {
+    const offLayers = layers.filter((layer) => {
       return !layerArray.includes(layer);
     });
 
     if (isChecked) {
-      onLayers.map(layerId => {
+      onLayers.map((layerId) => {
         toggleLayerVisibility(map, layerId, true);
+        return true;
       });
-      offLayers.map(layerId => {
+      offLayers.map((layerId) => {
         toggleLayerVisibility(map, layerId, false);
+        return true;
       });
     } else {
-      layers.map(layerId => {
+      layers.map((layerId) => {
         toggleLayerVisibility(map, layerId, false);
+        return true;
       });
     }
   };

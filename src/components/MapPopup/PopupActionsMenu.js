@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
 import { useState } from 'react';
-import { Spinner } from 'theme-ui';
+import { jsx, Spinner } from 'theme-ui';
 import {
   Menu,
   MenuButton,
@@ -36,7 +35,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
           {' '}
           {/* why is fontFamily:'body' not working? */}
           <MenuItems>
-            {popupActions.map(action => {
+            {popupActions.map((action) => {
               return (
                 <MenuItem
                   key={action.title}
@@ -52,7 +51,8 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
         </MenuPopover>
       </Menu>
     );
-  } return null;
+  }
+  return null;
 };
 
 export default PopupActionsMenu;

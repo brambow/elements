@@ -19,42 +19,22 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ layers, panel, ...rest }) => {
+const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
   const config = useContext(Context);
-  const {map} = config;
+  const { map } = config;
 
   // state
   const [tab, setTab] = useState('file'); // file, url, layers
   const [tmpLayers, setTmpLayers] = useState([]); // added layers
-  const [file, setFile] = useState(null); // file to upload
+  // const [file, setFile] = useState(null); // file to upload
 
-  const _addLayer = (sourceId, geojson) => {
+  const addLayer = (sourceId, geojson) => {
     // add multiple layers based on source geometry
     // Point, MultiPoint
     // LineString, MultiLineString
     // Polygon, MultiPolygon
-    const geomTypes = [];
-    geojson.features.map(feature => {
-      if (geomTypes.indexOf(feature.geometry.type) == -1)
-        geomTypes.push(feature.geometry.type);
-    });
 
-    geomTypes.forEach(type => {
-      const layerId = `${sourceId}-${type}`;
-      map.addLayer({
-        id: layerId,
-        type: _type(type),
-        source: sourceId,
-        paint: _paint(type),
-        filter: _filter(type),
-        layout: {
-          visibility: 'visible'
-        }
-      });
-      setTmpLayers([...tmpLayers, layerId]);
-    });
-
-    function _type(geomType) {
+    function setType(geomType) {
       let type;
       switch (geomType) {
         case 'Point':
@@ -69,11 +49,13 @@ const AddData = ({ layers, panel, ...rest }) => {
         case 'MultiPolygon':
           type = 'fill';
           break;
+        default:
+          return null;
       }
       return type;
     }
 
-    function _paint(geomType) {
+    function setPaint(geomType) {
       let paint;
       switch (geomType) {
         case 'Point':
@@ -100,11 +82,13 @@ const AddData = ({ layers, panel, ...rest }) => {
             'fill-opacity': 0.8
           };
           break;
+        default:
+          return null;
       }
       return paint;
     }
 
-    function _filter(geomType) {
+    function setFilter(geomType) {
       let filter;
       switch (geomType) {
         case 'Point':
@@ -119,31 +103,54 @@ const AddData = ({ layers, panel, ...rest }) => {
         case 'MultiPolygon':
           filter = ['==', '$type', 'Polygon'];
           break;
+        default:
+          return null;
       }
       return filter;
     }
+
+    const geomTypes = geojson.features.map((feature) => {
+      if (geomTypes.indexOf(feature.geometry.type) === -1)
+        return feature.geometry.type;
+    });
+
+    geomTypes.forEach((type) => {
+      const layerId = `${sourceId}-${type}`;
+      map.addLayer({
+        id: layerId,
+        type: setType(type),
+        source: sourceId,
+        paint: setPaint(type),
+        filter: setFilter(type),
+        layout: {
+          visibility: 'visible'
+        }
+      });
+      setTmpLayers([...tmpLayers, layerId]);
+    });
   };
 
-  const _addSource = (fileDetails, geojson) => {
+  const zoomToLayer = (geojson) => {
+    const bounds = bbox(geojson);
+    map.fitBounds(bounds);
+  };
+
+  const addMapSource = (fileDetails, geojson) => {
     if (!geojson || !fileDetails) return;
     const sourceId = fileDetails.fileName;
     map.addSource(sourceId, {
       type: 'geojson',
       data: geojson
     });
-    _addLayer(sourceId, geojson);
-    _zoomToLayer(geojson);
+    addLayer(sourceId, geojson);
+    zoomToLayer(geojson);
   };
 
-  const _zoomToLayer = geojson => {
-    const bounds = bbox(geojson);
-    map.fitBounds(bounds);
-  };
-
-  const _loadFile = e => {
+  const loadFile = (e) => {
     try {
-      importer.load(e.target.files[0], _addSource);
+      importer.load(e.target.files[0], addMapSource);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn(err);
     }
   };
@@ -215,7 +222,7 @@ const AddData = ({ layers, panel, ...rest }) => {
               fontSize: 0
             }}
             href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setTab('layers');
             }}
@@ -258,14 +265,14 @@ const AddData = ({ layers, panel, ...rest }) => {
             }}
             type="file"
             className="file-upload"
-            onChange={e => {
-              _loadFile(e);
+            onChange={(e) => {
+              loadFile(e);
             }}
           />
           {/* <Flex sx={{ justifyContent: 'flex-end' }}>
             <Button
               onClick={e => {
-                _loadFile(file);
+                loadFile(file);
               }}
               variant="outline"
             >
@@ -310,20 +317,20 @@ const AddData = ({ layers, panel, ...rest }) => {
     return (
       <div styles={{ width: '100%' }}>
         <Tabs />
-        {tab == 'file' ? <FileBody /> : <UrlBody />}
+        {tab === 'file' ? <FileBody /> : <UrlBody />}
       </div>
     );
   };
 
   const LayerBody = () => {
     const items = () => {
-      const isVisible = layerId => {
+      const isVisible = (layerId) => {
         const layerVisibility = map.getLayoutProperty(layerId, 'visibility');
         const checked = layerVisibility !== 'none';
         return checked;
       };
 
-      const handleChange = layerId => {
+      const handleChange = (layerId) => {
         const checked = isVisible(layerId);
         if (checked) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
@@ -364,7 +371,7 @@ const AddData = ({ layers, panel, ...rest }) => {
       <div style={{ width: '100%' }}>
         <a
           href="#"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setTab('file');
           }}
@@ -379,7 +386,7 @@ const AddData = ({ layers, panel, ...rest }) => {
   const Body = () => {
     return (
       <div style={{ width: '100%' }}>
-        {tab == 'layers' ? <LayerBody /> : <TabBody />}
+        {tab === 'layers' ? <LayerBody /> : <TabBody />}
       </div>
     );
   };

@@ -8,10 +8,10 @@ const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
   const config = useContext(DefaultContext);
   const { setMap } = config;
 
-  const _addLayers = layers => {
+  const addLayers = (layers) => {
     if (!layers) return;
     map.on('load', () => {
-      layers.forEach((l, i) => {
+      layers.forEach((l) => {
         map.addLayer(l);
       });
     });
@@ -22,14 +22,14 @@ const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
     map = new mapboxgl.Map(mapOptions);
     setMap(map);
 
-    _addLayers(mapLayers);
+    addLayers(mapLayers);
   }, []);
 
   return (
     <Box
       {...rest}
       sx={{ width: '100vw', height: '100vh', ...sx }}
-      ref={el => (mapOptions.container = el)}
+      ref={(el) => (mapOptions.container = el)}
       className="cl-map-container"
     />
   );

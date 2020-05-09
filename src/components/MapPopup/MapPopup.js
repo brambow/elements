@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { jsx } from 'theme-ui';
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { Box, Link, Image, Text, Spinner } from 'theme-ui';
+import { jsx, Box, Link, Image, Text, Spinner } from 'theme-ui';
 import { Popup } from 'mapbox-gl';
 import Context from '../../DefaultContext';
 import List from '../_primitives/List';
@@ -56,11 +55,11 @@ const Title = ({ properties, config }) => {
 };
 
 const Items = ({ properties, config }) => {
-  const _text = value => {
+  const _text = (value) => {
     return <Text sx={{ display: 'inline' }}>{value}</Text>;
   };
 
-  const _link = value => {
+  const _link = (value) => {
     return (
       <Link href={value} target="_blank" rel="nofollow">
         view link
@@ -68,7 +67,7 @@ const Items = ({ properties, config }) => {
     );
   };
 
-  const _image = value => {
+  const _image = (value) => {
     return (
       <Link href={value} target="_blank" rel="nofollow">
         <Image
@@ -97,7 +96,7 @@ const Items = ({ properties, config }) => {
   };
 
   const attributes = config
-    .filter(attribute => {
+    .filter((attribute) => {
       // is there a valid value in feature properties
       return properties[attribute.field];
     })
@@ -163,7 +162,7 @@ const _popup = (() => {
   let config;
   const configs = {}; // {layerId: {...config}}
   let busy = false;
-  const setBusy = duration => {
+  const setBusy = (duration) => {
     busy = true;
     setTimeout(() => {
       busy = false;
@@ -175,7 +174,7 @@ const _popup = (() => {
     popupContainer = popupContainer;
     map = map;
     config = config;
-    return event => {
+    return (event) => {
       if (busy) {
         return;
       }
@@ -198,7 +197,7 @@ const _popup = (() => {
 
         config
           .intercept(feature.properties)
-          .then(function(properties) {
+          .then(function (properties) {
             ReactDOM.render(
               React.createElement(Container, {
                 properties,
@@ -210,7 +209,7 @@ const _popup = (() => {
             );
             mapPopup.setDOMContent(popupContainer);
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.warn(err);
           });
       } else {
@@ -253,7 +252,7 @@ const _popup = (() => {
 
 const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
   const config = useContext(Context);
-  const {map} = config;
+  const { map } = config;
   const popupContainer = document.createElement('div');
 
   if (!mapExists(map)) {
@@ -261,7 +260,7 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
   }
 
   // register map click event for popup
-  const _registerEvent = config => {
+  const _registerEvent = (config) => {
     const popup = _popup.getInstance(showActions, popupContainer, map, config);
     try {
       map.off('click', config.layerId, popup);
@@ -272,7 +271,7 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
     }
   };
 
-  const _deregisterEvent = config => {
+  const _deregisterEvent = (config) => {
     const popup = _popup.getInstance(showActions, popupContainer, map, config);
     try {
       map.off('click', config.layerId, popup);
@@ -285,19 +284,19 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
   if (disabled) {
     // Unregister any click events
     if (_popup.created()) {
-      layers.forEach(config => {
+      layers.forEach((config) => {
         _deregisterEvent(config);
       });
     }
   } else {
     if (_popup.created()) {
       // reset any existing events
-      layers.forEach(config => {
+      layers.forEach((config) => {
         _deregisterEvent(config);
       });
     }
     // initial register
-    layers.forEach(config => {
+    layers.forEach((config) => {
       _registerEvent(config);
     });
   }

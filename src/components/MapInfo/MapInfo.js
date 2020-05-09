@@ -1,6 +1,6 @@
 // MapInfo Component for viewing position info
 
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import numeral from 'numeral';
 import DefaultContext from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
@@ -16,28 +16,6 @@ const MapInfo = ({ sx, ...rest }) => {
   const [bounds, setBounds] = useState('');
   const [zoom, setZoom] = useState('');
   const [mouseCoords, setMouseCoords] = useState('');
-
-  useEffect(() => {
-    if (mapExists(map)) {
-      map.on('load', () => {
-        displayCenter();
-        displayZoom();
-        displayBounds();
-        map.on('move', () => {
-          displayCenter();
-          displayBounds();
-        });
-        map.on('zoom', () => {
-          displayZoom();
-        });
-        map.on('mousemove', e => {
-          displayMouseCoords(e);
-        });
-      });
-    }
-  }, [map]);
-
-  if (!mapExists(map)) return null;
 
   function displayCenter() {
     const lngLat = `${numeral(map.getCenter().lng).format(
@@ -58,14 +36,38 @@ const MapInfo = ({ sx, ...rest }) => {
   }
 
   function displayBounds() {
-    const bounds = map.getBounds();
-    const display = `[${numeral(bounds._sw.lng).format('0.00000')}, ${numeral(
-      bounds._sw.lat
-    ).format('0.00000')}, ${numeral(bounds._ne.lng).format(
+    const mapBounds = map.getBounds();
+    /* eslint-disable no-underscore-dangle */
+    const display = `[${numeral(mapBounds._sw.lng).format(
       '0.00000'
-    )}, ${numeral(bounds._ne.lat).format('0.00000')}]`;
+    )}, ${numeral(mapBounds._sw.lat).format('0.00000')}, ${numeral(
+      mapBounds._ne.lng
+    ).format('0.00000')}, ${numeral(mapBounds._ne.lat).format('0.00000')}]`;
     setBounds(display);
+    /* eslint-enable no-underscore-dangle */
   }
+
+  useEffect(() => {
+    if (mapExists(map)) {
+      map.on('load', () => {
+        displayCenter();
+        displayZoom();
+        displayBounds();
+        map.on('move', () => {
+          displayCenter();
+          displayBounds();
+        });
+        map.on('zoom', () => {
+          displayZoom();
+        });
+        map.on('mousemove', (e) => {
+          displayMouseCoords(e);
+        });
+      });
+    }
+  }, [map]);
+
+  if (!mapExists(map)) return null;
 
   return (
     <BaseComponent

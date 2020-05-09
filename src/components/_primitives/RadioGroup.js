@@ -11,8 +11,13 @@ import childrenExist from '../../util/childrenExist';
  * @param {Func} checkedValueChange
  */
 
-const RadioGroup = props => {
-  const { children, items, name, checkedValue, checkedValueChange } = props;
+const RadioGroup = (props) => {
+  const {
+    children,
+    items,
+    name,
+    /* checkedValue, */ checkedValueChange
+  } = props;
   const style = {
     bg: 'transparent',
     color: 'primary',
@@ -30,7 +35,7 @@ const RadioGroup = props => {
 
   return (
     <Box {...props} className="cl-radio-group" sx={style}>
-      {items.map(item => {
+      {items.map((item) => {
         return (
           <RadioGroupItem
             key={item.value}

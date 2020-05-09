@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Box } from 'theme-ui';
-import Panel from "./PanelComponent";
+import Panel from './PanelComponent';
 
 const BaseComponent = ({
   children,
@@ -15,22 +15,22 @@ const BaseComponent = ({
   sx,
   ...rest
 }) => {
-  let _top = top || '1rem';
-  let _left = left || '1rem';
+  let topPos = top || '1rem';
+  let leftPos = left || '1rem';
 
   if (bottom) {
-    _top = undefined;
+    topPos = undefined;
   }
 
   if (right) {
-    _left = undefined;
+    leftPos = undefined;
   }
 
   const baseStyle = {
     fontFamily: 'body',
     position: 'absolute',
-    top: _top,
-    left: _left,
+    top: topPos,
+    left: leftPos,
     bottom,
     right,
     zIndex: 2,

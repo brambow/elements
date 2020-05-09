@@ -15,7 +15,7 @@ const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {
           ...sx
         }}
         data-testid="home-button"
-        onClick={e => {
+        onClick={() => {
           if (mapExists(map)) {
             if (initBounds) {
               try {

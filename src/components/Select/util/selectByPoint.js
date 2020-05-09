@@ -11,7 +11,7 @@ export default function selectByPoint(
   selectStyles
 ) {
   const updateObj = {};
-  for (let i = 0; i < layers.length; i++) {
+  for (let i = 0; i < layers.length; i += 1) {
     // get selected features for each active layer
     const selectedFeatures = map.queryRenderedFeatures(point, {
       layers: [layers[i]]
@@ -41,6 +41,7 @@ export default function selectByPoint(
       const sourceName = `${layers[i]}-selected-src`;
 
       const src = sourceExists(map, sourceName);
+      let paint;
       if (!src) {
         map.addSource(sourceName, {
           type: 'geojson',
@@ -57,7 +58,6 @@ export default function selectByPoint(
           style = selectStyles;
         }
 
-        let paint;
         switch (layerType) {
           case 'fill':
             layerType = 'line';
@@ -99,4 +99,5 @@ export default function selectByPoint(
     }
   }
   setSelectedFeatures(updateObj);
+  return true;
 }

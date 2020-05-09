@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import { /* React, */ useContext, useState } from 'react';
 import { ScaleControl } from 'mapbox-gl';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 
-const ScaleBar = props => {
+const ScaleBar = (props) => {
   const { position, maxWidth, unit } = props;
-  const [scale, setScale] = useState(
+  const [scale /* setScale */] = useState(
     new ScaleControl({
       maxWidth: maxWidth || 100,
       unit: unit || 'imperial'

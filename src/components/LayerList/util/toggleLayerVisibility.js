@@ -7,4 +7,5 @@ export default function toggleLayerVisibility(map, layerId, checked) {
   } else {
     map.setLayoutProperty(layerId, 'visibility', 'none');
   }
+  return true;
 }

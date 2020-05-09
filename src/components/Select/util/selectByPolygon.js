@@ -12,7 +12,7 @@ export default function selectByPolygon(
   selectStyles
 ) {
   const updateObj = {};
-  for (let i = 0; i < layers.length; i++) {
+  for (let i = 0; i < layers.length; i += 1) {
     // for each layer initialize an empty array of feature
     let selectedFeatures = [];
 
@@ -21,11 +21,11 @@ export default function selectByPolygon(
       layers: [layers[i]]
     });
 
-    for (let i = 0; i < lyrFeatures.length; i++) {
+    for (let j = 0; j < lyrFeatures.length; j += 1) {
       try {
-        const disjointed = disjoint(lyrFeatures[i], polygon);
+        const disjointed = disjoint(lyrFeatures[j], polygon);
         if (!disjointed) {
-          selectedFeatures.push(lyrFeatures[i]);
+          selectedFeatures.push(lyrFeatures[j]);
         }
       } catch (err) {
         console.error(err);
@@ -35,13 +35,13 @@ export default function selectByPolygon(
     // filter selected features array to dedpulicate
     // hard problem: https://github.com/mapbox/mapbox-gl-js/issues/3099
     // we do it based on matching stringified properties object, doesn't work perfectly
-    const stringArray = selectedFeatures.map(feat => {
+    const stringArray = selectedFeatures.map((feat) => {
       return JSON.stringify(feat);
     });
 
     const uniqStrArray = [...new Set(stringArray)];
 
-    selectedFeatures = uniqStrArray.map(item => {
+    selectedFeatures = uniqStrArray.map((item) => {
       return JSON.parse(item);
     });
     // end deduplication attempt
@@ -121,4 +121,5 @@ export default function selectByPolygon(
     }
   }
   setSelectedFeatures(updateObj);
+  return true;
 }

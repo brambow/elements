@@ -1,5 +1,4 @@
 import { mapboxSuggest } from './suggest';
-import config from '../../../config';
 
 const handleSearchInputChange = async (
   value,
@@ -7,10 +6,7 @@ const handleSearchInputChange = async (
   setSuggestions,
   mapboxToken
 ) => {
-  let searchSuggestions;
-
-  searchSuggestions = await mapboxSuggest(value, mapboxToken);
-
+  const searchSuggestions = await mapboxSuggest(value, mapboxToken);
   setSearchValue(value);
   setSuggestions(searchSuggestions);
 };

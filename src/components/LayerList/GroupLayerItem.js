@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Label, Radio } from '@theme-ui/components';
+import { Flex, Box, Text, Label, Radio } from 'theme-ui';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -17,15 +17,16 @@ const GroupLayerItem = ({
 }) => {
   const [style, setStyle] = useState();
 
-  const {layerIds} = layerInfo;
+  const { layerIds } = layerInfo;
 
-  const handleRadioChange = e => {
+  const handleRadioChange = (e) => {
     const value = e.currentTarget.value.split(',');
     callback(value);
   };
 
   useEffect(() => {
-    let layerVisibility; let checked;
+    let layerVisibility;
+    let checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
         map.once('idle', () => {
@@ -56,7 +57,7 @@ const GroupLayerItem = ({
       <Box>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
-          key={`${layerInfo.layerName  }-legend`}
+          key={`${layerInfo.layerName}-legend`}
         >
           {style}
         </ListItem>
@@ -71,7 +72,7 @@ const GroupLayerItem = ({
           <Label>
             <Radio
               name={group}
-              onChange={e => {
+              onChange={(e) => {
                 handleRadioChange(e);
               }}
               value={layerInfo.layerIds}

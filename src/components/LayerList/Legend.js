@@ -1,46 +1,16 @@
 /** @jsx jsx */
-import { jsx, Flex } from 'theme-ui';
-import React from 'react';
-import { Box, Text } from 'theme-ui';
+/*  eslint-disable no-underscore-dangle */
+import { jsx, Box, Text } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 
-const buildStyle = lyr => {
-  const {type} = lyr;
-
-  // https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers
-  try {
-    switch (type) {
-      case 'fill':
-        return fill(lyr.paint);
-      case 'circle':
-        return circle(lyr.paint);
-      case 'line':
-        return line(lyr.paint);
-      case 'symbol':
-        return symbol(lyr.paint);
-      case 'heatmap':
-        return heatmap(lyr.paint);
-      case 'fill-extrusion':
-        return fillExtrusion(lyr.paint);
-      case 'raster':
-        return raster(lyr.paint);
-      case 'hillshade':
-        return hillshade(lyr.paint);
-      case 'background':
-        return background(lyr.paint);
-      default:
-        return false;
-    }
-  } catch (err) {
-    // top level error handling.... better just to render nothing
-    console.warn(err);
-    return false;
-  }
+const buildStyle = (lyr) => {
+  const { type } = lyr;
 
   // fill-color, fill-opacity, fill-outline-color, fill-pattern
   function fill(paint) {
-    let fc; let foc;
+    let fc;
+    let foc;
 
     // Is this a data driven paint style?
     if (
@@ -70,11 +40,11 @@ const buildStyle = lyr => {
     const Items = () => {
       let styles = [];
       if (fc.length > 2) {
-        styles = fc.map(l => {
+        styles = fc.map((l) => {
           return [...l, foc[0]];
         });
       } else if (foc.length > 2) {
-        styles = foc.map(l => {
+        styles = foc.map((l) => {
           return [...l, fc[0]];
         });
       } else {
@@ -130,10 +100,12 @@ const buildStyle = lyr => {
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
-    let cc; /* csc, */ let cr; let flexGrow; let textAlign;
+    /* csc, */ let cr;
+    let flexGrow;
+    let textAlign;
 
     // Is circle-color a data driven paint style?
-    cc = paint.get('circle-color').value.value.toString();
+    const cc = paint.get('circle-color').value.value.toString();
     // if(paint.get('circle-color').value._parameters && paint.get('circle-color').value._parameters.hasOwnProperty('stops')) {
     //   cc = paint.get('circle-color').value._parameters.stops;
     // } else {
@@ -161,15 +133,15 @@ const buildStyle = lyr => {
       flexGrow = 1;
       textAlign = 'left';
       cr = [paint.get('circle-radius').value.value.toString()];
-      if(+cr[0] < 8) {
-        cr = ["8"];
+      if (+cr[0] < 8) {
+        cr = ['8'];
       }
     }
 
     const Items = () => {
       let styles = [];
       if (cr.length > 1) {
-        styles = cr.map(l => {
+        styles = cr.map((l) => {
           return [...l];
         });
       } else {
@@ -230,7 +202,7 @@ const buildStyle = lyr => {
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
     let lc;
-    const {kind} = paint.get('line-color').value;
+    const { kind } = paint.get('line-color').value;
     if (kind === 'source' || kind === 'constant') {
       // is it a data-driven style?
       if (
@@ -245,7 +217,7 @@ const buildStyle = lyr => {
       const Items = () => {
         let styles = [];
         if (lc.length > 1) {
-          styles = lc.map(l => {
+          styles = lc.map((l) => {
             return [...l];
           });
         } else {
@@ -297,7 +269,8 @@ const buildStyle = lyr => {
           <Items />
         </List>
       );
-    } if (paint.get('line-color').value.kind === 'composite') {
+    }
+    if (paint.get('line-color').value.kind === 'composite') {
       try {
         lc = paint
           .get('line-color')
@@ -326,7 +299,6 @@ const buildStyle = lyr => {
           </List>
         );
       } catch (err) {
-        console.log('Problem getting line color');
         console.error(err);
         return false;
       }
@@ -336,35 +308,67 @@ const buildStyle = lyr => {
     }
   }
 
-  function symbol(val) {
+  function symbol(/* val */) {
     console.log('legend cannot render symbol yet');
     return false;
   }
 
-  function heatmap(val) {
+  function heatmap(/* val */) {
     console.log('legend cannot render heatmap yet');
     return false;
   }
 
-  function fillExtrusion(val) {
+  function fillExtrusion(/* val */) {
     console.log('legend cannot render fill-extrusion yet');
     return false;
   }
 
-  function raster(val) {
+  function raster(/* val */) {
     console.log('legend cannot render raster yet');
     return false;
   }
 
-  function hillshade(val) {
+  function hillshade(/* val */) {
     console.log('legend cannot render hillshade yet');
     return false;
   }
 
-  function background(val) {
+  function background(/* val */) {
     console.log('legend cannot render background yet');
     return false;
   }
+
+  // https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers
+  try {
+    switch (type) {
+      case 'fill':
+        return fill(lyr.paint);
+      case 'circle':
+        return circle(lyr.paint);
+      case 'line':
+        return line(lyr.paint);
+      case 'symbol':
+        return symbol(lyr.paint);
+      case 'heatmap':
+        return heatmap(lyr.paint);
+      case 'fill-extrusion':
+        return fillExtrusion(lyr.paint);
+      case 'raster':
+        return raster(lyr.paint);
+      case 'hillshade':
+        return hillshade(lyr.paint);
+      case 'background':
+        return background(lyr.paint);
+      default:
+        return false;
+    }
+  } catch (err) {
+    // top level error handling.... better just to render nothing
+    console.warn(err);
+    return false;
+  }
+  å;
 };
 
 export { buildStyle };
+/*  eslint-enable no-underscore-dangle */
