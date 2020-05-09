@@ -1,0 +1,7 @@
+/node_modules
+/.storybook
+/dist
+/docs
+/.github
+/src/components/**/*.test.js
+/src/components/**/*.stories.js
