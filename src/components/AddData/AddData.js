@@ -346,16 +346,8 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
       return tmpLayers.map((layerId, i) => {
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={`${layerId}-${i}`}
-            /*             media={
-              <Checkbox
-                onChange={() => {
-                  handleChange(layerId);
-                }}
-                defaultChecked={isVisible(layerId)}
-              />
-            } */
-            // content={layerId}
           >
             {' '}
             <Label>
@@ -374,15 +366,23 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
 
     return (
       <div style={{ width: '100%' }}>
-        <a
-          href="#"
+        <Button
+          sx={{
+            fontSize: 0,
+            textDecoration: 'underline',
+            color: 'primary',
+            backgroundColor: 'background',
+            ':hover': {
+              backgroundColor: 'background'
+            }
+          }}
           onClick={(e) => {
             e.preventDefault();
             setTab('file');
           }}
         >
           &lt;&lt; Back
-        </a>
+        </Button>
         <Box sx={{ marginTop: '0.5rem' }} content={<List>{items()}</List>} />
       </div>
     );
