@@ -4,9 +4,9 @@
  * @returns {Boolean}
  */
 
-const childrenExist = children => {
+const childrenExist = (children) => {
   if (children === null || children === undefined) return false;
-
+  // eslint-disable-next-line no-restricted-globals
   if (typeof children === 'number') return !isNaN(children);
 
   if (Array.isArray(children)) return children.length > 0;

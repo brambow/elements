@@ -30,7 +30,7 @@ const Select = ({
 }) => {
   const config = useContext(Context);
   const { map } = config;
-  const [selectActive, setSelectActive] = useState(false);
+  // const [selectActive, setSelectActive] = useState(false);
   // @options:currentMode - off, draw_polygon, draw_point
   const [currentMode, setCurrentMode] = useState(null);
   const [activeSelectLayers, setActiveSelectLayers] = useState(
@@ -40,6 +40,21 @@ const Select = ({
   const [selectControl, setSelectControl] = useState();
   const [alert, setAlert] = useState(null);
   const [selectionGeometry, setSelectionGeometry] = useState(null);
+
+  const polyEvent = (e, select) => {
+    const polygon = e.features[0];
+    setSelectionGeometry(polygon);
+    selectByPolygon(
+      activeSelectLayers,
+      polygon,
+      map,
+      selectedFeatures,
+      setSelectedFeatures,
+      selectStyles // optional
+    );
+    select.deleteAll();
+    setCurrentMode('none');
+  };
 
   const startSelect = async (type) => {
     let select = selectControl || false;
@@ -61,12 +76,12 @@ const Select = ({
     switch (type) {
       case 'draw_point':
         map.on('click', pointEvent);
-        break;
+        return true;
       case 'draw_polygon':
         map.once('draw.create', (e) => {
           polyEvent.call(this, e, select);
         });
-        break;
+        return true;
       default:
         return null;
     }
@@ -96,12 +111,13 @@ const Select = ({
   const toggleSelect = (mode) => {
     map.off('click', pointEvent);
     if (mode === 'none') {
-      setSelectActive(false);
+      // setSelectActive(false);
+      setCurrentMode('none');
     } else if (currentMode === mode) {
-      setSelectActive(false);
+      // setSelectActive(false);
       setCurrentMode('none');
     } else if (activeSelectLayers.length > 0) {
-      setSelectActive(true);
+      // setSelectActive(true);
       setCurrentMode(mode);
     } else {
       setAlert(
@@ -130,22 +146,7 @@ const Select = ({
     selectControl.deleteAll();
   };
 
-  const polyEvent = (e, select) => {
-    const polygon = e.features[0];
-    setSelectionGeometry(polygon);
-    selectByPolygon(
-      activeSelectLayers,
-      polygon,
-      map,
-      selectedFeatures,
-      setSelectedFeatures,
-      selectStyles // optional
-    );
-    select.deleteAll();
-    setCurrentMode('none');
-  };
-
-  const _resetSelection = () => {
+  const resetSelection = () => {
     const layers = Object.keys(selectedFeatures);
     setSelectedFeatures({});
     layers.map((layer) => {
@@ -156,8 +157,9 @@ const Select = ({
         map.removeLayer(`${layer}-selected`);
         map.removeSource(`${layer}-selected-src`);
       }
+      return true;
     });
-    setSelectActive(false);
+    // setSelectActive(false);
     setCurrentMode('none');
     selectControl.deleteAll();
   };
@@ -236,7 +238,7 @@ const Select = ({
               !(selectedFeatures && Object.keys(selectedFeatures).length > 0)
             }
             onClick={() => {
-              _resetSelection();
+              resetSelection();
             }}
           >
             Reset
