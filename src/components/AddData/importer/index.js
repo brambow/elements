@@ -11,7 +11,7 @@ const config = {
 class Importer {
   constructor() {
     this.reader = new FileReader();
-    this.reader.onload = this._handleFile.bind(this);
+    this.reader.onload = this.handleFile.bind(this);
   }
 
   load(file, cb) {
@@ -19,7 +19,7 @@ class Importer {
     if (!cb) throw 'Callback Required';
     this.cb = cb;
     this.file = file;
-    this.fileExt = this._getExtension();
+    this.fileExt = this.getExtension();
     this.fileDetails = {
       fileSize: this.file.size,
       fileName: this.file.name,
@@ -30,53 +30,53 @@ class Importer {
         error: 'File must be less than 20mb',
         fileDetails: this.fileDetails
       });
-    } else if (this.fileExt.toLowerCase() == 'zip') {
-        this.reader.readAsArrayBuffer(this.file);
-      } else {
-        this.reader.readAsText(this.file, 'UTF-8');
-      }
+    } else if (this.fileExt.toLowerCase() === 'zip') {
+      this.reader.readAsArrayBuffer(this.file);
+    } else {
+      this.reader.readAsText(this.file, 'UTF-8');
+    }
   }
 
-  _getExtension() {
+  getExtension() {
     const fArr = this.file.name.split('.');
     return fArr[fArr.length - 1];
   }
 
-  _handleFile(evt) {
+  handleFile(evt) {
     switch (this.fileExt.toLowerCase()) {
       case 'csv':
-        this._handleCSV(evt);
+        this.handleCSV(evt);
         break;
       case 'kml':
-        this._handleKML(evt);
+        this.handleKML(evt);
         break;
       case 'geojson':
       case 'topojson':
       case 'json':
-        this._handleJSON(evt);
+        this.handleJSON(evt);
         break;
       case 'gpx':
-        this._handleGPX(evt);
+        this.handleGPX(evt);
         break;
       case 'igc':
-        this._handleIGC(evt);
+        this.handleIGC(evt);
         break;
       case 'zip':
-        this._handleSHP(evt);
+        this.handleSHP(evt);
         break;
       default:
-        this._notRecognized();
+        this.notRecognized();
         break;
     }
   }
 
-  _handleJSON(evt) {
+  handleJSON(evt) {
     try {
       const res = JSON.parse(evt.target.result);
-      if (res.type && res.type.toLowerCase() == 'topology') {
-        this._handleTopoJSON(evt);
+      if (res.type && res.type.toLowerCase() === 'topology') {
+        this.handleTopoJSON(evt);
       } else {
-        this._handleGeoJSON(evt);
+        this.handleGeoJSON(evt);
       }
     } catch (err) {
       this.cb({
@@ -86,14 +86,14 @@ class Importer {
     }
   }
 
-  _handleCSV(evt) {
+  handleCSV(evt) {
     const latitudes = ['y', 'lat', 'latitude'];
     const longitudes = ['x', 'lng', 'lon', 'long', 'longitude'];
     let latitude;
     let longitude;
     const csv = evt.target.result;
     const header = csv.split('\n')[0].split(',');
-    header.forEach(column => {
+    header.forEach((column) => {
       if (latitudes.indexOf(column.toLowerCase().trim()) !== -1) {
         latitude = column.trim();
       }
@@ -102,7 +102,9 @@ class Importer {
       }
     });
     if (!longitude || !latitude) {
-      throw 'no latitude (y, lat, latitude) or longitude (x, lng, long, longitude) field found';
+      throw new Error(
+        'no latitude (y, lat, latitude) or longitude (x, lng, long, longitude) field found'
+      );
     }
     csv2geojson.csv2geojson(
       csv,
@@ -117,7 +119,7 @@ class Importer {
     );
   }
 
-  _handleKML(evt) {
+  handleKML(evt) {
     const xml = new window.DOMParser().parseFromString(
       evt.target.result,
       'application/xml'
@@ -126,15 +128,15 @@ class Importer {
     this.cb(this.fileDetails, geojson);
   }
 
-  _handleGeoJSON(evt) {
+  handleGeoJSON(evt) {
     this.cb(this.fileDetails, JSON.parse(evt.target.result));
   }
 
-  _handleTopoJSON(evt) {
+  handleTopoJSON(evt) {
     console.log('handle as topojson');
   }
 
-  _handleGPX(evt) {
+  handleGPX(evt) {
     const xml = new window.DOMParser().parseFromString(
       evt.target.result,
       'application/xml'
@@ -143,19 +145,19 @@ class Importer {
     this.cb(this.fileDetails, geojson);
   }
 
-  _handleIGC(evt) {
+  handleIGC(evt) {
     console.log('handle as igc');
   }
 
-  _handleSHP(evt) {
+  handleSHP(evt) {
     const geojson = shpjs.parseZip(evt.target.result);
     this.cb(this.fileDetails, geojson);
   }
 
-  _notRecognized() {
+  notRecognized() {
     console.log('sorry, i didnt recognize this format');
     this.cb({
-      error: `File format ${  this.fileExt  } not recognized.`,
+      error: `File format ${this.fileExt} not recognized.`,
       fileDetails: this.fileDetails
     });
   }

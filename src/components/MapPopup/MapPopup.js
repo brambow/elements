@@ -36,7 +36,8 @@ const Container = ({ properties, config, showActions, feature }) => {
 };
 
 const Title = ({ properties, config }) => {
-  if (!properties.hasOwnProperty(config.field)) return null;
+  if (!Object.prototype.hasOwnProperty.call(properties, config.field))
+    return null;
   return (
     <Box
       sx={{
@@ -55,11 +56,11 @@ const Title = ({ properties, config }) => {
 };
 
 const Items = ({ properties, config }) => {
-  const _text = (value) => {
+  const setText = (value) => {
     return <Text sx={{ display: 'inline' }}>{value}</Text>;
   };
 
-  const _link = (value) => {
+  const setLink = (value) => {
     return (
       <Link href={value} target="_blank" rel="nofollow">
         view link
@@ -67,7 +68,7 @@ const Items = ({ properties, config }) => {
     );
   };
 
-  const _image = (value) => {
+  const setImage = (value) => {
     return (
       <Link href={value} target="_blank" rel="nofollow">
         <Image
@@ -81,17 +82,16 @@ const Items = ({ properties, config }) => {
     );
   };
 
-  const _buildValue = (type, value) => {
+  const buildValue = (type, value) => {
     switch (type) {
       case 'text':
-        return _text(value);
-        break;
+        return setText(value);
       case 'link':
-        return _link(value);
-        break;
+        return setLink(value);
       case 'image':
-        return _image(value);
-        break;
+        return setImage(value);
+      default:
+        return false;
     }
   };
 
@@ -100,7 +100,7 @@ const Items = ({ properties, config }) => {
       // is there a valid value in feature properties
       return properties[attribute.field];
     })
-    .map((attribute, idx) => {
+    .map((attribute) => {
       const label = attribute.label ? `${attribute.label}:` : null;
       return (
         <ListItem
@@ -108,7 +108,7 @@ const Items = ({ properties, config }) => {
             margin: 0,
             padding: 0
           }}
-          key={idx}
+          key={attribute.label}
         >
           <Box>
             <Text
@@ -122,11 +122,11 @@ const Items = ({ properties, config }) => {
               {label}
             </Text>
             {attribute.expression
-              ? _buildValue(
+              ? buildValue(
                   attribute.type,
                   attribute.expression(properties[attribute.field])
                 )
-              : _buildValue(attribute.type, properties[attribute.field])}
+              : buildValue(attribute.type, properties[attribute.field])}
           </Box>
         </ListItem>
       );
@@ -154,12 +154,12 @@ const Items = ({ properties, config }) => {
 };
 
 // Singleton To Point to Same Function In Memory
-const _popup = (() => {
+const mPopup = (() => {
   let instance;
-  let showActions;
-  let popupContainer;
-  let map;
-  let config;
+  // let showActions;
+  // let popupContainer;
+  // let map;
+  // let config;
   const configs = {}; // {layerId: {...config}}
   let busy = false;
   const setBusy = (duration) => {
@@ -170,10 +170,10 @@ const _popup = (() => {
   };
 
   const createInstance = (showActions, popupContainer, map, config) => {
-    showActions = showActions;
-    popupContainer = popupContainer;
-    map = map;
-    config = config;
+    // showActions = showActions;
+    // popupContainer = popupContainer;
+    // map = map;
+    // config = config;
     return (event) => {
       if (busy) {
         return;
@@ -250,7 +250,7 @@ const _popup = (() => {
   };
 })();
 
-const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
+const MapPopup = ({ layers, showActions, disabled }) => {
   const config = useContext(Context);
   const { map } = config;
   const popupContainer = document.createElement('div');
@@ -260,21 +260,21 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
   }
 
   // register map click event for popup
-  const _registerEvent = (config) => {
-    const popup = _popup.getInstance(showActions, popupContainer, map, config);
+  const registerEvent = (cfg) => {
+    const popup = mPopup.getInstance(showActions, popupContainer, map, cfg);
     try {
-      map.off('click', config.layerId, popup);
-      map.on('click', config.layerId, popup);
+      map.off('click', cfg.layerId, popup);
+      map.on('click', cfg.layerId, popup);
     } catch (err) {
       // map has not loaded yet.
       // console.warn(err);
     }
   };
 
-  const _deregisterEvent = (config) => {
-    const popup = _popup.getInstance(showActions, popupContainer, map, config);
+  const deregisterEvent = (cfg) => {
+    const popup = mPopup.getInstance(showActions, popupContainer, map, cfg);
     try {
-      map.off('click', config.layerId, popup);
+      map.off('click', cfg.layerId, popup);
     } catch (err) {
       // map has not loaded yet.
       // console.warn(err);
@@ -283,21 +283,21 @@ const MapPopup = ({ panel = false, layers, showActions, disabled }) => {
 
   if (disabled) {
     // Unregister any click events
-    if (_popup.created()) {
-      layers.forEach((config) => {
-        _deregisterEvent(config);
+    if (mPopup.created()) {
+      layers.forEach((cfg) => {
+        deregisterEvent(cfg);
       });
     }
   } else {
-    if (_popup.created()) {
+    if (mPopup.created()) {
       // reset any existing events
-      layers.forEach((config) => {
-        _deregisterEvent(config);
+      layers.forEach((cfg) => {
+        deregisterEvent(cfg);
       });
     }
     // initial register
-    layers.forEach((config) => {
-      _registerEvent(config);
+    layers.forEach((cfg) => {
+      registerEvent(cfg);
     });
   }
 

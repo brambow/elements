@@ -11,30 +11,32 @@ const buildStyle = (lyr) => {
   function fill(paint) {
     let fc;
     let foc;
-
+    const fcValue = paint.get('fill-color').value;
+    const focValue = paint.get('fill-outline-color').value;
     // Is this a data driven paint style?
     if (
-      paint.get('fill-color').value._parameters &&
-      paint.get('fill-color').value._parameters.hasOwnProperty('stops')
+      fcValue._parameters &&
+      Object.prototype.hasOwnProperty.call(fcValue._parameters, 'stops')
+      // fcValue._parameters.hasOwnProperty('stops')
     ) {
-      // fc = paint.get('fill-color').value._parameters.stops.map((s) => {
+      // fc = fcValue._parameters.stops.map((s) => {
       //   return [s[0], s[1]];
       // });
-      fc = paint.get('fill-color').value._parameters.stops;
+      fc = fcValue._parameters.stops;
     } else {
-      fc = [paint.get('fill-color').value.value.toString()];
+      fc = [fcValue.value.toString()];
     }
 
     if (
-      paint.get('fill-outline-color').value._parameters &&
-      paint.get('fill-outline-color').value._parameters.hasOwnProperty('stops')
+      focValue._parameters &&
+      Object.prototype.hasOwnProperty.call(focValue._parameters, 'stops')
     ) {
-      // foc = paint.get('fill-outline-color').value._parameters.stops.map((s) => {
+      // foc = focValue._parameters.stops.map((s) => {
       //   return [s[0], s[1]];
       // });
-      foc = paint.get('fill-outline-color').value._parameters.stops;
+      foc = focValue._parameters.stops;
     } else {
-      foc = [paint.get('fill-outline-color').value.value.toString()];
+      foc = [focValue.value.toString()];
     }
 
     const Items = () => {
@@ -54,6 +56,7 @@ const buildStyle = (lyr) => {
       const svgs = styles.map((s, i) => {
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             sx={{
               margin: 0,
@@ -119,20 +122,20 @@ const buildStyle = (lyr) => {
     // } else {
     //   csc = [paint.get('circle-stroke-color').value.value.toString()];
     // }
-
+    const crValue = paint.get('circle-radius').value;
     // Is circle-radius a data driven paint style?
     if (
-      paint.get('circle-radius').value._parameters &&
-      paint.get('circle-radius').value._parameters.hasOwnProperty('stops') &&
-      paint.get('circle-radius').value.kind === 'source'
+      crValue._parameters &&
+      Object.prototype.hasOwnProperty.call(crValue._parameters, 'stops') &&
+      crValue.kind === 'source'
     ) {
       flexGrow = 6;
       textAlign = 'center';
-      cr = paint.get('circle-radius').value._parameters.stops;
+      cr = crValue._parameters.stops;
     } else {
       flexGrow = 1;
       textAlign = 'left';
-      cr = [paint.get('circle-radius').value.value.toString()];
+      cr = [crValue.value.toString()];
       if (+cr[0] < 8) {
         cr = ['8'];
       }
@@ -149,9 +152,10 @@ const buildStyle = (lyr) => {
       }
 
       const svgs = styles.map((s, i) => {
-        const cr = +s[1] + +s[1] * 0.75;
+        const cSize = +s[1] + +s[1] * 0.75;
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             sx={{
               margin: 0,
@@ -161,11 +165,11 @@ const buildStyle = (lyr) => {
             }}
           >
             <Box sx={{ flexGrow, textAlign }}>
-              <svg width={cr} height={cr}>
+              <svg width={cSize} height={cSize}>
                 <circle
-                  cx={cr / 2.0}
-                  cy={cr / 2.0}
-                  r={cr / 2.0 - 0.5}
+                  cx={cSize / 2.0}
+                  cy={cSize / 2.0}
+                  r={cSize / 2.0 - 0.5}
                   sx={{
                     fill: cc
                   }}
@@ -202,16 +206,17 @@ const buildStyle = (lyr) => {
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
     let lc;
-    const { kind } = paint.get('line-color').value;
+    const lcValue = paint.get('line-color').value;
+    const { kind } = lcValue;
     if (kind === 'source' || kind === 'constant') {
       // is it a data-driven style?
       if (
-        paint.get('line-color').value._parameters &&
-        paint.get('line-color').value._parameters.hasOwnProperty('stops')
+        lcValue._parameters &&
+        Object.prototype.hasOwnProperty.call(lcValue._parameters, 'stops')
       ) {
-        lc = paint.get('line-color').value._parameters.stops;
+        lc = lcValue._parameters.stops;
       } else {
-        lc = [paint.get('line-color').value.value.toString()];
+        lc = [lcValue.value.toString()];
       }
 
       const Items = () => {
@@ -227,6 +232,7 @@ const buildStyle = (lyr) => {
         const svgs = styles.map((s, i) => {
           return (
             <ListItem
+              // eslint-disable-next-line react/no-array-index-key
               key={i}
               sx={{
                 margin: 0,
@@ -367,8 +373,8 @@ const buildStyle = (lyr) => {
     console.warn(err);
     return false;
   }
-  å;
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export { buildStyle };
 /*  eslint-enable no-underscore-dangle */

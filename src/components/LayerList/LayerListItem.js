@@ -24,12 +24,11 @@ const LayerListItem = ({
       if (checked) {
         setIsChecked(true);
         toggleLayerVisibility(map, layerId, true);
-        return true;
       } else {
         setIsChecked(false);
         toggleLayerVisibility(map, layerId, false);
-        return true;
       }
+      return true;
     });
   };
 
