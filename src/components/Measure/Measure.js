@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Flex, Button, Box, Text, Select } from 'theme-ui';
-import ButtonGroup from '../_primitives/ButtonGroup';
-import Context from '../../DefaultContext';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import mapExists from '../../util/mapExists';
 import { MdTimeline as LineIcon } from 'react-icons/md';
 import {
   FaDrawPolygon as PolygonIcon,
   FaTrash as TrashIcon
 } from 'react-icons/fa';
-import calculateMeasurements from './calculateMeasurements';
 import numeral from 'numeral';
+
+import ButtonGroup from '../_primitives/ButtonGroup';
+import Context from '../../DefaultContext';
+import mapExists from '../../util/mapExists';
+import calculateMeasurements from './calculateMeasurements';
 import BaseComponent from '../_common/BaseComponent';
+
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 const Measure = ({ sx, ...rest }) => {
   const config = useContext(Context);
@@ -26,6 +28,21 @@ const Measure = ({ sx, ...rest }) => {
   const lengthOptions = ['m', 'ft', 'km', 'mi'];
   const areaOptions = ['m²', 'ft²', 'km²', 'mi²', 'ac'];
 
+  async function handleMeasurement() {
+    if (measureControl) {
+      const { features } = measureControl.getAll();
+
+      if (features && features.length > 0) {
+        const feature = features[0];
+
+        const drawnMeasurements = await calculateMeasurements(feature, units); //eslint-disable-line
+
+        setMeasurement(drawnMeasurements);
+        // setLinePopupOpen(true);
+      }
+    }
+  }
+
   useEffect(() => {
     handleMeasurement();
   }, [units]);
@@ -34,12 +51,12 @@ const Measure = ({ sx, ...rest }) => {
     return null;
   }
 
-  const changeUnits = e => {
+  const changeUnits = (e) => {
     setUnits(e.currentTarget.value);
   };
 
   async function startDraw(type) {
-    console.log(`start measure ${type}`);
+    // console.log(`start measure ${type}`);
     if (!mapExists(map)) return;
     let measure = measureControl || false;
 
@@ -66,21 +83,6 @@ const Measure = ({ sx, ...rest }) => {
     setShowDelete(true);
   }
 
-  async function handleMeasurement() {
-    if (measureControl) {
-      const { features } = measureControl.getAll();
-
-      if (features && features.length > 0) {
-        const feature = features[0];
-
-        const drawnMeasurements = await calculateMeasurements(feature, units); //eslint-disable-line
-
-        setMeasurement(drawnMeasurements);
-        // setLinePopupOpen(true);
-      }
-    }
-  }
-
   function reset() {
     measureControl.deleteAll();
     setMeasurement(0);
@@ -90,15 +92,15 @@ const Measure = ({ sx, ...rest }) => {
     setLinePopupOpen(false);
   }
 
-  map.on('draw.create', e => {
-    // if (measureControl) {
-    //   setTimeout(function() {
-    //     measureControl.deleteAll();
-    //   }, 2000);
-    // }
-  });
+  // map.on('draw.create', (e) => {
+  //   // if (measureControl) {
+  //   //   setTimeout(function() {
+  //   //     measureControl.deleteAll();
+  //   //   }, 2000);
+  //   // }
+  // });
 
-  map.on('draw.render', e => {
+  map.on('draw.render', (/* e */) => {
     handleMeasurement();
   });
 
@@ -136,7 +138,7 @@ const Measure = ({ sx, ...rest }) => {
           onChange={changeUnits}
           defaultValue={lengthOptions[0]}
         >
-          {lengthOptions.map(option => (
+          {lengthOptions.map((option) => (
             <option key={option}>{option}</option>
           ))}
         </Select>
@@ -160,7 +162,7 @@ const Measure = ({ sx, ...rest }) => {
           onChange={changeUnits}
           defaultValue={areaOptions[0]}
         >
-          {areaOptions.map(option => (
+          {areaOptions.map((option) => (
             <option key={option}>{option}</option>
           ))}
         </Select>
@@ -221,7 +223,7 @@ const Measure = ({ sx, ...rest }) => {
         height="32px"
         width={135}
         sx={{
-          display: display,
+          display,
           borderColor: 'white',
           borderWidth: 1,
           borderStyle: 'solid'

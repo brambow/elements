@@ -180,6 +180,7 @@ const mPopup = (() => {
       }
       setBusy(10);
       const feature = event.features[0];
+      // eslint-disable-next-line no-param-reassign
       config = configs[feature.layer.id];
       if (config.intercept) {
         // Initial render loading icon

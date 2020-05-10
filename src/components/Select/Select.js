@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Heading, Flex } from 'theme-ui';
+import { MdPlace as PointIcon } from 'react-icons/md';
+import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
-import { MdPlace as PointIcon } from 'react-icons/md';
-import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
 import SelectLayerItem from './SelectLayerItem';
 import selectByPoint from './util/selectByPoint';
 import selectByPolygon from './util/selectByPolygon';
@@ -15,15 +15,15 @@ const listener = {
   pointEvent: undefined
 };
 function pointEvent(e) {
-  if (listener['pointEvent']) {
-    listener['pointEvent'](e);
+  if (listener.pointEvent) {
+    listener.pointEvent(e);
   }
 }
 
 const Select = ({
   selectableLayers,
   showSelectableLayers,
-  onSelectCallback, //callback(selectionShape, selectedFeatures)
+  onSelectCallback, // callback(selectionShape, selectedFeatures)
   selectStyles,
   panel,
   ...rest
@@ -41,84 +41,7 @@ const Select = ({
   const [alert, setAlert] = useState(null);
   const [selectionGeometry, setSelectionGeometry] = useState(null);
 
-  useEffect(() => {
-    if (!mapExists(map)) return;
-    if (currentMode == 'none') {
-      return;
-    }
-    _startSelect(currentMode);
-  }, [currentMode]);
-
-  useEffect(() => {
-    if (selectionGeometry && selectionGeometry.geometry) {
-      const geom = selectionGeometry.geometry;
-      if (Object.keys(selectedFeatures).length > 0) {
-        if (onSelectCallback) {
-          onSelectCallback(geom, selectedFeatures);
-        }
-      }
-    }
-  }, [selectedFeatures, selectionGeometry]);
-
-  if (!mapExists(map)) return null;
-
-  const _toggleSelect = mode => {
-    map.off('click', pointEvent);
-    if (mode === 'none') {
-      setSelectActive(false);
-    } else {
-      if (currentMode == mode) {
-        setSelectActive(false);
-        setCurrentMode('none');
-      } else {
-        if (activeSelectLayers.length > 0) {
-          setSelectActive(true);
-          setCurrentMode(mode);
-        } else {
-          setAlert(
-            <div style={{ color: 'red', margin: 1, padding: 1 }}>
-              No layers have been selected!
-            </div>
-          );
-          setCurrentMode('none');
-          setTimeout(function() {
-            setAlert(null);
-          }, 1000);
-        }
-      }
-    }
-  };
-
-  listener['pointEvent'] = e => {
-    const point = e.point;
-    setSelectionGeometry(point);
-    selectByPoint(
-      activeSelectLayers,
-      point,
-      map,
-      selectedFeatures,
-      setSelectedFeatures,
-      selectStyles //optional
-    );
-    selectControl.deleteAll();
-  };
-
-  const _polyEvent = (e, select) => {
-    const polygon = e.features[0];
-    setSelectionGeometry(polygon);
-    selectByPolygon(
-      activeSelectLayers,
-      polygon,
-      map,
-      selectedFeatures,
-      setSelectedFeatures,
-      selectStyles //optional
-    );
-    select.deleteAll();
-    setCurrentMode('none');
-  };
-
-  const _startSelect = async type => {
+  const startSelect = async (type) => {
     let select = selectControl || false;
 
     if (!selectControl) {
@@ -140,8 +63,8 @@ const Select = ({
         map.on('click', pointEvent);
         break;
       case 'draw_polygon':
-        map.once('draw.create', e => {
-          _polyEvent.call(this, e, select);
+        map.once('draw.create', (e) => {
+          polyEvent.call(this, e, select);
         });
         break;
       default:
@@ -149,10 +72,83 @@ const Select = ({
     }
   };
 
+  useEffect(() => {
+    if (!mapExists(map)) return;
+    if (currentMode === 'none') {
+      return;
+    }
+    startSelect(currentMode);
+  }, [currentMode]);
+
+  useEffect(() => {
+    if (selectionGeometry && selectionGeometry.geometry) {
+      const geom = selectionGeometry.geometry;
+      if (Object.keys(selectedFeatures).length > 0) {
+        if (onSelectCallback) {
+          onSelectCallback(geom, selectedFeatures);
+        }
+      }
+    }
+  }, [selectedFeatures, selectionGeometry]);
+
+  if (!mapExists(map)) return null;
+
+  const toggleSelect = (mode) => {
+    map.off('click', pointEvent);
+    if (mode === 'none') {
+      setSelectActive(false);
+    } else if (currentMode === mode) {
+      setSelectActive(false);
+      setCurrentMode('none');
+    } else if (activeSelectLayers.length > 0) {
+      setSelectActive(true);
+      setCurrentMode(mode);
+    } else {
+      setAlert(
+        <div style={{ color: 'red', margin: 1, padding: 1 }}>
+          No layers have been selected!
+        </div>
+      );
+      setCurrentMode('none');
+      setTimeout(function () {
+        setAlert(null);
+      }, 1000);
+    }
+  };
+
+  listener.pointEvent = (e) => {
+    const { point } = e;
+    setSelectionGeometry(point);
+    selectByPoint(
+      activeSelectLayers,
+      point,
+      map,
+      selectedFeatures,
+      setSelectedFeatures,
+      selectStyles // optional
+    );
+    selectControl.deleteAll();
+  };
+
+  const polyEvent = (e, select) => {
+    const polygon = e.features[0];
+    setSelectionGeometry(polygon);
+    selectByPolygon(
+      activeSelectLayers,
+      polygon,
+      map,
+      selectedFeatures,
+      setSelectedFeatures,
+      selectStyles // optional
+    );
+    select.deleteAll();
+    setCurrentMode('none');
+  };
+
   const _resetSelection = () => {
     const layers = Object.keys(selectedFeatures);
     setSelectedFeatures({});
-    layers.map(layer => {
+    layers.map((layer) => {
       if (
         map.getSource(`${layer}-selected-src`) &&
         map.getLayer(`${layer}-selected`)
@@ -168,7 +164,7 @@ const Select = ({
 
   let layerOptions = [];
   if (selectableLayers && selectableLayers.length > 0) {
-    layerOptions = selectableLayers.map(lyr => {
+    layerOptions = selectableLayers.map((lyr) => {
       const num = Math.floor(Math.random() * 100);
       return (
         <SelectLayerItem
@@ -194,7 +190,7 @@ const Select = ({
     layersSection = null;
   }
 
-  //use the logic below to accept whether the component should be rendered in a Panel or not.
+  // use the logic below to accept whether the component should be rendered in a Panel or not.
   const drawButtons = (
     <div>
       <Heading sx={{ marginBottom: 2, fontSize: [1, 2] }}>
@@ -203,7 +199,7 @@ const Select = ({
       <Flex>
         <ButtonGroup className="select-modes">
           <Button
-            disabled={activeSelectLayers.length > 0 ? false : true}
+            disabled={!(activeSelectLayers.length > 0)}
             title="Select By Point"
             className="draw-tool draw-tool--point"
             style={
@@ -214,13 +210,13 @@ const Select = ({
                   }
                 : null
             }
-            onClick={() => _toggleSelect('draw_point')}
+            onClick={() => toggleSelect('draw_point')}
           >
             <PointIcon />
           </Button>
           <Button
             title="Select By Polygon"
-            disabled={activeSelectLayers.length > 0 ? false : true}
+            disabled={!(activeSelectLayers.length > 0)}
             className="draw-tool draw-tool--polygon"
             style={
               currentMode === 'draw_polygon'
@@ -230,16 +226,14 @@ const Select = ({
                   }
                 : null
             }
-            onClick={() => _toggleSelect('draw_polygon')}
+            onClick={() => toggleSelect('draw_polygon')}
           >
             <PolygonIcon />
           </Button>
           <Button
             title="Reset Selection"
             disabled={
-              selectedFeatures && Object.keys(selectedFeatures).length > 0
-                ? false
-                : true
+              !(selectedFeatures && Object.keys(selectedFeatures).length > 0)
             }
             onClick={() => {
               _resetSelection();

@@ -25,12 +25,15 @@ const GroupLayerItem = ({
   };
 
   useEffect(() => {
-    let layerVisibility;
+    // let layerVisibility;
     // let checked;
     if (mapExists(map)) {
       if (Object.keys(map).length > 0) {
         map.once('idle', () => {
-          layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
+          // const layerVisibility = map.getLayoutProperty(
+          //   layerIds[0],
+          //   'visibility'
+          // );
           // checked = layerVisibility !== 'none';
           if (legend) {
             setStyle(

@@ -26,7 +26,7 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      map.setStyle(`mapbox://styles/mapbox/${  basemapValue}`);
+      map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
     } else {
       didMountRef.current = true;
     }
@@ -35,31 +35,31 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
   useEffect(() => {
     if (mapExists(map)) {
       map.on('load', () => {
-        map.setStyle(`mapbox://styles/mapbox/${  basemapValue}`);
+        map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
       });
     }
   }, [map]);
 
   const basemapOptions = basemaps || [
-        {
-          name: 'streets',
-          key: 'streets',
-          label: 'Streets',
-          value: 'streets-v11'
-        },
-        {
-          name: 'terrain',
-          key: 'terrain',
-          label: 'Terrain',
-          value: 'outdoors-v11'
-        },
-        {
-          name: 'satellite',
-          key: 'satellite',
-          label: 'Satellite',
-          value: 'satellite-streets-v9'
-        }
-      ];
+    {
+      name: 'streets',
+      key: 'streets',
+      label: 'Streets',
+      value: 'streets-v11'
+    },
+    {
+      name: 'terrain',
+      key: 'terrain',
+      label: 'Terrain',
+      value: 'outdoors-v11'
+    },
+    {
+      name: 'satellite',
+      key: 'satellite',
+      label: 'Satellite',
+      value: 'satellite-streets-v9'
+    }
+  ];
 
   let switcher;
 
@@ -75,9 +75,10 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
       break;
 
     case 'buttons':
-      const buttons = basemapOptions.map(item => {
+      // eslint-disable-next-line no-case-declarations
+      const buttons = basemapOptions.map((item) => {
         return (
-          <Button key={item.label} onClick={e => handleChange(e, item)}>
+          <Button key={item.label} onClick={(e) => handleChange(e, item)}>
             {item.label}
           </Button>
         );

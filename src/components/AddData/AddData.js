@@ -109,10 +109,12 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
       return filter;
     }
     const geomTypes = [];
+    /* eslint-disable array-callback-return */
     geojson.features.map((feature) => {
       if (geomTypes.indexOf(feature.geometry.type) === -1)
         geomTypes.push(feature.geometry.type);
     });
+    /* eslint-enable array-callback-return */
 
     geomTypes.forEach((type) => {
       const layerId = `${sourceId}-${type}`;

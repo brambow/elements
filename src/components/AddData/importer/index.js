@@ -15,8 +15,8 @@ class Importer {
   }
 
   load(file, cb) {
-    if (!file) throw 'File Required';
-    if (!cb) throw 'Callback Required';
+    if (!file) throw new Error('File Required');
+    if (!cb) throw new Error('Callback Required');
     this.cb = cb;
     this.file = file;
     this.fileExt = this.getExtension();
@@ -50,17 +50,17 @@ class Importer {
       case 'kml':
         this.handleKML(evt);
         break;
+      // case 'topojson':
       case 'geojson':
-      case 'topojson':
       case 'json':
         this.handleJSON(evt);
         break;
       case 'gpx':
         this.handleGPX(evt);
         break;
-      case 'igc':
-        this.handleIGC(evt);
-        break;
+      // case 'igc':
+      //   this.handleIGC(evt);
+      //   break;
       case 'zip':
         this.handleSHP(evt);
         break;
@@ -72,12 +72,13 @@ class Importer {
 
   handleJSON(evt) {
     try {
-      const res = JSON.parse(evt.target.result);
-      if (res.type && res.type.toLowerCase() === 'topology') {
+      /* const res = JSON.parse(evt.target.result);
+             if (res.type && res.type.toLowerCase() === 'topology') {
         this.handleTopoJSON(evt);
       } else {
         this.handleGeoJSON(evt);
-      }
+      } */
+      this.handleGeoJSON(evt);
     } catch (err) {
       this.cb({
         error: `Problem parsing JSON (${err.toString()})`,
@@ -132,9 +133,9 @@ class Importer {
     this.cb(this.fileDetails, JSON.parse(evt.target.result));
   }
 
-  handleTopoJSON(evt) {
-    console.log('handle as topojson');
-  }
+  // handleTopoJSON(evt) {
+  //   console.log('handle as topojson');
+  // }
 
   handleGPX(evt) {
     const xml = new window.DOMParser().parseFromString(
@@ -145,9 +146,9 @@ class Importer {
     this.cb(this.fileDetails, geojson);
   }
 
-  handleIGC(evt) {
-    console.log('handle as igc');
-  }
+  // handleIGC(evt) {
+  //   console.log('handle as igc');
+  // }
 
   handleSHP(evt) {
     const geojson = shpjs.parseZip(evt.target.result);
@@ -155,6 +156,7 @@ class Importer {
   }
 
   notRecognized() {
+    // eslint-disable-next-line no-console
     console.log('sorry, i didnt recognize this format');
     this.cb({
       error: `File format ${this.fileExt} not recognized.`,
