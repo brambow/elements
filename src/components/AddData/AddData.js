@@ -3,7 +3,7 @@ import {
   Button,
   Flex,
   Box,
-  Link,
+  // Link,
   Text,
   Input,
   Checkbox,
@@ -108,9 +108,9 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
       }
       return filter;
     }
-    let geomTypes = [];
+    const geomTypes = [];
     geojson.features.map((feature) => {
-      if (geomTypes.indexOf(feature.geometry.type) == -1)
+      if (geomTypes.indexOf(feature.geometry.type) === -1)
         geomTypes.push(feature.geometry.type);
     });
 
@@ -217,18 +217,23 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
     const content = () => {
       return (
         <Flex sx={{ justifyContent: 'flex-end' }}>
-          <Link
+          <Button
             sx={{
-              fontSize: 0
+              fontSize: 0,
+              textDecoration: 'underline',
+              color: 'primary',
+              backgroundColor: 'background',
+              ':hover': {
+                backgroundColor: 'background'
+              }
             }}
-            href="#"
             onClick={(e) => {
               e.preventDefault();
               setTab('layers');
             }}
           >
             Manage Layers
-          </Link>
+          </Button>
         </Flex>
       );
     };
