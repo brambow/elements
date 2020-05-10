@@ -50,7 +50,7 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
           type = 'fill';
           break;
         default:
-          return null;
+          return '';
       }
       return type;
     }
@@ -108,10 +108,10 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
       }
       return filter;
     }
-
-    const geomTypes = geojson.features.map((feature) => {
-      if (geomTypes.indexOf(feature.geometry.type) === -1)
-        return feature.geometry.type;
+    let geomTypes = [];
+    geojson.features.map((feature) => {
+      if (geomTypes.indexOf(feature.geometry.type) == -1)
+        geomTypes.push(feature.geometry.type);
     });
 
     geomTypes.forEach((type) => {
