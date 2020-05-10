@@ -1,9 +1,7 @@
+/* eslint-disable no-param-reassign */
+
 import React, { useState, useContext } from 'react';
 import { Button } from 'theme-ui';
-import ButtonGroup from '../_primitives/ButtonGroup';
-import Context from '../../DefaultContext';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import mapExists from '../../util/mapExists';
 import {
   MdDelete as DeleteIcon,
   MdPlace as PointIcon,
@@ -11,6 +9,12 @@ import {
   MdTextFormat as TextIcon
 } from 'react-icons/md';
 import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
+
+import ButtonGroup from '../_primitives/ButtonGroup';
+import Context from '../../DefaultContext';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import mapExists from '../../util/mapExists';
+
 import TextMode from './textDrawMode';
 import StaticMode from './staticDrawMode';
 import allowMapInteractions from './allowMapInteractions';
@@ -28,7 +32,7 @@ const Draw = ({ sx, ...rest }) => {
   }
 
   async function startDraw(type) {
-    console.log(`start drawing ${type}`);
+    // console.log(`start drawing ${type}`);
 
     const draw =
       drawControl ||
@@ -36,6 +40,7 @@ const Draw = ({ sx, ...rest }) => {
         ({ default: MapboxDraw }) =>
           new MapboxDraw({
             displayControlsDefault: false,
+            // eslint-disable-next-line prefer-object-spread
             modes: Object.assign(
               {
                 draw_text: TextMode,
@@ -51,7 +56,7 @@ const Draw = ({ sx, ...rest }) => {
       map.addControl(draw);
     }
 
-    const nm = type ? type : 'simple_select';
+    const nm = type || 'simple_select';
     setNextMode(nm);
     draw.changeMode(nm);
   }
@@ -67,7 +72,7 @@ const Draw = ({ sx, ...rest }) => {
   }
 
   function hideTextArea(textEl) {
-    textEl.addEventListener('click', e => {
+    textEl.addEventListener('click', (/* e */) => {
       allowMapInteractions(map, false);
     });
     textEl.style.backgroundColor = 'rgba(0, 0, 0, 0)';
@@ -85,14 +90,14 @@ const Draw = ({ sx, ...rest }) => {
     textEl.style.resize = 'both';
   }
 
-  map.on('draw.create', e => {
+  map.on('draw.create', (/* e */) => {
     // console.log(nextMode);
     if (nextMode === 'draw_text') {
       // console.log('show text!');
       const el = document.getElementsByClassName('cc-draw-text');
       // console.log(el);
 
-      for (let i = 0; i < el.length; i++) {
+      for (let i = 0; i < el.length; i += 1) {
         el[i].addEventListener('click', () => {
           // console.log('click');
           drawControl.changeMode('static');
@@ -100,7 +105,8 @@ const Draw = ({ sx, ...rest }) => {
         });
       }
 
-      addEventListener('keyup', e => {
+      // eslint-disable-next-line no-restricted-globals
+      addEventListener('keyup', (e) => {
         if (e.keyCode === 13) {
           if (drawControl.getMode() === 'static') {
             drawControl.changeMode('simple_select');

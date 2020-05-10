@@ -7,7 +7,7 @@ export default function saveBookmark(map, name, setBookmarks) {
     if (!existingBookmarks) {
       const array = [
         {
-          name: name,
+          name,
           // style: map.getStyle(),
           zoom: map.getZoom(),
           center: map.getCenter()
@@ -17,7 +17,7 @@ export default function saveBookmark(map, name, setBookmarks) {
       setBookmarks(array);
     } else {
       const newItem = {
-        name: name,
+        name,
         // style: map.getStyle(),
         zoom: map.getZoom(),
         center: map.getCenter()

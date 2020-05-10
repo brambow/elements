@@ -15,7 +15,7 @@ const PanelComponent = ({ sx, children, ...rest }) => {
         maxWidth: '300px',
         borderRadius: '4px'
 
-        //to do: add box shadow, move to theme
+        // to do: add box shadow, move to theme
       }}
     >
       {children}

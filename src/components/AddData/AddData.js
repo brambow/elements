@@ -3,15 +3,15 @@ import {
   Button,
   Flex,
   Box,
-  Link,
+  // Link,
   Text,
   Input,
   Checkbox,
   Label
 } from 'theme-ui';
+import bbox from '@turf/bbox';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
-import bbox from '@turf/bbox';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
@@ -19,43 +19,23 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ layers, panel, ...rest }) => {
+const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
   const config = useContext(Context);
-  const map = config.map;
+  const { map } = config;
 
   // state
   const [tab, setTab] = useState('file'); // file, url, layers
   const [tmpLayers, setTmpLayers] = useState([]); // added layers
-  const [file, setFile] = useState(null); //file to upload
+  // const [file, setFile] = useState(null); // file to upload
 
-  const _addLayer = (sourceId, geojson) => {
+  const addLayer = (sourceId, geojson) => {
     // add multiple layers based on source geometry
     // Point, MultiPoint
     // LineString, MultiLineString
     // Polygon, MultiPolygon
-    let geomTypes = [];
-    geojson.features.map(feature => {
-      if (geomTypes.indexOf(feature.geometry.type) == -1)
-        geomTypes.push(feature.geometry.type);
-    });
 
-    geomTypes.forEach(type => {
-      const layerId = `${sourceId}-${type}`;
-      map.addLayer({
-        id: layerId,
-        type: _type(type),
-        source: sourceId,
-        paint: _paint(type),
-        filter: _filter(type),
-        layout: {
-          visibility: 'visible'
-        }
-      });
-      setTmpLayers([...tmpLayers, layerId]);
-    });
-
-    function _type(geomType) {
-      let type = undefined;
+    function setType(geomType) {
+      let type;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -69,12 +49,14 @@ const AddData = ({ layers, panel, ...rest }) => {
         case 'MultiPolygon':
           type = 'fill';
           break;
+        default:
+          return '';
       }
       return type;
     }
 
-    function _paint(geomType) {
-      let paint = undefined;
+    function setPaint(geomType) {
+      let paint;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -100,12 +82,14 @@ const AddData = ({ layers, panel, ...rest }) => {
             'fill-opacity': 0.8
           };
           break;
+        default:
+          return null;
       }
       return paint;
     }
 
-    function _filter(geomType) {
-      let filter = undefined;
+    function setFilter(geomType) {
+      let filter;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
@@ -119,31 +103,56 @@ const AddData = ({ layers, panel, ...rest }) => {
         case 'MultiPolygon':
           filter = ['==', '$type', 'Polygon'];
           break;
+        default:
+          return null;
       }
       return filter;
     }
+    const geomTypes = [];
+    /* eslint-disable array-callback-return */
+    geojson.features.map((feature) => {
+      if (geomTypes.indexOf(feature.geometry.type) === -1)
+        geomTypes.push(feature.geometry.type);
+    });
+    /* eslint-enable array-callback-return */
+
+    geomTypes.forEach((type) => {
+      const layerId = `${sourceId}-${type}`;
+      map.addLayer({
+        id: layerId,
+        type: setType(type),
+        source: sourceId,
+        paint: setPaint(type),
+        filter: setFilter(type),
+        layout: {
+          visibility: 'visible'
+        }
+      });
+      setTmpLayers([...tmpLayers, layerId]);
+    });
   };
 
-  const _addSource = (fileDetails, geojson) => {
+  const zoomToLayer = (geojson) => {
+    const bounds = bbox(geojson);
+    map.fitBounds(bounds);
+  };
+
+  const addMapSource = (fileDetails, geojson) => {
     if (!geojson || !fileDetails) return;
-    let sourceId = fileDetails.fileName;
+    const sourceId = fileDetails.fileName;
     map.addSource(sourceId, {
       type: 'geojson',
       data: geojson
     });
-    _addLayer(sourceId, geojson);
-    _zoomToLayer(geojson);
+    addLayer(sourceId, geojson);
+    zoomToLayer(geojson);
   };
 
-  const _zoomToLayer = geojson => {
-    let bounds = bbox(geojson);
-    map.fitBounds(bounds);
-  };
-
-  const _loadFile = e => {
+  const loadFile = (e) => {
     try {
-      importer.load(e.target.files[0], _addSource);
+      importer.load(e.target.files[0], addMapSource);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn(err);
     }
   };
@@ -210,18 +219,23 @@ const AddData = ({ layers, panel, ...rest }) => {
     const content = () => {
       return (
         <Flex sx={{ justifyContent: 'flex-end' }}>
-          <Link
+          <Button
             sx={{
-              fontSize: 0
+              fontSize: 0,
+              textDecoration: 'underline',
+              color: 'primary',
+              backgroundColor: 'background',
+              ':hover': {
+                backgroundColor: 'background'
+              }
             }}
-            href="#"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setTab('layers');
             }}
           >
             Manage Layers
-          </Link>
+          </Button>
         </Flex>
       );
     };
@@ -240,8 +254,8 @@ const AddData = ({ layers, panel, ...rest }) => {
   const FileBody = () => {
     const supportedFileExt = ['.geojson', '.kml', '.gpx', '.csv', '.zip (shp)'];
     const supported = () => {
-      let title = 'Supported File Extensions:';
-      let subtitle = supportedFileExt.join(', ');
+      const title = 'Supported File Extensions:';
+      const subtitle = supportedFileExt.join(', ');
       return (
         <Box>
           <Text sx={{ fontSize: 0 }}>{title}</Text>
@@ -258,14 +272,14 @@ const AddData = ({ layers, panel, ...rest }) => {
             }}
             type="file"
             className="file-upload"
-            onChange={e => {
-              _loadFile(e);
+            onChange={(e) => {
+              loadFile(e);
             }}
           />
           {/* <Flex sx={{ justifyContent: 'flex-end' }}>
             <Button
               onClick={e => {
-                _loadFile(file);
+                loadFile(file);
               }}
               variant="outline"
             >
@@ -310,21 +324,21 @@ const AddData = ({ layers, panel, ...rest }) => {
     return (
       <div styles={{ width: '100%' }}>
         <Tabs />
-        {tab == 'file' ? <FileBody /> : <UrlBody />}
+        {tab === 'file' ? <FileBody /> : <UrlBody />}
       </div>
     );
   };
 
   const LayerBody = () => {
     const items = () => {
-      let isVisible = layerId => {
-        let layerVisibility = map.getLayoutProperty(layerId, 'visibility');
-        let checked = layerVisibility === 'none' ? false : true;
+      const isVisible = (layerId) => {
+        const layerVisibility = map.getLayoutProperty(layerId, 'visibility');
+        const checked = layerVisibility !== 'none';
         return checked;
       };
 
-      let handleChange = layerId => {
-        let checked = isVisible(layerId);
+      const handleChange = (layerId) => {
+        const checked = isVisible(layerId);
         if (checked) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
         } else {
@@ -334,16 +348,8 @@ const AddData = ({ layers, panel, ...rest }) => {
       return tmpLayers.map((layerId, i) => {
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={`${layerId}-${i}`}
-            /*             media={
-              <Checkbox
-                onChange={() => {
-                  handleChange(layerId);
-                }}
-                defaultChecked={isVisible(layerId)}
-              />
-            } */
-            // content={layerId}
           >
             {' '}
             <Label>
@@ -362,15 +368,23 @@ const AddData = ({ layers, panel, ...rest }) => {
 
     return (
       <div style={{ width: '100%' }}>
-        <a
-          href="#"
-          onClick={e => {
+        <Button
+          sx={{
+            fontSize: 0,
+            textDecoration: 'underline',
+            color: 'primary',
+            backgroundColor: 'background',
+            ':hover': {
+              backgroundColor: 'background'
+            }
+          }}
+          onClick={(e) => {
             e.preventDefault();
             setTab('file');
           }}
         >
           &lt;&lt; Back
-        </a>
+        </Button>
         <Box sx={{ marginTop: '0.5rem' }} content={<List>{items()}</List>} />
       </div>
     );
@@ -379,7 +393,7 @@ const AddData = ({ layers, panel, ...rest }) => {
   const Body = () => {
     return (
       <div style={{ width: '100%' }}>
-        {tab == 'layers' ? <LayerBody /> : <TabBody />}
+        {tab === 'layers' ? <LayerBody /> : <TabBody />}
       </div>
     );
   };

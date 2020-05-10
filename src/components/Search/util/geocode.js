@@ -1,4 +1,4 @@
-async function mapboxGeocode(searchText, apiKey) {
+async function geocode(searchText, apiKey) {
   const request = fetch(
     `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURI(
       searchText
@@ -14,13 +14,12 @@ async function mapboxGeocode(searchText, apiKey) {
       placeName: topMatch.place_name,
       matchScore: topMatch.relevance,
       accuracy: topMatch.properties.accuracy,
-      coordinates: topMatch.center //[longitude, latitude]
+      coordinates: topMatch.center // [longitude, latitude]
     };
 
     return geocodingResult;
-  } else {
-    throw Error(response.statusText);
   }
+  throw Error(response.statusText);
 }
 
-export { mapboxGeocode };
+export default geocode;

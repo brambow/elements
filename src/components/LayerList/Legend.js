@@ -1,80 +1,52 @@
 /** @jsx jsx */
-import { jsx, Flex } from 'theme-ui';
-import React from 'react';
-import { Box, Text } from 'theme-ui';
+/*  eslint-disable no-underscore-dangle */
+import { jsx, Box, Text } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 
-const buildStyle = lyr => {
-  let type = lyr.type;
-
-  // https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers
-  try {
-    switch (type) {
-      case 'fill':
-        return fill(lyr.paint);
-      case 'circle':
-        return circle(lyr.paint);
-      case 'line':
-        return line(lyr.paint);
-      case 'symbol':
-        return symbol(lyr.paint);
-      case 'heatmap':
-        return heatmap(lyr.paint);
-      case 'fill-extrusion':
-        return fillExtrusion(lyr.paint);
-      case 'raster':
-        return raster(lyr.paint);
-      case 'hillshade':
-        return hillshade(lyr.paint);
-      case 'background':
-        return background(lyr.paint);
-      default:
-        return false;
-    }
-  } catch (err) {
-    // top level error handling.... better just to render nothing
-    console.warn(err);
-    return false;
-  }
+const buildStyle = (lyr) => {
+  const { type } = lyr;
 
   // fill-color, fill-opacity, fill-outline-color, fill-pattern
   function fill(paint) {
-    let fc, foc;
-
+    let fc;
+    let foc;
+    const fcValue = paint.get('fill-color').value;
+    const focValue = paint.get('fill-outline-color').value;
     // Is this a data driven paint style?
     if (
-      paint.get('fill-color').value._parameters &&
-      paint.get('fill-color').value._parameters.hasOwnProperty('stops')
+      fcValue._parameters &&
+      Object.prototype.hasOwnProperty.call(fcValue._parameters, 'stops')
+      // fcValue._parameters.hasOwnProperty('stops')
     ) {
-      // fc = paint.get('fill-color').value._parameters.stops.map((s) => {
+      // fc = fcValue._parameters.stops.map((s) => {
       //   return [s[0], s[1]];
       // });
-      fc = paint.get('fill-color').value._parameters.stops;
+      fc = fcValue._parameters.stops;
     } else {
-      fc = [paint.get('fill-color').value.value.toString()];
+      fc = [fcValue.value.toString()];
     }
 
     if (
-      paint.get('fill-outline-color').value._parameters &&
-      paint.get('fill-outline-color').value._parameters.hasOwnProperty('stops')
+      focValue._parameters &&
+      Object.prototype.hasOwnProperty.call(focValue._parameters, 'stops')
     ) {
-      // foc = paint.get('fill-outline-color').value._parameters.stops.map((s) => {
+      // foc = focValue._parameters.stops.map((s) => {
       //   return [s[0], s[1]];
       // });
-      foc = paint.get('fill-outline-color').value._parameters.stops;
+      foc = focValue._parameters.stops;
     } else {
-      foc = [paint.get('fill-outline-color').value.value.toString()];
+      foc = [focValue.value.toString()];
     }
 
     const Items = () => {
       let styles = [];
       if (fc.length > 2) {
-        styles = fc.map(l => {
+        styles = fc.map((l) => {
           return [...l, foc[0]];
         });
       } else if (foc.length > 2) {
-        styles = foc.map(l => {
+        styles = foc.map((l) => {
           return [...l, fc[0]];
         });
       } else {
@@ -84,6 +56,7 @@ const buildStyle = lyr => {
       const svgs = styles.map((s, i) => {
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             sx={{
               margin: 0,
@@ -130,10 +103,12 @@ const buildStyle = lyr => {
   // circle-color, circle-opacity, circle-stroke-color, circle-stroke-opacity, circle-radius
   function circle(paint) {
     // circle-color, circle-stroke-color, circle-radius
-    let cc, /*csc,*/ cr, flexGrow, textAlign;
+    /* csc, */ let cr;
+    let flexGrow;
+    let textAlign;
 
     // Is circle-color a data driven paint style?
-    cc = paint.get('circle-color').value.value.toString();
+    const cc = paint.get('circle-color').value.value.toString();
     // if(paint.get('circle-color').value._parameters && paint.get('circle-color').value._parameters.hasOwnProperty('stops')) {
     //   cc = paint.get('circle-color').value._parameters.stops;
     // } else {
@@ -147,29 +122,29 @@ const buildStyle = lyr => {
     // } else {
     //   csc = [paint.get('circle-stroke-color').value.value.toString()];
     // }
-
+    const crValue = paint.get('circle-radius').value;
     // Is circle-radius a data driven paint style?
     if (
-      paint.get('circle-radius').value._parameters &&
-      paint.get('circle-radius').value._parameters.hasOwnProperty('stops') &&
-      paint.get('circle-radius').value.kind === 'source'
+      crValue._parameters &&
+      Object.prototype.hasOwnProperty.call(crValue._parameters, 'stops') &&
+      crValue.kind === 'source'
     ) {
       flexGrow = 6;
       textAlign = 'center';
-      cr = paint.get('circle-radius').value._parameters.stops;
+      cr = crValue._parameters.stops;
     } else {
       flexGrow = 1;
       textAlign = 'left';
-      cr = [paint.get('circle-radius').value.value.toString()];
-      if(+cr[0] < 8) {
-        cr = ["8"];
+      cr = [crValue.value.toString()];
+      if (+cr[0] < 8) {
+        cr = ['8'];
       }
     }
 
     const Items = () => {
       let styles = [];
       if (cr.length > 1) {
-        styles = cr.map(l => {
+        styles = cr.map((l) => {
           return [...l];
         });
       } else {
@@ -177,9 +152,10 @@ const buildStyle = lyr => {
       }
 
       const svgs = styles.map((s, i) => {
-        let cr = +s[1] + +s[1] * 0.75;
+        const cSize = +s[1] + +s[1] * 0.75;
         return (
           <ListItem
+            // eslint-disable-next-line react/no-array-index-key
             key={i}
             sx={{
               margin: 0,
@@ -188,12 +164,12 @@ const buildStyle = lyr => {
               display: 'flex'
             }}
           >
-            <Box sx={{ flexGrow: flexGrow, textAlign: textAlign }}>
-              <svg width={cr} height={cr}>
+            <Box sx={{ flexGrow, textAlign }}>
+              <svg width={cSize} height={cSize}>
                 <circle
-                  cx={cr / 2.0}
-                  cy={cr / 2.0}
-                  r={cr / 2.0 - 0.5}
+                  cx={cSize / 2.0}
+                  cy={cSize / 2.0}
+                  r={cSize / 2.0 - 0.5}
                   sx={{
                     fill: cc
                   }}
@@ -230,22 +206,23 @@ const buildStyle = lyr => {
   // line-cap, line-join, line-opacity, line-color, line-width, line-dasharray, line-gradient
   function line(paint) {
     let lc;
-    const kind = paint.get('line-color').value.kind;
+    const lcValue = paint.get('line-color').value;
+    const { kind } = lcValue;
     if (kind === 'source' || kind === 'constant') {
-      //is it a data-driven style?
+      // is it a data-driven style?
       if (
-        paint.get('line-color').value._parameters &&
-        paint.get('line-color').value._parameters.hasOwnProperty('stops')
+        lcValue._parameters &&
+        Object.prototype.hasOwnProperty.call(lcValue._parameters, 'stops')
       ) {
-        lc = paint.get('line-color').value._parameters.stops;
+        lc = lcValue._parameters.stops;
       } else {
-        lc = [paint.get('line-color').value.value.toString()];
+        lc = [lcValue.value.toString()];
       }
 
       const Items = () => {
         let styles = [];
         if (lc.length > 1) {
-          styles = lc.map(l => {
+          styles = lc.map((l) => {
             return [...l];
           });
         } else {
@@ -255,6 +232,7 @@ const buildStyle = lyr => {
         const svgs = styles.map((s, i) => {
           return (
             <ListItem
+              // eslint-disable-next-line react/no-array-index-key
               key={i}
               sx={{
                 margin: 0,
@@ -297,7 +275,8 @@ const buildStyle = lyr => {
           <Items />
         </List>
       );
-    } else if (paint.get('line-color').value.kind === 'composite') {
+    }
+    if (paint.get('line-color').value.kind === 'composite') {
       try {
         lc = paint
           .get('line-color')
@@ -326,45 +305,76 @@ const buildStyle = lyr => {
           </List>
         );
       } catch (err) {
-        console.log('Problem getting line color');
         console.error(err);
         return false;
       }
     } else {
-      //todo: determine color from other line types
+      // todo: determine color from other line types
       return false;
     }
   }
 
-  function symbol(val) {
+  function symbol(/* val */) {
     console.log('legend cannot render symbol yet');
     return false;
   }
 
-  function heatmap(val) {
+  function heatmap(/* val */) {
     console.log('legend cannot render heatmap yet');
     return false;
   }
 
-  function fillExtrusion(val) {
+  function fillExtrusion(/* val */) {
     console.log('legend cannot render fill-extrusion yet');
     return false;
   }
 
-  function raster(val) {
+  function raster(/* val */) {
     console.log('legend cannot render raster yet');
     return false;
   }
 
-  function hillshade(val) {
+  function hillshade(/* val */) {
     console.log('legend cannot render hillshade yet');
     return false;
   }
 
-  function background(val) {
+  function background(/* val */) {
     console.log('legend cannot render background yet');
+    return false;
+  }
+
+  // https://docs.mapbox.com/mapbox-gl-js/style-spec/#layers
+  try {
+    switch (type) {
+      case 'fill':
+        return fill(lyr.paint);
+      case 'circle':
+        return circle(lyr.paint);
+      case 'line':
+        return line(lyr.paint);
+      case 'symbol':
+        return symbol(lyr.paint);
+      case 'heatmap':
+        return heatmap(lyr.paint);
+      case 'fill-extrusion':
+        return fillExtrusion(lyr.paint);
+      case 'raster':
+        return raster(lyr.paint);
+      case 'hillshade':
+        return hillshade(lyr.paint);
+      case 'background':
+        return background(lyr.paint);
+      default:
+        return false;
+    }
+  } catch (err) {
+    // top level error handling.... better just to render nothing
+    console.warn(err);
     return false;
   }
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export { buildStyle };
+/*  eslint-enable no-underscore-dangle */

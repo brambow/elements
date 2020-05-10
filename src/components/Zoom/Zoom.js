@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { Button } from 'theme-ui';
-import Context from '../../DefaultContext';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
 import zoomIn from './util/zoomIn';
 import zoomOut from './util/zoomOut';
 
 const Zoom = ({ circular, horizontal, sx, ...rest }) => {
   const config = useContext(Context);
-  const map = config.map;
+  const {map} = config;
 
   let buttonStyle = {
     borderRadius: 'default',
@@ -63,18 +63,18 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
   );
 
   let buttons = (
-    <React.Fragment>
+    <>
       {zoomInBtn}
       {zoomOutBtn}
-    </React.Fragment>
+    </>
   );
 
   if (horizontal) {
     buttons = (
-      <React.Fragment>
+      <>
         {zoomOutBtn}
         {zoomInBtn}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -83,7 +83,7 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
       {...rest}
       sx={{
         display: 'flex',
-        flexDirection: flexDirection
+        flexDirection
       }}
       className="cl-zoom-controls"
     >

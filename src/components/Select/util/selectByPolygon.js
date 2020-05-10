@@ -1,6 +1,6 @@
+import disjoint from '@turf/boolean-disjoint';
 import sourceExists from '../../../util/sourceExists';
 import layerExists from '../../../util/layerExists';
-import disjoint from '@turf/boolean-disjoint';
 import defaultSelectStyles from './defaultSelectStyles';
 
 export default function selectByPolygon(
@@ -11,40 +11,40 @@ export default function selectByPolygon(
   setSelectedFeatures,
   selectStyles
 ) {
-  var updateObj = {};
-  for (let i = 0; i < layers.length; i++) {
-    //for each layer initialize an empty array of feature
+  const updateObj = {};
+  for (let i = 0; i < layers.length; i += 1) {
+    // for each layer initialize an empty array of feature
     let selectedFeatures = [];
 
-    //get rendered features for each selectable layer
+    // get rendered features for each selectable layer
     const lyrFeatures = map.queryRenderedFeatures(null, {
       layers: [layers[i]]
     });
 
-    for (let i = 0; i < lyrFeatures.length; i++) {
+    for (let j = 0; j < lyrFeatures.length; j += 1) {
       try {
-        const disjointed = disjoint(lyrFeatures[i], polygon);
+        const disjointed = disjoint(lyrFeatures[j], polygon);
         if (!disjointed) {
-          selectedFeatures.push(lyrFeatures[i]);
+          selectedFeatures.push(lyrFeatures[j]);
         }
       } catch (err) {
         console.error(err);
       }
     }
 
-    //filter selected features array to dedpulicate
-    //hard problem: https://github.com/mapbox/mapbox-gl-js/issues/3099
-    //we do it based on matching stringified properties object, doesn't work perfectly
-    const stringArray = selectedFeatures.map(feat => {
+    // filter selected features array to dedpulicate
+    // hard problem: https://github.com/mapbox/mapbox-gl-js/issues/3099
+    // we do it based on matching stringified properties object, doesn't work perfectly
+    const stringArray = selectedFeatures.map((feat) => {
       return JSON.stringify(feat);
     });
 
     const uniqStrArray = [...new Set(stringArray)];
 
-    selectedFeatures = uniqStrArray.map(item => {
+    selectedFeatures = uniqStrArray.map((item) => {
       return JSON.parse(item);
     });
-    //end deduplication attempt
+    // end deduplication attempt
 
     let newSelection = {};
     if (selectedFeatures.length > 0) {
@@ -90,7 +90,7 @@ export default function selectByPolygon(
         let paint;
         switch (layerType) {
           case 'fill':
-            //style fill layer selections with line
+            // style fill layer selections with line
             layerType = 'line';
             paint = style.line.paint;
             break;
@@ -109,7 +109,7 @@ export default function selectByPolygon(
             id: `${layers[i]}-selected`,
             type: layerType,
             source: sourceName,
-            paint: paint
+            paint
           });
         }
       } else {
@@ -121,4 +121,5 @@ export default function selectByPolygon(
     }
   }
   setSelectedFeatures(updateObj);
+  return true;
 }

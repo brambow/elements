@@ -1,5 +1,5 @@
-//hook to compare previous component props/state for funtional components
-import React, { useRef, useEffect } from 'react';
+// hook to compare previous component props/state for funtional components
+import { useRef, useEffect } from 'react';
 
 function usePrevious(value) {
   const ref = useRef();

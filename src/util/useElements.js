@@ -1,5 +1,5 @@
-//hook to import Elements context
-import React, { useContext } from 'react';
+// hook to import Elements context
+import { useContext } from 'react';
 import Context from '../DefaultContext';
 
 function useElements() {

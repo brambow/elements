@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DefaultContext from '../../DefaultContext';
 import { ThemeProvider as EmotionProvider } from 'emotion-theming';
 import { ThemeProvider as ThemeUIProvider } from 'theme-ui';
+import DefaultContext from '../../DefaultContext';
 
 const ElementsProvider = ({
   children,
@@ -10,13 +10,13 @@ const ElementsProvider = ({
   themeUI,
   mapOverride
 }) => {
-  let ctx = context || DefaultContext;
+  const ctx = context || DefaultContext;
   const ContextProvider = ctx.Provider || ctx;
   const [map, setMap] = useState(null);
 
   const value = {
-    map: mapOverride ? mapOverride : map,
-    setMap: setMap
+    map: mapOverride || map,
+    setMap
   };
 
   let provider = (

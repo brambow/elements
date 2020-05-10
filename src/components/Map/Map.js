@@ -8,28 +8,31 @@ const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
   const config = useContext(DefaultContext);
   const { setMap } = config;
 
-  const _addLayers = layers => {
+  const addLayers = (layers) => {
     if (!layers) return;
     map.on('load', () => {
-      layers.forEach((l, i) => {
+      layers.forEach((l) => {
         map.addLayer(l);
       });
     });
   };
 
   useEffect(() => {
-    //init the map
+    // init the map
     map = new mapboxgl.Map(mapOptions);
     setMap(map);
 
-    _addLayers(mapLayers);
+    addLayers(mapLayers);
   }, []);
 
   return (
     <Box
       {...rest}
       sx={{ width: '100vw', height: '100vh', ...sx }}
-      ref={el => (mapOptions.container = el)}
+      ref={(el) => {
+        // eslint-disable-next-line no-param-reassign
+        mapOptions.container = el;
+      }}
       className="cl-map-container"
     />
   );

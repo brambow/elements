@@ -1,8 +1,7 @@
-import { mapboxGeocode } from './geocode';
-import config from '../../../config';
+import geocode from './geocode';
 
 const handleSearchSubmit = async (searchValue, callback, mapboxToken) => {
-  const result = await mapboxGeocode(searchValue, mapboxToken);
+  const result = await geocode(searchValue, mapboxToken);
   callback(result);
 };
 

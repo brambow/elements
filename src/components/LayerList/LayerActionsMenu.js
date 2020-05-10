@@ -41,7 +41,7 @@ const LayerActionsMenu = ({ layerActions }) => {
         </MenuPopover>
       </Menu>
     );
-  } else return null;
+  } return null;
 };
 
 export default LayerActionsMenu;
