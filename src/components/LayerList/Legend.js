@@ -239,14 +239,15 @@ const buildStyle = (lyr) => {
                 marginLeft: 4,
                 padding: 0,
                 display: 'flex',
-                alignItems: 'bottom'
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start'
               }}
             >
-              <Box sx={{ textAlign: 'center' }}>
+              <Box>
                 <svg width="25" height="25">
                   <rect
                     x="0"
-                    y="0"
+                    y="3.75"
                     rx="0"
                     ry="0"
                     width="25"
@@ -255,8 +256,8 @@ const buildStyle = (lyr) => {
                   />
                 </svg>
               </Box>
-              <Box>
-                <Text /* sx={{ padding: '3px' }} */>{s[0]}</Text>
+              <Box px={1}>
+                <Text>{s[0]}</Text>
               </Box>
             </ListItem>
           );
