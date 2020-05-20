@@ -87,7 +87,8 @@ const Draw = ({ sx, ...rest }) => {
   function showTextArea(textEl) {
     textEl.style.backgroundColor = '#FFFFFF';
     textEl.style.borderStyle = 'inset';
-    textEl.style.resize = 'both';
+    // textEl.style.resize = 'both';
+    textEl.focus();
   }
 
   map.on('draw.create', (/* e */) => {
@@ -98,6 +99,7 @@ const Draw = ({ sx, ...rest }) => {
       // console.log(el);
 
       for (let i = 0; i < el.length; i += 1) {
+        el[i].focus();
         el[i].addEventListener('click', () => {
           // console.log('click');
           drawControl.changeMode('static');
@@ -114,6 +116,14 @@ const Draw = ({ sx, ...rest }) => {
           }
           hideTextArea(el[el.length - 1]);
         }
+      });
+      // eslint-disable-next-line no-restricted-globals
+      addEventListener('dblclick', () => {
+        if (drawControl.getMode() === 'static') {
+          drawControl.changeMode('simple_select');
+          allowMapInteractions(map, true);
+        }
+        hideTextArea(el[el.length - 1]);
       });
     }
   });
