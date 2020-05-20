@@ -114,6 +114,17 @@ const defaultTheme = {
       bg: 'secondary'
     }
   },
+  alerts: {
+    modal: {
+      backgroundColor: 'background',
+      color: 'text',
+      margin: '0.5rem',
+      position: 'absolute',
+      left: '50%',
+      top: '25%',
+      transform: 'translate(-50%, -50%)'
+    }
+  },
   styles: {
     root: {
       fontFamily: 'body',

@@ -11,6 +11,7 @@ import SearchSuggestions from './SearchSuggestions';
 import handleSearchInputChange from './util/handleSearchInputChange';
 import handleSearchSubmit from './util/handleSearchSubmit';
 import BaseComponent from '../_common/BaseComponent';
+import AlertModal from '../_common/AlertModal';
 
 /*
  * @class Search
@@ -18,6 +19,11 @@ import BaseComponent from '../_common/BaseComponent';
  */
 
 const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
+  if (!mapboxToken) {
+    return (
+      <AlertModal message="No Mapbox token found! The Search tool requires that you pass a token via the 'mapboxToken' prop." />
+    );
+  }
   const config = useContext(Context);
   const { map } = config;
   // hooks to set state
@@ -35,7 +41,7 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
     <FaSearchLocation />
   );
 
-  const onSearchComplete = result => {
+  const onSearchComplete = (result) => {
     if (result && result.coordinates) {
       map.flyTo({ center: result.coordinates, zoom: 15 });
 
@@ -58,7 +64,7 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
             style={{ height: '32px', width: '200px' }}
             autoComplete="off"
             value={searchValue}
-            onChange={e => {
+            onChange={(e) => {
               // RTL tests don't like 'e' need to figure this out
               if (e && e.currentTarget) {
                 handleSearchInputChange(

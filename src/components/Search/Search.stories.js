@@ -20,4 +20,12 @@ storiesOf('Search', module)
         />
       </ElementsProvider>
     );
+  })
+  .add('No Token Alert', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <Search iconOnly={boolean('iconOnly', false)} />
+      </ElementsProvider>
+    );
   });
