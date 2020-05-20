@@ -2,8 +2,9 @@ import React, { useEffect, useContext } from 'react';
 import { Box } from 'theme-ui';
 import mapboxgl from 'mapbox-gl';
 import DefaultContext from '../../DefaultContext';
+import AlertModal from '../_common/AlertModal';
 
-const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
+const Map = ({ mapOptions, mapLayers, supportMessage, sx, ...rest }) => {
   let map;
   const config = useContext(DefaultContext);
   const { setMap } = config;
@@ -24,6 +25,19 @@ const Map = ({ mapOptions, mapLayers, sx, ...rest }) => {
 
     addLayers(mapLayers);
   }, []);
+
+  if (!mapboxgl.supported()) {
+    return (
+      <AlertModal
+        message={
+          supportMessage ||
+          `WARNING! Your browser does not currently support this application, which requires MapboxGL. 
+    Please ensure you are using the latest version of Chrome, Firefox, or Edge.
+    Additionally, check https://get.webgl.org/ for compatibility with your system.`
+        }
+      />
+    );
+  }
 
   return (
     <Box
