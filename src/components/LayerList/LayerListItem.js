@@ -15,6 +15,7 @@ const LayerListItem = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
+  const [legendVisibility, setLegendVisibility] = useState((legend) ? true : false);
 
   const { layerIds } = layerInfo;
 
@@ -30,6 +31,13 @@ const LayerListItem = ({
       }
       return true;
     });
+  };
+
+  const showHideLegend = (e) => {
+    if(legend) {
+      e.preventDefault();
+    } else { return }
+    setLegendVisibility(!legendVisibility);
   };
 
   useEffect(() => {
@@ -63,7 +71,7 @@ const LayerListItem = ({
 
   const LegendListItem = () => {
     return (
-      <Box>
+      <Box sx={{display: (legendVisibility) ? '' : 'none'}}>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
           key={`${layerInfo.layerName}-legend`}
@@ -80,7 +88,7 @@ const LayerListItem = ({
         <Flex>
           <Label>
             <Checkbox onChange={handleChange} checked={isChecked} />
-            <Text pt={1} sx={{ fontWeight: 'bold' }}>
+            <Text pt={1} sx={{ fontWeight: 'bold', cursor: 'pointer', '&:hover': {textDecoration: 'underline'} }} onClick={showHideLegend}>
               {layerInfo.layerName}
             </Text>
           </Label>
