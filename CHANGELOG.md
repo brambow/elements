@@ -1,4 +1,4 @@
-# UPCOMING (1.2.0)
+# 1.2.0
 
 - update to ThemeUI v 0.3.1
 - add radio group option to LayerList
@@ -8,6 +8,11 @@
 - useElements hook
 - legend support for data driven styles on lines
 - minor style improvements to LayerList
+- add useElements hook
+- add ability to show/hide legend symbol in Layer List
+- fix: text draw mode
+- fix: search tool errors
+- add ESLint rules
 
 # 1.1.1
 
