@@ -1,4 +1,5 @@
 import React from 'react';
+
 import LayerList from './LayerList';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
@@ -166,7 +167,12 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList right="1rem" layers={layers} panel={true} />
+        <LayerList
+          right="1rem"
+          layers={layers}
+          panel={true}
+          checkboxStyle="switch"
+        />
       </ElementsProvider>
     );
   })

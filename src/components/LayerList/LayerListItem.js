@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Flex, Box, Text, Label, Checkbox } from 'theme-ui';
+import Switch from '../_primitives/Switch';
 import ListItem from '../_primitives/ListItem';
 import mapExists from '../../util/mapExists';
 import { buildStyle } from './Legend';
@@ -11,11 +12,14 @@ const LayerListItem = ({
   map,
   legend,
   showActions,
-  itemActions
+  itemActions,
+  checkboxStyle
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [style, setStyle] = useState();
-  const [legendVisibility, setLegendVisibility] = useState((legend) ? true : false);
+  const [legendVisibility, setLegendVisibility] = useState(
+    !!legend
+  );
 
   const { layerIds } = layerInfo;
 
@@ -34,9 +38,11 @@ const LayerListItem = ({
   };
 
   const showHideLegend = (e) => {
-    if(legend) {
+    if (legend) {
       e.preventDefault();
-    } else { return }
+    } else {
+      return;
+    }
     setLegendVisibility(!legendVisibility);
   };
 
@@ -71,7 +77,7 @@ const LayerListItem = ({
 
   const LegendListItem = () => {
     return (
-      <Box sx={{display: (legendVisibility) ? '' : 'none'}}>
+      <Box sx={{ display: legendVisibility ? '' : 'none' }}>
         <ListItem
           css={{ display: legend && style ? '' : 'none' }}
           key={`${layerInfo.layerName}-legend`}
@@ -82,13 +88,33 @@ const LayerListItem = ({
     );
   };
 
+  let checkbox;
+  switch (checkboxStyle) {
+    case 'check':
+      checkbox = <Checkbox onChange={handleChange} checked={isChecked} />;
+      break;
+    case 'switch':
+      checkbox = <Switch checked={isChecked} onChange={handleChange} />;
+      break;
+    default:
+      checkbox = <Checkbox checked={isChecked} onChange={handleChange} />;
+      break;
+  }
   return (
     <Box className="listItem">
       <ListItem key={layerInfo.layerName}>
         <Flex>
           <Label>
-            <Checkbox onChange={handleChange} checked={isChecked} />
-            <Text pt={1} sx={{ fontWeight: 'bold', cursor: 'pointer', '&:hover': {textDecoration: 'underline'} }} onClick={showHideLegend}>
+            {checkbox}
+            <Text
+              pt={1}
+              sx={{
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                '&:hover': { textDecoration: 'underline' }
+              }}
+              onClick={showHideLegend}
+            >
               {layerInfo.layerName}
             </Text>
           </Label>

@@ -8,7 +8,7 @@ export { default as List } from './components/_primitives/List';
 export { default as ListItem } from './components/_primitives/ListItem';
 export { default as RadioGroup } from './components/_primitives/RadioGroup';
 export { default as RadioGroupItem } from './components/_primitives/RadioGroupItem';
-
+export { default as Switch } from './components/_primitives/Switch';
 export { default as Map } from './components/Map/Map';
 
 export { default as Home } from './components/Home/Home';

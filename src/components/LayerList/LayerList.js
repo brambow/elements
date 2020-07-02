@@ -12,12 +12,14 @@ const LayerList = ({
   legend = false,
   panel,
   showActions,
+  checkboxStyle,
   ...rest
 }) => {
   const config = useContext(Context);
   const { map } = config;
 
   if (!mapExists(map)) return null;
+  console.log(checkboxStyle);
 
   const listItems = layers.map((item) => {
     return (
@@ -28,6 +30,7 @@ const LayerList = ({
         legend={legend}
         itemActions={item.actions}
         showActions={showActions}
+        checkboxStyle={checkboxStyle}
       />
     );
   });
