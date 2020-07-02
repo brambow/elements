@@ -171,7 +171,7 @@ storiesOf('LayerList', module)
           right="1rem"
           layers={layers}
           panel={true}
-          checkboxStyle="switch"
+          checkboxStyle="eye"
         />
       </ElementsProvider>
     );
