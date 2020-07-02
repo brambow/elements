@@ -57,13 +57,23 @@ const LayerListItem = ({
       case 'eye':
         if (isChecked) {
           setCheckbox(
-            <IconButton onClick={handleChange}>
+            <IconButton
+              onClick={handleChange}
+              sx={{
+                alignItems: 'baseline'
+              }}
+            >
               <FaEye />
             </IconButton>
           );
         } else {
           setCheckbox(
-            <IconButton onClick={handleChange}>
+            <IconButton
+              onClick={handleChange}
+              sx={{
+                alignItems: 'baseline'
+              }}
+            >
               <FaEyeSlash />
             </IconButton>
           );
