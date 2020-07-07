@@ -1,9 +1,10 @@
 import React from 'react';
+
 import LayerList from './LayerList';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, number } from '@storybook/addon-knobs';
+import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import mapLayers from '../../util/mockMapLayers';
@@ -166,7 +167,16 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList right="1rem" layers={layers} panel={true} />
+        <LayerList
+          right="1rem"
+          layers={layers}
+          panel={true}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
       </ElementsProvider>
     );
   })
@@ -174,7 +184,16 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList layers={layers} legend panel={true} />
+        <LayerList
+          layers={layers}
+          legend
+          panel={true}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
       </ElementsProvider>
     );
   })
@@ -182,7 +201,16 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} mapLayers={mapLayers} />
-        <LayerList layers={layersWithDDS} legend panel={true} />
+        <LayerList
+          layers={layersWithDDS}
+          legend
+          panel={true}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
       </ElementsProvider>
     );
   })
@@ -190,7 +218,16 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList layers={layers} showActions panel={true} />
+        <LayerList
+          layers={layers}
+          showActions
+          panel={true}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
       </ElementsProvider>
     );
   })
@@ -198,7 +235,16 @@ storiesOf('LayerList', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <LayerList layers={layers2} groupLayers={groupLayers} panel={true} />
+        <LayerList
+          layers={layers2}
+          groupLayers={groupLayers}
+          panel={true}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
       </ElementsProvider>
     );
   });
