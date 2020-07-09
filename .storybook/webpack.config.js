@@ -6,7 +6,11 @@ module.exports = async ({ config, mode }) => {
 
   // Make whatever fine-grained changes you need
   config.node = { fs: 'empty' };
-
+  config.module.rules.push({
+    test: /\.stories\.jsx?$/,
+    loaders: [require.resolve('@storybook/addon-storysource/loader')],
+    enforce: 'pre'
+  });
   // Return the altered config
   return config;
 };
