@@ -102,7 +102,9 @@ const Select = ({
         if (onSelectCallback) {
           onSelectCallback(geom, selectedFeatures);
         }
-      }
+      } else if (onSelectCallback) {
+          onSelectCallback(null, selectedFeatures);
+        }
     }
   }, [selectedFeatures, selectionGeometry]);
 
