@@ -32,7 +32,7 @@ const Select = ({
   const { map } = config;
   // const [selectActive, setSelectActive] = useState(false);
   // @options:currentMode - off, draw_polygon, draw_point
-  const [currentMode, setCurrentMode] = useState(null);
+  const [currentMode, setCurrentMode] = useState('none');
   const [activeSelectLayers, setActiveSelectLayers] = useState(
     selectableLayers
   );
@@ -102,7 +102,9 @@ const Select = ({
         if (onSelectCallback) {
           onSelectCallback(geom, selectedFeatures);
         }
-      }
+      } else if (onSelectCallback) {
+          onSelectCallback(null, selectedFeatures);
+        }
     }
   }, [selectedFeatures, selectionGeometry]);
 
