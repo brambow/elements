@@ -5,7 +5,15 @@ import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
 import mapExists from '../../util/mapExists';
 
-const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {
+const Home = ({
+  sx,
+  initBounds,
+  initCenter,
+  initZoom,
+  initPitch,
+  initBearing,
+  ...rest
+}) => {
   const config = useContext(Context);
   const { map } = config;
   return (
@@ -20,6 +28,8 @@ const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {
             if (initBounds) {
               try {
                 map.fitBounds(initBounds);
+                map.setPitch(initPitch ?? 0);
+                map.setBearing(initBearing ?? 0);
               } catch (err) {
                 console.error(err);
               }
@@ -27,6 +37,8 @@ const Home = ({ sx, initBounds, initCenter, initZoom, ...rest }) => {
               try {
                 map.setCenter(initCenter);
                 map.setZoom(initZoom);
+                map.setPitch(initPitch ?? 0);
+                map.setBearing(initBearing ?? 0);
               } catch (err) {
                 console.error(err);
               }
