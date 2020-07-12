@@ -90,6 +90,9 @@ storiesOf('Select', module)
               );
             }
           }}
+          onResetCallback={() => {
+            alert('You clicked reset!');
+          }}
         />
       </ElementsProvider>
     );
