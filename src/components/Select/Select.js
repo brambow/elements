@@ -128,7 +128,7 @@ const Select = ({
         </div>
       );
       setCurrentMode('none');
-      setTimeout(function () {
+      setTimeout(function () { // eslint-disable-line func-names
         setAlert(null);
       }, 1000);
     }
@@ -145,7 +145,13 @@ const Select = ({
       setSelectedFeatures,
       selectStyles // optional
     );
-    selectControl.deleteAll();
+    try {
+      selectControl.deleteAll();
+    } catch (e) { // eslint-disable-line no-shadow
+      if (e instanceof TypeError) {
+        setCurrentMode('none');
+      }
+    }
   };
 
   const resetSelection = () => {
