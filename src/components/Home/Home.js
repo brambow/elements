@@ -12,10 +12,37 @@ const Home = ({
   initZoom,
   initPitch,
   initBearing,
+  intercept,
   ...rest
 }) => {
   const config = useContext(Context);
   const { map } = config;
+
+  const zoomToHome = () => {
+    if (initBounds) {
+      try {
+        map.fitBounds(initBounds);
+        map.setPitch(initPitch ?? 0);
+        map.setBearing(initBearing ?? 0);
+      } catch (err) {
+        console.error(err);
+      }
+    } else if (initCenter && initZoom) {
+      try {
+        map.setCenter(initCenter);
+        map.setZoom(initZoom);
+        map.setPitch(initPitch ?? 0);
+        map.setBearing(initBearing ?? 0);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      console.error(
+        'Home Button Error: required props are not present. Make sure you pass "initBounds" OR "initCenter" and "initZoom".'
+      );
+    }
+  };
+
   return (
     <BaseComponent {...rest} className="cl-home-button">
       <Button
@@ -25,27 +52,19 @@ const Home = ({
         data-testid="home-button"
         onClick={() => {
           if (mapExists(map)) {
-            if (initBounds) {
+            if (intercept) {
               try {
-                map.fitBounds(initBounds);
-                map.setPitch(initPitch ?? 0);
-                map.setBearing(initBearing ?? 0);
-              } catch (err) {
-                console.error(err);
-              }
-            } else if (initCenter && initZoom) {
-              try {
-                map.setCenter(initCenter);
-                map.setZoom(initZoom);
-                map.setPitch(initPitch ?? 0);
-                map.setBearing(initBearing ?? 0);
-              } catch (err) {
-                console.error(err);
+                if (Array.isArray(intercept)) {
+                  intercept[0](map);
+                  if (intercept[1]) { zoomToHome() };
+                } else {
+                  intercept();
+                }
+              } catch (interceptError) {
+                zoomToHome();
               }
             } else {
-              console.error(
-                'Home Button Error: required props are not present. Make sure you pass "initBounds" OR "initCenter" and "initZoom".'
-              );
+              zoomToHome();
             }
           }
         }}
