@@ -24,6 +24,7 @@ const Select = ({
   selectableLayers,
   showSelectableLayers,
   onSelectCallback, // callback(selectionShape, selectedFeatures)
+  onResetCallback,
   selectStyles,
   panel,
   ...rest
@@ -103,8 +104,8 @@ const Select = ({
           onSelectCallback(geom, selectedFeatures);
         }
       } else if (onSelectCallback) {
-          onSelectCallback(null, selectedFeatures);
-        }
+        onSelectCallback(null, selectedFeatures);
+      }
     }
   }, [selectedFeatures, selectionGeometry]);
 
@@ -128,7 +129,8 @@ const Select = ({
         </div>
       );
       setCurrentMode('none');
-      setTimeout(function () { // eslint-disable-line func-names
+      // eslint-disable-next-line func-names
+      setTimeout(function () {
         setAlert(null);
       }, 1000);
     }
@@ -147,8 +149,9 @@ const Select = ({
     );
     try {
       selectControl.deleteAll();
-    } catch (e) { // eslint-disable-line no-shadow
-      if (e instanceof TypeError) {
+    } catch (evt) {
+      // eslint-disable-next-line no-shadow
+      if (evt instanceof TypeError) {
         setCurrentMode('none');
       }
     }
@@ -170,6 +173,7 @@ const Select = ({
     // setSelectActive(false);
     setCurrentMode('none');
     selectControl.deleteAll();
+    onResetCallback();
   };
 
   let layerOptions = [];
