@@ -1,3 +1,11 @@
+# 1.3.0 (Upcoming)
+
+- Add style options to LayerList checkboxes (choose: checkbox, switch, eye)
+- Select Tool: add onReset() callback + minor bug fixes
+- Home Tool: reset map tilt when clicked
+- Home: add intercept function for custom actions
+- Storybook: add story source code to Storybook site
+
 # 1.2.0
 
 - update to ThemeUI v 0.3.1
