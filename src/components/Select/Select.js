@@ -97,11 +97,10 @@ const Select = ({
   }, [currentMode]);
 
   useEffect(() => {
-    if (selectionGeometry && selectionGeometry.geometry) {
-      const geom = selectionGeometry.geometry;
+    if (selectionGeometry) {
       if (Object.keys(selectedFeatures).length > 0) {
         if (onSelectCallback) {
-          onSelectCallback(geom, selectedFeatures);
+          onSelectCallback(selectionGeometry, selectedFeatures);
         }
       } else if (onSelectCallback) {
         onSelectCallback(null, selectedFeatures);
