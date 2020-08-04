@@ -1,5 +1,8 @@
 // custom text mode for mapbox draw
 import mapboxgl from 'mapbox-gl';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import LabelMaker from './LabelMaker';
 
 const TextMode = {};
 
@@ -38,10 +41,24 @@ TextMode.onClick = function (state, e) {
   // this.addFeature(point); // puts the point on the map
 
   const marker = new mapboxgl.Marker({
-    element: htmlToElement(`<input class='cc-draw-text'/>`),
+    element: htmlToElement(
+      // `<input class='cc-draw-text' style='text-align: center;' onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" />`
+      `<p class="lp-label" style="text-shadow:0 0 4px #FFFFFF;text-stroke: .1em #FFFFFF; webkit-text-stroke = .1em #FFFFFF; cursor: context-menu" title="Right click to edit label style">New Label</p>`
+      ),
     // element: document.createElement('input'),
     draggable: true
   });
+
+  marker.getElement().addEventListener('contextmenu', (clickEvent) => {
+    const exists = document.getElementById('label-maker');
+    if (exists) {
+      exists.parentNode.removeChild(exists);
+    }
+    const container = document.createElement('div');
+    container.id = 'label-maker';
+    document.body.appendChild(container);
+    ReactDOM.render(<LabelMaker x={clickEvent.clientX + 50} y={clickEvent.clientY + 25} target={clickEvent.target} />, container);
+  })
 
   marker.setLngLat(e.lngLat);
   marker.addTo(this.map);
