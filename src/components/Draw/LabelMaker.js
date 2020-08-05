@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Draggable from 'react-draggable';
 import { CompactPicker } from 'react-color';
 
-const LabelMaker = ({ x, y, target }) => {
+const LabelMaker = ({ x, y, target, theme }) => {
 
   target.style.padding = '4px';
   target.style.textShadow = 'none';
@@ -46,16 +46,36 @@ const LabelMaker = ({ x, y, target }) => {
 
   return (
     <Draggable handle=".handle">
-      <Box sx={{ position: 'absolute', top: `${y}px`, left: `${x}px`, zIndex: 99, backgroundColor: 'white', width: '280px', borderRadius: '9px', display: (hidden ? 'none' : '') }}>
-        <Container className="handle" sx={{ textAlign: 'center', cursor: 'pointer', backgroundColor: 'gray', borderTopLeftRadius: '9px', borderTopRightRadius: '9px', padding: '5px' }}>
-          <Text sx={{color: 'white'}}>Label Editor</Text>
+      <Box sx={{ 
+        position: 'absolute', 
+        top: `${y}px`, 
+        left: `${x}px`, 
+        zIndex: 99, 
+        backgroundColor: 'white', 
+        width: '280px', 
+        borderRadius: '9px', 
+        display: (hidden ? 'none' : '') }}>
+
+        <Container className="handle" sx={{ 
+          textAlign: 'center', 
+          cursor: 'pointer', 
+          backgroundColor: theme.colors.primary, 
+          borderTopLeftRadius: '9px', 
+          borderTopRightRadius: '9px', 
+          padding: '5px' }}>
+
+          <Text sx={{color: 'white', fontFamily: theme.fonts.body}}>Label Editor</Text>
           <Close 
             sx={{position: 'absolute', top: 0, right: 0, color: 'white', cursor: 'pointer'}} 
             onClick={() => {setHidden(true)}} />
+
         </Container>
+
         <Container>
+
           <Box sx={{margin: '2.5px'}}>
-            <Label htmlFor='label-edit'>Label</Label>
+
+            <Label sx={{fontFamily: theme.fonts.body}} htmlFor='label-edit'>Label</Label>
             <Input
               placeholder={target.innerHTML}
               name='label-edit'
@@ -65,7 +85,7 @@ const LabelMaker = ({ x, y, target }) => {
               mb={1}
             />
 
-            <Label htmlFor='font-size-edit'>Font Size</Label>
+            <Label sx={{fontFamily: theme.fonts.body}} htmlFor='font-size-edit'>Font Size</Label>
             <Input
               placeholder={target.style.fontSize.replace('px', '') || '12'}
               name='font-size-edit'
@@ -75,7 +95,7 @@ const LabelMaker = ({ x, y, target }) => {
               mb={1}
             />
 
-            <Label htmlFor='font-family-edit'>Font Family</Label>
+            <Label sx={{fontFamily: theme.fonts.body}} htmlFor='font-family-edit'>Font Family</Label>
             <Select name='font-family-edit' id='font-family-edit' mb={1} onChange={updateFontFamily} sx={{padding: '2px'}}>
               <option value='serif'>Serif</option>
               <option value='sans-serif'>Sans-Serif</option>
@@ -84,7 +104,7 @@ const LabelMaker = ({ x, y, target }) => {
               <option value='fantasy'>Fantasy</option>
             </Select>
 
-            <Label htmlFor='font-weight-edit'>Font Weight</Label>
+            <Label sx={{fontFamily: theme.fonts.body}} htmlFor='font-weight-edit'>Font Weight</Label>
             <Input
               placeholder={target.style.fontWeight || 200}
               name='font-weight-edit'
@@ -129,7 +149,7 @@ const LabelMaker = ({ x, y, target }) => {
             </Grid>
 
             <Box p={2} sx={{textAlign: 'center'}}>
-              <Link sx={{color: '#a70000'}} href='#!' onClick={(e) => {
+              <Link sx={{color: '#a70000', fontFamily: theme.fonts.body}} href='#!' onClick={(e) => {
                 e.preventDefault();
                 const choice = window.confirm('are you sure');
                 if (choice) {
@@ -139,7 +159,9 @@ const LabelMaker = ({ x, y, target }) => {
               }}>Delete Label</Link>
             </Box>
           </Box>
+          
         </Container>
+        
       </Box>
     </Draggable>
   );

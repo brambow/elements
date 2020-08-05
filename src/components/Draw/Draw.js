@@ -10,18 +10,21 @@ import {
 } from 'react-icons/md';
 import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
 
+import { useTheme } from 'emotion-theming'
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import mapExists from '../../util/mapExists';
 
-import TextMode from './textDrawMode';
+import GetTextMode from './textDrawMode';
 import StaticMode from './staticDrawMode';
 import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
 // import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
 const Draw = ({ sx, ...rest }) => {
+  const theme = useTheme()
+
   const config = useContext(Context);
   const { map } = config;
   const [drawControl, setDrawControl] = useState(null);
@@ -43,7 +46,7 @@ const Draw = ({ sx, ...rest }) => {
             // eslint-disable-next-line prefer-object-spread
             modes: Object.assign(
               {
-                draw_text: TextMode,
+                draw_text: GetTextMode(theme),
                 static: StaticMode
               },
               MapboxDraw.modes
