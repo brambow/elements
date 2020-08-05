@@ -1,10 +1,11 @@
 # 1.3.0 (Upcoming)
 
-- Add style options to LayerList checkboxes (choose: checkbox, switch, eye)
-- Select Tool: add onReset() callback + minor bug fixes
+- Layer List: Add style options to checkboxes (choose: checkbox, switch, eye)
+- Select Tool: add onReset() callback + minor bug fixes. Address issue expecting a single geometry.
 - Home Tool: reset map tilt when clicked
 - Home: add intercept function for custom actions
 - Storybook: add story source code to Storybook site
+- Draw Tool: Add text context menu for changing label text, size, font, and color.
 
 # 1.2.0
 
