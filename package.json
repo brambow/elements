@@ -28,7 +28,7 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "dependencies": {
-    "@mapbox/mapbox-gl-draw": "^1.1.2",
+    "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/togeojson": "^0.16.0",
     "@reach/combobox": "^0.10.2",
     "@reach/menu-button": "^0.7.3",
