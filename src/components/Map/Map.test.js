@@ -5,7 +5,8 @@ import ElementsProvider from '../_common/ElementsProvider';
 import mapOptions from '../../util/mockMapOptions';
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
-  Map: () => ({})
+  Map: () => ({}),
+  supported: () => ({})
 }));
 
 describe('Map component', () => {
