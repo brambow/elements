@@ -6,6 +6,7 @@ import ElementsProvider from '../_common/ElementsProvider';
 import mockMapContext from '../../util/mockMapContext';
 import handleSearchInputChange from './util/handleSearchInputChange';
 import handleSearchSubmit from './util/handleSearchSubmit';
+import config from '../../config';
 
 //we put the event handler functions in separate files from the component so they could be called/mocked for tests
 //functions inside functional React components can't be accessed the same way they can in class-style components
@@ -20,23 +21,23 @@ describe('Search component and utils', () => {
   it('renders without error', () => {
     const { container, getByText, getByRole } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Search />
+        <Search mapboxToken={config.mapboxToken} />
       </ElementsProvider>
     );
 
     expect(container.firstChild).toBeInTheDocument();
     expect(getByText('Search')).toBeInTheDocument();
-    expect(getByRole('textbox')).toBeInTheDocument();
+    expect(getByRole('comboboxw')).toBeInTheDocument();
   });
 
   it('calls the suggest function on input change', () => {
     const { getByRole } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Search />
+        <Search mapboxToken={config.mapboxToken} />
       </ElementsProvider>
     );
 
-    const searchInput = getByRole('textbox');
+    const searchInput = getByRole('comboboxw');
     fireEvent.change(searchInput, { target: { value: '1600 Pennsylvania' } });
     expect(handleSearchInputChange).toHaveBeenCalled();
   });
@@ -44,7 +45,7 @@ describe('Search component and utils', () => {
   it('calls the search function when clicked', () => {
     const { getByText } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Search />
+        <Search mapboxToken={config.mapboxToken} />
       </ElementsProvider>
     );
     fireEvent.click(getByText('Search'));
