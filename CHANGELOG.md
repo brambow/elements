@@ -6,6 +6,7 @@
 - Home: add intercept function for custom actions
 - Storybook: add story source code to Storybook site
 - Draw Tool: Add text context menu for changing label text, size, font, and color.
+- Update Mapbox Draw dependency
 
 # 1.2.0
 
