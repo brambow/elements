@@ -3,7 +3,7 @@ import {
   render,
   fireEvent,
   wait,
-  act,
+  // act,
   waitForElement
 } from '@testing-library/react';
 import Select from './Select';
@@ -36,7 +36,7 @@ describe('Select component', () => {
       getByText
     } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Select selectableLayers={['road-primary']} />
+        <Select selectableLayers={['road-primary']} showSelectableLayers />
       </ElementsProvider>
     );
 
@@ -60,11 +60,13 @@ describe('Select component', () => {
   });
 
   it('buttons are disabled if no layer checked', () => {
-    const { getByTitle, getByText } = render(
+    const { getByTitle, getByLabelText } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Select selectableLayers={['road-primary']} />
+        <Select selectableLayers={['road-primary']} showSelectableLayers />
       </ElementsProvider>
     );
+
+    fireEvent.click(getByLabelText('road-primary'));
 
     expect(getByTitle('Select By Point')).toBeDisabled();
     expect(getByTitle('Select By Polygon')).toBeDisabled();
@@ -74,11 +76,11 @@ describe('Select component', () => {
   it('buttons are enabled when a layer is checked and turn green when clicked', async () => {
     const { getByTitle, getByLabelText } = render(
       <ElementsProvider mapOverride={mockMapContext}>
-        <Select selectableLayers={['road-primary']} />
+        <Select selectableLayers={['road-primary']} showSelectableLayers />
       </ElementsProvider>
     );
 
-    fireEvent.click(getByLabelText('road-primary'));
+    // fireEvent.click(getByLabelText('road-primary'));
 
     //this causes a console warning in the tests but doesn't affect passage
 
