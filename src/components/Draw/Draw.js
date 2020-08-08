@@ -10,7 +10,7 @@ import {
 } from 'react-icons/md';
 import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
 
-import { useTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -23,7 +23,7 @@ import BaseComponent from '../_common/BaseComponent';
 // import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
 const Draw = ({ sx, ...rest }) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
   const config = useContext(Context);
   const { map } = config;
@@ -67,7 +67,7 @@ const Draw = ({ sx, ...rest }) => {
   function clearDrawings() {
     if (drawControl) {
       drawControl.deleteAll();
-      const el = document.getElementsByClassName('cc-draw-text');
+      const el = document.getElementsByClassName('cl-draw-text');
       while (el.length > 0) {
         el[0].remove();
       }
