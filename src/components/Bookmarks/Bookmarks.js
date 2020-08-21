@@ -2,10 +2,10 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import { Button, Flex, Box, Text, Input } from 'theme-ui';
-import { FaBookmark } from 'react-icons/fa';
+import { FaBookmark, FaTrashAlt } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
-import saveBookmark from './util/saveBookmark';
+import { deleteBookmark, saveBookmark } from './util/bookmarkActions';
 import loadBookmark from './util/loadBookmark';
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
@@ -28,12 +28,26 @@ const Bookmarks = ({ panel, ...rest }) => {
         <ListItem
           selectable
           key={bkmk.name}
-          onClick={() => {
-            loadBookmark(map, bkmk);
-          }}
         >
-          <FaBookmark />
-          {bkmk.name}
+          <Flex>
+            <Box
+              onClick={() => {
+                loadBookmark(map, bkmk);
+              }}
+             sx={{ flex: '1 1 auto' }}
+            >
+              <FaBookmark />
+              {bkmk.name} 
+            </Box>
+            <Box>
+              <FaTrashAlt 
+                onClick={() => {
+                  deleteBookmark(bkmk, setBookmarks);
+                }}
+              />
+            </Box>
+
+          </Flex>
         </ListItem>
       );
     });
