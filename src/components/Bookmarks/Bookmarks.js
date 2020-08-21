@@ -5,19 +5,21 @@ import { Button, Flex, Box, Text, Input } from 'theme-ui';
 import { FaBookmark, FaTrashAlt } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
-import { deleteBookmark, saveBookmark } from './util/bookmarkActions';
-import loadBookmark from './util/loadBookmark';
+import { goToBookmark, loadBookmarks, deleteBookmark, saveBookmark } from './util/bookmarkActions';
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 
 const Bookmarks = ({ panel, ...rest }) => {
+  const { _goToBookmark, _loadBookmarks, _deleteBookmark, _saveBookmark } = {
+    _goToBookmark: Object.hasOwnProperty.call(rest, 'goToBookmark') ?  rest.goToBookmark : goToBookmark,
+    _loadBookmarks: Object.hasOwnProperty.call(rest, 'loadBookmarks') ? rest.loadBookmarks : loadBookmarks,
+    _deleteBookmark: Object.hasOwnProperty.call(rest, 'deleteBookmark') ? rest.deleteBookmark : deleteBookmark,
+    _saveBookmark: Object.hasOwnProperty.call(rest, 'saveBookmark') ? rest.saveBookmark : saveBookmark
+  };
+
   const config = useContext(Context);
   const {map} = config;
-  const existingBookmarks = JSON.parse(
-    window.localStorage.getItem('ccBookmarks')
-  )
-    ? JSON.parse(window.localStorage.getItem('ccBookmarks'))
-    : [];
+  const existingBookmarks = JSON.parse(_loadBookmarks()) || [];
   const [bookmarkName, setBookmarkName] = useState('');
   const [bookmarks, setBookmarks] = useState(existingBookmarks);
   const [bookmarkListItems, setBookmarkListItems] = useState([]);
@@ -32,7 +34,7 @@ const Bookmarks = ({ panel, ...rest }) => {
           <Flex>
             <Box
               onClick={() => {
-                loadBookmark(map, bkmk);
+                _goToBookmark(map, bkmk);
               }}
              sx={{ flex: '1 1 auto' }}
             >
@@ -42,7 +44,7 @@ const Bookmarks = ({ panel, ...rest }) => {
             <Box>
               <FaTrashAlt 
                 onClick={() => {
-                  deleteBookmark(bkmk, setBookmarks);
+                  _deleteBookmark(bkmk, setBookmarks);
                 }}
               />
             </Box>
@@ -76,7 +78,7 @@ const Bookmarks = ({ panel, ...rest }) => {
           marginLeft: '-0.175rem'
         }}
         onClick={() => {
-          saveBookmark(map, bookmarkName, setBookmarks);
+          _saveBookmark(map, bookmarkName, setBookmarks);
 
           setBookmarkName('');
         }}
