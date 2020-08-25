@@ -1,7 +1,20 @@
 import mapExists from '../../../util/mapExists';
 
-export default function saveBookmark(map, name, setBookmarks) {
-  const existingBookmarks = window.localStorage.getItem('ccBookmarks');
+function loadBookmarks() {
+  return window.localStorage.getItem('ccBookmarks');
+}
+
+function goToBookmark(map, bookmark) {
+  if (!mapExists(map)) return false;
+  map.easeTo({
+    center: bookmark.center,
+    zoom: bookmark.zoom
+  });
+  return true;
+}
+
+function saveBookmark(map, name, setBookmarks) {
+  const existingBookmarks = loadBookmarks();
 
   if (mapExists(map) && name) {
     if (!existingBookmarks) {
@@ -29,3 +42,13 @@ export default function saveBookmark(map, name, setBookmarks) {
     }
   }
 }
+
+function deleteBookmark(name, setBookmarks) {
+  const bookmarks = JSON.parse(loadBookmarks()).filter((bookmark) => {
+    return JSON.stringify(bookmark) !== JSON.stringify(name);
+  });
+  window.localStorage.setItem('ccBookmarks', JSON.stringify(bookmarks));
+  setBookmarks(bookmarks);
+}
+
+export { goToBookmark, loadBookmarks, saveBookmark, deleteBookmark }

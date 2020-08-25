@@ -6,6 +6,23 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
+import { loadBookmarks, deleteBookmark, saveBookmark } from './util/bookmarkActions';
+
+const goToBookmark = (map, bookmark) => {
+  map.flyTo({
+    center: bookmark.center,
+    zoom: bookmark.zoom,
+    bearing: 0,
+    speed: 0.5,
+    curve: 1.7,
+    easing: function(t) {
+      return t;
+    },
+    essential: true
+  });
+  return true;
+}
+
 
 storiesOf('Bookmarks', module)
   .addDecorator(withKnobs)
@@ -24,4 +41,19 @@ storiesOf('Bookmarks', module)
         <Map mapOptions={mapOptions} />
       </ElementsProvider>
     );
-  });
+  })
+  .add('Custom actions', () => {
+    return (
+      <ElementsProvider>
+        <Bookmarks 
+          panel={true}
+          goToBookmark={goToBookmark} 
+          loadBookmarks={loadBookmarks} 
+          deleteBookmark={deleteBookmark} 
+          saveBookmark={saveBookmark} 
+        />
+        <Map mapOptions={mapOptions} />
+      </ElementsProvider>
+    )
+  })
+  ;
