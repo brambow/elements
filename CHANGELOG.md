@@ -1,4 +1,4 @@
-# 1.3.0 (Upcoming)
+# 1.3.0
 
 - Layer List: Add style options to checkboxes (choose: checkbox, switch, eye)
 - Select Tool: add onReset() callback + minor bug fixes. Address issue expecting a single geometry.
@@ -7,6 +7,8 @@
 - Storybook: add story source code to Storybook site
 - Draw Tool: Add text context menu for changing label text, size, font, and color.
 - Update Mapbox Draw dependency
+- Bookmarks: ability to delete and custom actions
+- Update several dependencies
 
 # 1.2.0
 
