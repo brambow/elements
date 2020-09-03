@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { Button } from 'theme-ui';
+import { Button, Slider, Flex } from 'theme-ui';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
 import zoomIn from './util/zoomIn';
 import zoomOut from './util/zoomOut';
 
-const Zoom = ({ circular, horizontal, sx, ...rest }) => {
+const Zoom = ({ circular, horizontal, controlType, sx, ...rest }) => {
   const config = useContext(Context);
-  const {map} = config;
+  const { map } = config;
 
   let buttonStyle = {
     borderRadius: 'default',
@@ -62,19 +62,60 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
     </Button>
   );
 
-  let buttons = (
-    <>
-      {zoomInBtn}
-      {zoomOutBtn}
-    </>
-  );
+  let zoomControls;
 
-  if (horizontal) {
-    buttons = (
-      <>
-        {zoomOutBtn}
-        {zoomInBtn}
-      </>
+  if (controlType === 'button' || controlType === undefined) {
+    if (horizontal) {
+      zoomControls = (
+        <>
+          {zoomOutBtn}
+          {zoomInBtn}
+        </>
+      );
+    } else {
+      zoomControls = (
+        <>
+          {zoomInBtn}
+          {zoomOutBtn}
+        </>
+      );
+    }
+  } else if (controlType === 'slider') {
+    if (horizontal) {
+      zoomControls = (
+        <>
+          {zoomOutBtn}
+          <Slider step={0.1} min={0} max={22} />
+          {zoomInBtn}
+        </>
+      );
+    } else {
+      zoomControls = (
+        <Flex
+          sx={{
+            maxWidth: '50px',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          {zoomInBtn}
+          <Slider
+            step={0.1}
+            min={0}
+            max={22}
+            sx={{
+              width: '120px',
+              my: 5,
+              transform: 'rotate(270deg)'
+            }}
+          />
+          {zoomOutBtn}
+        </Flex>
+      );
+    }
+  } else {
+    console.error(
+      `Value for 'controlType' prop on Zoom component is not recognized.`
     );
   }
 
@@ -87,7 +128,7 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
       }}
       className="cl-zoom-controls"
     >
-      {buttons}
+      {zoomControls}
     </BaseComponent>
   );
 };

@@ -20,4 +20,17 @@ storiesOf('Zoom', module)
         />
       </ElementsProvider>
     );
+  })
+  .add('Slider', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <Zoom
+          sx={{ bg: 'secondary' }}
+          circular={boolean('circular', false)}
+          horizontal={boolean('horizontal', false)}
+          controlType="slider"
+        />
+      </ElementsProvider>
+    );
   });
