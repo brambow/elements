@@ -21,9 +21,9 @@ const Home = ({
   const zoomToHome = () => {
     if (initBounds) {
       try {
-        map.fitBounds(initBounds);
         map.setPitch(initPitch ?? 0);
         map.setBearing(initBearing ?? 0);
+        map.fitBounds(initBounds);
       } catch (err) {
         console.error(err);
       }
