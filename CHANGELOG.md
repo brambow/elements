@@ -1,3 +1,7 @@
+# 1.3.1-1.3.2
+
+- Fixing Home component behavior
+
 # 1.3.0
 
 - Layer List: Add style options to checkboxes (choose: checkbox, switch, eye)
