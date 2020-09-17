@@ -1,3 +1,7 @@
+# 1.3.3
+
+- fix: add zIndex to searchSuggestions
+
 # 1.3.1-1.3.2
 
 - Fixing Home component behavior
