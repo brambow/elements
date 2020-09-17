@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComboboxList, ComboboxOption, ComboboxPopover } from '@reach/combobox';
 
-const SearchSuggestions = ({ suggestions, setSearchInput }) => {
+const SearchSuggestions = ({ suggestions, setSearchInput, zIndex }) => {
   let items;
   if (suggestions && suggestions.length > 0) {
     items = suggestions.map((suggestion) => {
@@ -21,9 +21,9 @@ const SearchSuggestions = ({ suggestions, setSearchInput }) => {
 
     return (
       // to do: how to put style into theme or sx syntax
-      <ComboboxPopover style={{ backgroundColor: '#fff' }}>
+      <ComboboxPopover style={{ backgroundColor: '#fff', zIndex }}>
         <ComboboxList
-          style={{ padding: 4, fontSize: 10, zIndex: 5 }}
+          style={{ padding: 4, fontSize: 10 }}
           aria-labelledby="search"
         >
           {items}

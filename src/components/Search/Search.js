@@ -18,7 +18,14 @@ import AlertModal from '../_common/AlertModal';
  * @param {Boolean} iconOnly
  */
 
-const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
+const Search = ({
+  mapboxToken,
+  iconOnly,
+  suggestionsZIndex,
+  sx,
+  bg,
+  ...rest
+}) => {
   if (!mapboxToken) {
     return (
       <AlertModal message="No Mapbox token found! The Search tool requires that you pass a token via the 'mapboxToken' prop." />
@@ -77,6 +84,7 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
             }}
           />
           <SearchSuggestions
+            zIndex={suggestionsZIndex ?? 5}
             suggestions={suggestions}
             setSearchInput={setSearchValue}
           />
