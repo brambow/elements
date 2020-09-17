@@ -1,6 +1,7 @@
-# 1.3.3
+# 1.3.3-1.3.4
 
 - fix: add zIndex to searchSuggestions
+- feat: make suggestionsZIndex a prop on Search
 
 # 1.3.1-1.3.2
 
