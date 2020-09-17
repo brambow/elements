@@ -1,11 +1,12 @@
 // Search Component for interacting with geocoding services or feature searches
 // to do: consider using reach-ui combobox
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { Flex, Button } from 'theme-ui';
 import { Combobox, ComboboxInput } from '@reach/combobox';
 import { FaSearchLocation } from 'react-icons/fa';
 import mapboxgl from 'mapbox-gl';
+import debounce from 'lodash.debounce';
 import Context from '../../DefaultContext';
 import SearchSuggestions from './SearchSuggestions';
 import handleSearchInputChange from './util/handleSearchInputChange';
@@ -36,6 +37,13 @@ const Search = ({
   // hooks to set state
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const _handleSearchInputChange = useCallback(
+    debounce(input => {
+      handleSearchInputChange(input, setSuggestions, mapboxToken);
+    }, 500), []
+  );
 
   const btnContent = !iconOnly ? (
     <div>
@@ -72,15 +80,8 @@ const Search = ({
             autoComplete="off"
             value={searchValue}
             onChange={(e) => {
-              // RTL tests don't like 'e' need to figure this out
-              if (e && e.currentTarget) {
-                handleSearchInputChange(
-                  e.currentTarget.value,
-                  setSearchValue,
-                  setSuggestions,
-                  mapboxToken
-                );
-              }
+              setSearchValue(e.target.value);
+              _handleSearchInputChange(e.target.value)
             }}
           />
           <SearchSuggestions
