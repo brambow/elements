@@ -1,14 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'theme-ui';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import numeral from 'numeral';
 import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
 import zoomIn from './util/zoomIn';
 import zoomOut from './util/zoomOut';
+import mapExists from '../../util/mapExists';
 
-const Zoom = ({ circular, horizontal, sx, ...rest }) => {
+const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
   const config = useContext(Context);
-  const {map} = config;
+  const { map } = config;
+  const [zoom, setZoom] = useState('');
+
+  function displayZoom() {
+    setZoom(numeral(map.getZoom()).format('0.0'));
+  }
+
+  useEffect(() => {
+    if (mapExists(map)) {
+      // map.on('load', () => {
+      map.on('zoom', () => {
+        displayZoom();
+      });
+      // });
+    }
+  }, [map]);
 
   let buttonStyle = {
     borderRadius: 'default',
@@ -32,6 +49,16 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
 
   if (horizontal) {
     flexDirection = 'row';
+  }
+
+  let zoomLevelIndicator = null;
+
+  if (showZoomLevel) {
+    zoomLevelIndicator = (
+      <Button sx={{ ...buttonStyle, bg: 'secondary', fontSize: 0 }}>
+        {zoom}
+      </Button>
+    );
   }
 
   const zoomInBtn = (
@@ -65,6 +92,7 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
   let buttons = (
     <>
       {zoomInBtn}
+      {zoomLevelIndicator}
       {zoomOutBtn}
     </>
   );
@@ -73,6 +101,7 @@ const Zoom = ({ circular, horizontal, sx, ...rest }) => {
     buttons = (
       <>
         {zoomOutBtn}
+        {zoomLevelIndicator}
         {zoomInBtn}
       </>
     );
