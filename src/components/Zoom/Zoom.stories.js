@@ -17,6 +17,7 @@ storiesOf('Zoom', module)
           sx={{ bg: 'secondary' }}
           circular={boolean('circular', false)}
           horizontal={boolean('horizontal', false)}
+          showZoomLevel={boolean('showZoomLevel', false)}
         />
       </ElementsProvider>
     );
