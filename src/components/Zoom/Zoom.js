@@ -55,15 +55,7 @@ const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
 
   if (showZoomLevel) {
     zoomLevelIndicator = (
-      <Button
-        sx={{
-          width: '25px',
-          height: '25px',
-          bg: 'secondary',
-          fontSize: 0,
-          px: 0
-        }}
-      >
+      <Button sx={{ ...buttonStyle, bg: 'secondary', fontSize: 0 }}>
         {zoom}
       </Button>
     );
