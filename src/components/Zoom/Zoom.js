@@ -18,7 +18,10 @@ const Zoom = ({
 }) => {
   const config = useContext(Context);
   const { map } = config;
-  const [zoom, setZoom] = useState('');
+  const [zoom, setZoom] = useState(() => {
+    if (!mapExists()) return false;
+    return map.getZoom();
+  });
 
   function displayZoom() {
     setZoom(numeral(map.getZoom()).format('0.0'));
@@ -26,11 +29,12 @@ const Zoom = ({
 
   useEffect(() => {
     if (mapExists(map)) {
-      // map.on('load', () => {
+      map.on('load', () => {
+        displayZoom();
+      });
       map.on('zoom', () => {
         displayZoom();
       });
-      // });
     }
   }, [map]);
 
@@ -125,10 +129,7 @@ const Zoom = ({
             step={0.1}
             min={0}
             max={22}
-            defaultValue={() => {
-              if (!mapExists()) return false;
-              return map.getZoom();
-            }}
+            value={zoom}
             onInput={(e) => {
               map.setZoom(e.target.value);
               return true;
@@ -156,10 +157,7 @@ const Zoom = ({
               my: 5,
               transform: 'rotate(270deg)'
             }}
-            defaultValue={() => {
-              if (!mapExists()) return false;
-              return map.getZoom();
-            }}
+            value={zoom}
             onInput={(e) => {
               map.setZoom(e.target.value);
               return true;
