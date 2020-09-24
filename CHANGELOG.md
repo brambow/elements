@@ -1,6 +1,7 @@
 # Upcoming
 
 - Add indicator of current zoom level as option in Zoom control
+- "slider" option for Zoom
 
 # 1.3.5
 
