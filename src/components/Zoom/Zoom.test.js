@@ -14,6 +14,7 @@ jest.mock('./util/zoomIn', () => jest.fn());
 jest.mock('./util/zoomOut', () => jest.fn());
 
 describe('Zoom component', () => {
+  // need to add test for zoom level indicator
   it('renders without error', () => {
     const { container, getByTitle } = render(<Zoom />);
 

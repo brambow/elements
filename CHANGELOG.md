@@ -1,4 +1,21 @@
-# 1.3.0 (Upcoming)
+# Upcoming
+
+- Add indicator of current zoom level as option in Zoom control
+
+# 1.3.5
+
+- add debounce to geocoding
+
+# 1.3.3-1.3.4
+
+- fix: add zIndex to searchSuggestions
+- feat: make suggestionsZIndex a prop on Search
+
+# 1.3.1-1.3.2
+
+- Fixing Home component behavior
+
+# 1.3.0
 
 - Layer List: Add style options to checkboxes (choose: checkbox, switch, eye)
 - Select Tool: add onReset() callback + minor bug fixes. Address issue expecting a single geometry.
@@ -7,6 +24,8 @@
 - Storybook: add story source code to Storybook site
 - Draw Tool: Add text context menu for changing label text, size, font, and color.
 - Update Mapbox Draw dependency
+- Bookmarks: ability to delete and custom actions
+- Update several dependencies
 
 # 1.2.0
 

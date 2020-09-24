@@ -1,11 +1,12 @@
 // Search Component for interacting with geocoding services or feature searches
 // to do: consider using reach-ui combobox
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { Flex, Button } from 'theme-ui';
 import { Combobox, ComboboxInput } from '@reach/combobox';
 import { FaSearchLocation } from 'react-icons/fa';
 import mapboxgl from 'mapbox-gl';
+import debounce from 'lodash.debounce';
 import Context from '../../DefaultContext';
 import SearchSuggestions from './SearchSuggestions';
 import handleSearchInputChange from './util/handleSearchInputChange';
@@ -18,7 +19,14 @@ import AlertModal from '../_common/AlertModal';
  * @param {Boolean} iconOnly
  */
 
-const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
+const Search = ({
+  mapboxToken,
+  iconOnly,
+  suggestionsZIndex,
+  sx,
+  bg,
+  ...rest
+}) => {
   if (!mapboxToken) {
     return (
       <AlertModal message="No Mapbox token found! The Search tool requires that you pass a token via the 'mapboxToken' prop." />
@@ -29,6 +37,13 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
   // hooks to set state
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+
+  // eslint-disable-next-line no-underscore-dangle
+  const _handleSearchInputChange = useCallback(
+    debounce(input => {
+      handleSearchInputChange(input, setSuggestions, mapboxToken);
+    }, 500), []
+  );
 
   const btnContent = !iconOnly ? (
     <div>
@@ -65,18 +80,12 @@ const Search = ({ mapboxToken, iconOnly, sx, bg, ...rest }) => {
             autoComplete="off"
             value={searchValue}
             onChange={(e) => {
-              // RTL tests don't like 'e' need to figure this out
-              if (e && e.currentTarget) {
-                handleSearchInputChange(
-                  e.currentTarget.value,
-                  setSearchValue,
-                  setSuggestions,
-                  mapboxToken
-                );
-              }
+              setSearchValue(e.target.value);
+              _handleSearchInputChange(e.target.value)
             }}
           />
           <SearchSuggestions
+            zIndex={suggestionsZIndex ?? 5}
             suggestions={suggestions}
             setSearchInput={setSearchValue}
           />

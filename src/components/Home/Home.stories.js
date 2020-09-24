@@ -9,6 +9,14 @@ import mapOptions from '../../util/mockMapOptions';
 
 storiesOf('Home', module)
   .addDecorator(withKnobs)
+  .add('Using Bounds', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <Home initBounds={mapOptions.bounds} />
+      </ElementsProvider>
+    );
+  })
   .add('Using Zoom and Center', () => {
     return (
       <ElementsProvider>
