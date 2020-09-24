@@ -121,7 +121,19 @@ const Zoom = ({
       zoomControls = (
         <>
           {zoomOutBtn}
-          <Slider step={0.1} min={0} max={22} />
+          <Slider
+            step={0.1}
+            min={0}
+            max={22}
+            defaultValue={() => {
+              if (!mapExists()) return false;
+              return map.getZoom();
+            }}
+            onInput={(e) => {
+              map.setZoom(e.target.value);
+              return true;
+            }}
+          />
           {zoomInBtn}
         </>
       );
@@ -144,12 +156,21 @@ const Zoom = ({
               my: 5,
               transform: 'rotate(270deg)'
             }}
+            defaultValue={() => {
+              if (!mapExists()) return false;
+              return map.getZoom();
+            }}
+            onInput={(e) => {
+              map.setZoom(e.target.value);
+              return true;
+            }}
           />
           {zoomOutBtn}
         </Flex>
       );
     }
   } else {
+    // eslint-disable-next-line no-console
     console.error(
       `Value for 'controlType' prop on Zoom component is not recognized.`
     );
