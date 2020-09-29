@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button } from 'theme-ui';
+import { Button, Slider, Flex } from 'theme-ui';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import numeral from 'numeral';
 import Context from '../../DefaultContext';
@@ -8,10 +8,20 @@ import zoomIn from './util/zoomIn';
 import zoomOut from './util/zoomOut';
 import mapExists from '../../util/mapExists';
 
-const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
+const Zoom = ({
+  circular,
+  horizontal,
+  controlType,
+  showZoomLevel,
+  sx,
+  ...rest
+}) => {
   const config = useContext(Context);
   const { map } = config;
-  const [zoom, setZoom] = useState('');
+  const [zoom, setZoom] = useState(() => {
+    if (!mapExists()) return false;
+    return map.getZoom();
+  });
 
   function displayZoom() {
     setZoom(numeral(map.getZoom()).format('0.0'));
@@ -19,11 +29,12 @@ const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
 
   useEffect(() => {
     if (mapExists(map)) {
-      // map.on('load', () => {
+      map.on('load', () => {
+        displayZoom();
+      });
       map.on('zoom', () => {
         displayZoom();
       });
-      // });
     }
   }, [map]);
 
@@ -89,21 +100,77 @@ const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
     </Button>
   );
 
-  let buttons = (
-    <>
-      {zoomInBtn}
-      {zoomLevelIndicator}
-      {zoomOutBtn}
-    </>
-  );
+  let zoomControls;
 
-  if (horizontal) {
-    buttons = (
-      <>
-        {zoomOutBtn}
-        {zoomLevelIndicator}
-        {zoomInBtn}
-      </>
+  if (controlType === 'button' || controlType === undefined) {
+    if (horizontal) {
+      zoomControls = (
+        <>
+          {zoomOutBtn}
+          {zoomLevelIndicator}
+          {zoomInBtn}
+        </>
+      );
+    } else {
+      zoomControls = (
+        <>
+          {zoomInBtn}
+          {zoomLevelIndicator}
+          {zoomOutBtn}
+        </>
+      );
+    }
+  } else if (controlType === 'slider') {
+    if (horizontal) {
+      zoomControls = (
+        <>
+          {zoomOutBtn}
+          <Slider
+            step={0.1}
+            min={0}
+            max={22}
+            value={zoom}
+            onInput={(e) => {
+              map.setZoom(e.target.value);
+              return true;
+            }}
+          />
+          {zoomInBtn}
+        </>
+      );
+    } else {
+      zoomControls = (
+        <Flex
+          sx={{
+            maxWidth: '50px',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          {zoomInBtn}
+          <Slider
+            step={0.1}
+            min={0}
+            max={22}
+            sx={{
+              width: '120px',
+              my: 5,
+              transform: 'rotate(270deg)'
+            }}
+            value={zoom}
+            onInput={(e) => {
+              map.setZoom(e.target.value);
+              return true;
+            }}
+          />
+          {zoomOutBtn}
+        </Flex>
+      );
+    }
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(
+      `Value for 'controlType' prop on Zoom component is not recognized.`
     );
   }
 
@@ -116,7 +183,7 @@ const Zoom = ({ circular, horizontal, showZoomLevel, sx, ...rest }) => {
       }}
       className="cl-zoom-controls"
     >
-      {buttons}
+      {zoomControls}
     </BaseComponent>
   );
 };
