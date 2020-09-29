@@ -1,7 +1,8 @@
-# Upcoming
+# 1.3.6
 
 - Add indicator of current zoom level as option in Zoom control
 - "slider" option for Zoom
+- bugfix: enforce explicit text color in select dropdown for Windows
 
 # 1.3.5
 
