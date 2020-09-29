@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Flex, Button, Box, Text, Select } from 'theme-ui';
+/** @jsx jsx */
+import { /* React, */ useState, useEffect, useContext } from 'react';
+import { jsx, Flex, Button, Box, Text, Select } from 'theme-ui';
 import { MdTimeline as LineIcon } from 'react-icons/md';
 import {
   FaDrawPolygon as PolygonIcon,
@@ -139,7 +140,9 @@ const Measure = ({ sx, ...rest }) => {
           defaultValue={lengthOptions[0]}
         >
           {lengthOptions.map((option) => (
-            <option key={option}>{option}</option>
+            <option key={option} sx={{ color: 'text' }}>
+              {option}
+            </option>
           ))}
         </Select>
       </Flex>
@@ -163,7 +166,9 @@ const Measure = ({ sx, ...rest }) => {
           defaultValue={areaOptions[0]}
         >
           {areaOptions.map((option) => (
-            <option key={option}>{option}</option>
+            <option key={option} sx={{ color: 'text' }}>
+              {option}
+            </option>
           ))}
         </Select>
       </Flex>
