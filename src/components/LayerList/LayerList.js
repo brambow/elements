@@ -19,7 +19,6 @@ const LayerList = ({
   const { map } = config;
 
   if (!mapExists(map)) return null;
-  console.log(checkboxStyle);
 
   const listItems = layers.map((item) => {
     return (
