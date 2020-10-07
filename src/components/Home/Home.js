@@ -46,6 +46,7 @@ const Home = ({
   return (
     <BaseComponent {...rest} className="cl-home-button">
       <Button
+        title="Home"
         sx={{
           ...sx
         }}
@@ -56,7 +57,9 @@ const Home = ({
               try {
                 if (Array.isArray(intercept)) {
                   intercept[0](map);
-                  if (intercept[1]) { zoomToHome() };
+                  if (intercept[1]) {
+                    zoomToHome();
+                  }
                 } else {
                   intercept();
                 }
