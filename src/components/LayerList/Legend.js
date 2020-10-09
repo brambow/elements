@@ -13,6 +13,7 @@ const buildStyle = (lyr) => {
     let foc;
     const fcValue = paint.get('fill-color').value;
     const focValue = paint.get('fill-outline-color').value;
+    const foValue = paint.get('fill-opacity').value?.value || 1;
     // Is this a data driven paint style?
     if (
       fcValue._parameters &&
@@ -74,7 +75,7 @@ const buildStyle = (lyr) => {
                   ry="0"
                   width="25"
                   height="25"
-                  sx={{ fill: s[1], stroke: s[2], strokeWidth: 3 }}
+                  sx={{ fill: s[1], stroke: s[2], strokeWidth: 3, fillOpacity: foValue, strokeOpacity: foValue }}
                 />
               </svg>
             </Box>
