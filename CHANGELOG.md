@@ -1,3 +1,9 @@
+# 1.3.7
+
+- Add title to Home button
+- Add default width to Home button
+- Show layer opacity in legend symbols
+
 # 1.3.6
 
 - Add indicator of current zoom level as option in Zoom control
