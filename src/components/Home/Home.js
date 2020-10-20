@@ -48,6 +48,9 @@ const Home = ({
       <Button
         title="Home"
         sx={{
+          minWidth: '25px',
+          minHeight: '25px',
+          p: 0,
           ...sx
         }}
         data-testid="home-button"
