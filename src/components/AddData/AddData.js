@@ -19,7 +19,7 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
+const AddData = ({ /* layers, */ panel, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
 
@@ -401,7 +401,7 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
   if (!mapExists(map)) return null;
 
   return (
-    <BaseComponent panel={panel} sx={{ width: '300px' }}>
+    <BaseComponent panel={panel} /* sx={{ width: '300px' }} */ {...rest}>
       <Body />
     </BaseComponent>
   );
