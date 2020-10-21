@@ -401,7 +401,7 @@ const AddData = ({ /* layers, */ panel, ...rest }) => {
   if (!mapExists(map)) return null;
 
   return (
-    <BaseComponent panel={panel} /* sx={{ width: '300px' }} */ {...rest}>
+    <BaseComponent panel={panel} {...rest}>
       <Body />
     </BaseComponent>
   );

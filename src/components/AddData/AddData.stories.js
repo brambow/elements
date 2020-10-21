@@ -1,12 +1,14 @@
 import React from 'react';
 import AddData from './AddData';
 import Map from '../Map/Map';
+import Home from '../Home/Home';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import { MdLibraryAdd } from 'react-icons/md';
+import { Flex } from 'theme-ui';
 
 storiesOf('AddData', module)
   .addDecorator(withKnobs)
@@ -14,6 +16,7 @@ storiesOf('AddData', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
+
         <AddData type="panel" />
       </ElementsProvider>
     );
@@ -29,16 +32,24 @@ storiesOf('AddData', module)
   .add('Button', () => {
     return (
       <ElementsProvider>
-        <AddData
-          type="button"
-          buttonOptions={{
-            className: 'add-data-btn',
-            icon: <MdLibraryAdd />,
-            title: 'Add Data',
-            testId: 'add-data-btn'
-          }}
-        />
-        <Map mapOptions={mapOptions} />
+        <Map mapOptions={mapOptions}>
+          {' '}
+          <Flex
+            sx={{ flexDirection: 'column', justifyContent: 'space-evenly' }}
+          >
+            <AddData
+              sx={{ position: 'relative' }}
+              type="button"
+              buttonOptions={{
+                className: 'add-data-btn',
+                icon: <MdLibraryAdd />,
+                title: 'Add Data',
+                testId: 'add-data-btn'
+              }}
+            />
+            <Home initCenter={[0, 0]} initZoom={7} />
+          </Flex>
+        </Map>
       </ElementsProvider>
     );
   });
