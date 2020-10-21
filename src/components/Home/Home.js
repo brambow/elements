@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Button } from 'theme-ui';
 import { FaHome } from 'react-icons/fa';
 import Context from '../../DefaultContext';
 import BaseComponent from '../_common/BaseComponent';
@@ -44,17 +43,15 @@ const Home = ({
   };
 
   return (
-    <BaseComponent {...rest} className="cl-home-button">
-      <Button
-        title="Home"
-        sx={{
-          minWidth: '25px',
-          minHeight: '25px',
-          p: 0,
-          ...sx
-        }}
-        data-testid="home-button"
-        onClick={() => {
+    <BaseComponent
+      {...rest}
+      className="cl-home-button"
+      type="button"
+      buttonOptions={{
+        icon: <FaHome />,
+        title: 'Home',
+        testId: 'home-button',
+        intercept: () => {
           if (mapExists(map)) {
             if (intercept) {
               try {
@@ -73,11 +70,9 @@ const Home = ({
               zoomToHome();
             }
           }
-        }}
-      >
-        <FaHome />
-      </Button>
-    </BaseComponent>
+        }
+      }}
+     />
   );
 };
 

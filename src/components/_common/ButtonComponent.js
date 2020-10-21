@@ -10,7 +10,8 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
       sx={{
         justifyContent: 'space-evenly',
         bg: 'transparent',
-        position: 'absolute'
+        width: '400px',
+        zIndex: 2
       }}
     >
       <Button
@@ -47,7 +48,7 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
             fontFamily: 'body',
             zIndex: 2,
             bg: 'transparent'
-          }} /* {...rest} sx={baseStyle} */
+          }}
         >
           {children}
         </Panel>
