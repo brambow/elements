@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Close, Flex } from 'theme-ui';
 
-const PanelComponent = ({ closable, sx, children, ...rest }) => {
+const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
   return (
     <Card
       {...rest}
@@ -26,7 +26,8 @@ const PanelComponent = ({ closable, sx, children, ...rest }) => {
               width: '24px',
               ':hover': { cursor: 'pointer' }
             }}
-           />
+            onClick={onClose}
+          />
         </Flex>
       )}
       {children}

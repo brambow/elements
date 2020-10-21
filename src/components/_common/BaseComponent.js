@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Box } from 'theme-ui';
+import ButtonComponent from './ButtonComponent';
 import Panel from './PanelComponent';
 
 const BaseComponent = ({
@@ -13,6 +14,8 @@ const BaseComponent = ({
   bottom,
   right,
   sx,
+  type, // 'none', 'panel', 'button'
+  buttonOptions, // optional
   ...rest
 }) => {
   let topPos = top || '1rem';
@@ -38,19 +41,48 @@ const BaseComponent = ({
     ...sx
   };
 
-  if (panel) {
-    return (
-      <Panel {...rest} sx={baseStyle}>
-        {children}
-      </Panel>
-    );
-  }
+  const buttonStyle = {
+    fontFamily: 'body',
+    position: 'absolute',
+    top: topPos,
+    left: leftPos,
+    bottom,
+    right,
+    zIndex: 2,
+    bg: 'primary',
+    minWidth: '25px',
+    minHeight: '25px',
+    p: 0,
+    ...sx
+  };
 
-  return (
+  const defaultType = (
     <Box {...rest} sx={baseStyle}>
       {children}
     </Box>
   );
+
+  switch (type) {
+    case 'none':
+      return defaultType;
+    case 'panel':
+      return (
+        <Panel {...rest} sx={baseStyle}>
+          {children}
+        </Panel>
+      );
+    case 'button':
+      return (
+        <ButtonComponent
+          // eslint-disable-next-line react/no-children-prop
+          children={children}
+          buttonOptions={buttonOptions}
+          sx={buttonStyle}
+        />
+      );
+    default:
+      return defaultType;
+  }
 };
 
 export default BaseComponent;
