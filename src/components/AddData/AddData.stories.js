@@ -7,7 +7,6 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
-import { MdLibraryAdd } from 'react-icons/md';
 import { Flex } from 'theme-ui';
 
 storiesOf('AddData', module)
@@ -37,16 +36,7 @@ storiesOf('AddData', module)
           <Flex
             sx={{ flexDirection: 'column', justifyContent: 'space-evenly' }}
           >
-            <AddData
-              sx={{ position: 'relative' }}
-              type="button"
-              buttonOptions={{
-                className: 'add-data-btn',
-                icon: <MdLibraryAdd />,
-                title: 'Add Data',
-                testId: 'add-data-btn'
-              }}
-            />
+            <AddData sx={{ position: 'relative' }} type="button" />
             <Home initCenter={[0, 0]} initZoom={7} />
           </Flex>
         </Map>

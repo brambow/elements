@@ -10,6 +10,7 @@ import {
   Label
 } from 'theme-ui';
 import bbox from '@turf/bbox';
+import { MdLibraryAdd } from 'react-icons/md';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import BaseComponent from '../_common/BaseComponent';
@@ -19,7 +20,7 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ /* layers, */ panel, ...rest }) => {
+const AddData = ({ type, buttonOptions, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
 
@@ -35,24 +36,24 @@ const AddData = ({ /* layers, */ panel, ...rest }) => {
     // Polygon, MultiPolygon
 
     function setType(geomType) {
-      let type;
+      let gType;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
-          type = 'circle';
+          gType = 'circle';
           break;
         case 'LineString':
         case 'MultiLineString':
-          type = 'line';
+          gType = 'line';
           break;
         case 'Polygon':
         case 'MultiPolygon':
-          type = 'fill';
+          gType = 'fill';
           break;
         default:
           return '';
       }
-      return type;
+      return gType;
     }
 
     function setPaint(geomType) {
@@ -116,14 +117,14 @@ const AddData = ({ /* layers, */ panel, ...rest }) => {
     });
     /* eslint-enable array-callback-return */
 
-    geomTypes.forEach((type) => {
-      const layerId = `${sourceId}-${type}`;
+    geomTypes.forEach((gType) => {
+      const layerId = `${sourceId}-${gType}`;
       map.addLayer({
         id: layerId,
-        type: setType(type),
+        type: setType(gType),
         source: sourceId,
-        paint: setPaint(type),
-        filter: setFilter(type),
+        paint: setPaint(gType),
+        filter: setFilter(gType),
         layout: {
           visibility: 'visible'
         }
@@ -401,7 +402,17 @@ const AddData = ({ /* layers, */ panel, ...rest }) => {
   if (!mapExists(map)) return null;
 
   return (
-    <BaseComponent panel={panel} {...rest}>
+    <BaseComponent
+      type={type}
+      buttonOptions={{
+        className: 'add-data-btn',
+        icon: <MdLibraryAdd />,
+        title: 'Add Data',
+        testId: 'add-data-btn',
+        ...buttonOptions
+      }}
+      {...rest}
+    >
       <Body />
     </BaseComponent>
   );
