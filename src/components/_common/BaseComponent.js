@@ -51,7 +51,7 @@ const BaseComponent = ({
   const buttonStyle = {
     fontFamily: 'body',
     bg: baseSx?.bg || 'primary',
-    position: baseSx?.position || 'absolute',
+    position: baseSx?.position || 'relative',
     top: topPos,
     left: leftPos,
     bottom: baseSx?.bottom,
