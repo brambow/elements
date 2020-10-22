@@ -11,7 +11,7 @@ import BaseComponent from '../_common/BaseComponent';
  * @class BasemapSwitcher
  */
 
-const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
+const BasemapSwitcher = ({ switcherStyle, basemaps, sx, type, ...rest }) => {
   const [basemapValue, setBasemapValue] = useState(
     basemaps ? basemaps[0].value : 'streets-v11'
   );
@@ -63,7 +63,7 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
 
   let switcher;
 
-  switch (componentStyle) {
+  switch (switcherStyle) {
     case 'radio':
       switcher = (
         <RadioGroup
@@ -100,7 +100,7 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
   return (
     <BaseComponent
       {...rest}
-      panel={componentStyle === 'buttons' ? false : panel}
+      type={switcherStyle === 'buttons' ? 'none' : 'panel'}
       sx={{
         ...sx
       }}
