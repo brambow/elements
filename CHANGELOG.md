@@ -1,3 +1,12 @@
+# Upcoming
+
+- **BREAKING CHANGES:** `<BaseComponent/>` API has been updated.
+  - Removed the following props: `panel`, `top`, `left`, `bottom`
+  - Added the following props:
+    - `type` - choices are `none` (default), `panel`, `button`
+    - `baseSx` - set of styles that are passed to the base containter and not the children
+- New <ButtonComponent> (`type` prop) provides and out-of-the-box UI option for button triggers
+
 # 1.3.7
 
 - Add title to Home button
