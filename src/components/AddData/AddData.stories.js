@@ -1,21 +1,18 @@
 import React from 'react';
 import AddData from './AddData';
 import Map from '../Map/Map';
-import Home from '../Home/Home';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
-import { Flex } from 'theme-ui';
 
 storiesOf('AddData', module)
   .addDecorator(withKnobs)
   .add('In Panel', () => {
     return (
       <ElementsProvider>
-        <Map mapOptions={mapOptions} />
-
+        <Map mapOptions={mapOptions}></Map>
         <AddData type="panel" />
       </ElementsProvider>
     );
@@ -32,21 +29,7 @@ storiesOf('AddData', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions}>
-          {' '}
-          <Flex
-            sx={{
-              flexDirection: 'column',
-              justifyContent: 'space-evenly',
-              position: 'absolute'
-            }}
-          >
-            <AddData type="button" baseSx={{ position: 'relative' }} />
-            <Home
-              baseSx={{ position: 'relative' }}
-              initCenter={[0, 0]}
-              initZoom={7}
-            />
-          </Flex>
+          <AddData type="button" />
         </Map>
       </ElementsProvider>
     );
