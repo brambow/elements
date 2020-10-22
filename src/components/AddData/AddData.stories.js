@@ -37,9 +37,7 @@ storiesOf('AddData', module)
             sx={{
               flexDirection: 'column',
               justifyContent: 'space-evenly',
-              position: 'absolute',
-              top: '1rem',
-              left: '1rem'
+              position: 'absolute'
             }}
           >
             <AddData type="button" baseSx={{ position: 'relative' }} />

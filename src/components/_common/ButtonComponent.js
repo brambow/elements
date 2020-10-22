@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import { Flex, Button } from 'theme-ui';
+import Popover from '@reach/popover';
+import { useRect } from '@reach/rect';
+import React, { useRef, useState } from 'react';
+import { Button } from 'theme-ui';
 import Panel from './PanelComponent';
 
 const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
+  const ref = useRef(null);
+  const triggerRect = useRect(ref);
   const [showPanel, setShowPanel] = useState(false);
-
   return (
-    <Flex
-      sx={{
-        justifyContent: 'flex-start',
-        bg: 'transparent',
-        width: '400px',
-        zIndex: 2
-      }}
-    >
+    <>
       <Button
+        ref={ref}
         title={buttonOptions?.title}
         className={buttonOptions?.className ?? 'cl-btn'}
         data-testid={buttonOptions?.testId ?? 'cl-btn'}
@@ -31,9 +28,6 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
           }
         }}
         sx={{
-          minWidth: '25px',
-          minHeight: '25px',
-          p: 0,
           ...sx
         }}
       >
@@ -41,19 +35,27 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
       </Button>
 
       {showPanel && (
-        <Panel
-          closable
-          onClose={() => setShowPanel(false)}
-          sx={{
-            fontFamily: 'body',
-            zIndex: 2,
-            bg: 'transparent'
-          }}
+        <Popover
+          targetRef={ref}
+          position={() => ({
+            left: triggerRect?.right + 10,
+            top: triggerRect?.top + window.scrollY
+          })}
         >
-          {children}
-        </Panel>
+          <Panel
+            closable
+            onClose={() => setShowPanel(false)}
+            sx={{
+              fontFamily: 'body',
+              zIndex: 2,
+              bg: 'transparent'
+            }}
+          >
+            {children}
+          </Panel>
+        </Popover>
       )}
-    </Flex>
+    </>
   );
 };
 

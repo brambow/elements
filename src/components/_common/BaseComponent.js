@@ -7,52 +7,58 @@ import Panel from './PanelComponent';
 
 const BaseComponent = ({
   children,
-  panel,
+  // panel,
   open,
-  top,
-  left,
-  bottom,
-  right,
+  // top,
+  // left,
+  // bottom,
+  // right,
   sx,
   type, // 'none', 'panel', 'button'
   buttonOptions, // optional
   // baseSx should only include positional properties for the base component container.
   // i.e. position, top, left,
+  // should we strictly enforce this by filtering the available props in the object?
   baseSx,
+  // we should allow rest, but what about the theme-ui/styled system css property?
+  // it could get passed through and cause some unexpected styling behavior.
+  // should we consider removing the 'css' or 'style' properties from ...rest?
   ...rest
 }) => {
-  let topPos = top || '1rem';
-  let leftPos = left || '1rem';
+  let topPos = baseSx?.top ?? '1rem';
+  let leftPos = baseSx?.left ?? '1rem';
 
-  if (bottom) {
-    topPos = undefined;
+  if (baseSx?.bottom) {
+    topPos = null;
   }
 
-  if (right) {
-    leftPos = undefined;
+  if (baseSx?.right) {
+    leftPos = null;
   }
 
   const baseStyle = {
     fontFamily: 'body',
-    position: 'absolute',
+    bg: 'transparent',
+    position: baseSx?.position || 'absolute',
     top: topPos,
     left: leftPos,
-    bottom,
-    right,
-    zIndex: 2,
-    bg: 'transparent',
+    bottom: baseSx?.bottom,
+    right: baseSx?.right,
+    zIndex: baseSx?.zIndex ?? 2,
     ...baseSx
   };
 
   const buttonStyle = {
     fontFamily: 'body',
-    position: 'absolute',
-    // top: topPos,
-    // left: leftPos,
-    // bottom,
-    // right,
-    zIndex: 2,
-    bg: 'primary',
+    bg: baseSx?.bg || 'primary',
+    position: baseSx?.position || 'absolute',
+    top: topPos,
+    left: leftPos,
+    bottom: baseSx?.bottom,
+    right: baseSx?.right,
+    zIndex: baseSx?.zIndex ?? 2,
+    width: '32px',
+    height: '32px',
     minWidth: '25px',
     minHeight: '25px',
     p: 0,
@@ -82,6 +88,7 @@ const BaseComponent = ({
           children={children}
           buttonOptions={buttonOptions}
           sx={buttonStyle}
+          {...rest}
         />
       );
     default:
