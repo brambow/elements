@@ -16,6 +16,9 @@ const BaseComponent = ({
   sx,
   type, // 'none', 'panel', 'button'
   buttonOptions, // optional
+  // baseSx should only include positional properties for the base component container.
+  // i.e. position, top, left,
+  baseSx,
   ...rest
 }) => {
   let topPos = top || '1rem';
@@ -38,22 +41,23 @@ const BaseComponent = ({
     right,
     zIndex: 2,
     bg: 'transparent',
-    ...sx
+    ...baseSx
   };
 
   const buttonStyle = {
     fontFamily: 'body',
     position: 'absolute',
-    top: topPos,
-    left: leftPos,
-    bottom,
-    right,
+    // top: topPos,
+    // left: leftPos,
+    // bottom,
+    // right,
     zIndex: 2,
     bg: 'primary',
     minWidth: '25px',
     minHeight: '25px',
     p: 0,
-    ...sx
+    m: 1,
+    ...baseSx
   };
 
   const defaultType = (

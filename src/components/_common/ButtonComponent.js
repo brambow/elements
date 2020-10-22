@@ -8,7 +8,7 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
   return (
     <Flex
       sx={{
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-start',
         bg: 'transparent',
         width: '400px',
         zIndex: 2

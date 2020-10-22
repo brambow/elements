@@ -34,10 +34,20 @@ storiesOf('AddData', module)
         <Map mapOptions={mapOptions}>
           {' '}
           <Flex
-            sx={{ flexDirection: 'column', justifyContent: 'space-evenly' }}
+            sx={{
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              position: 'absolute',
+              top: '1rem',
+              left: '1rem'
+            }}
           >
-            <AddData sx={{ position: 'relative' }} type="button" />
-            <Home initCenter={[0, 0]} initZoom={7} />
+            <AddData type="button" baseSx={{ position: 'relative' }} />
+            <Home
+              baseSx={{ position: 'relative' }}
+              initCenter={[0, 0]}
+              initZoom={7}
+            />
           </Flex>
         </Map>
       </ElementsProvider>
