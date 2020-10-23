@@ -133,7 +133,7 @@ const Draw = ({ type, buttonOptions, baseSx, sx, ...rest }) => {
   return (
     <BaseComponent
       className="draw-tools"
-      type={type}
+      type={type || 'none'}
       buttonOptions={{
         className: 'cl-draw-button',
         icon: <FaPencilAlt />,

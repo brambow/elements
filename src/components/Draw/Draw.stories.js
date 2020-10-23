@@ -3,7 +3,7 @@ import Draw from './Draw';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 
@@ -18,15 +18,7 @@ storiesOf('Draw', module)
     return (
       <ElementsProvider>
         <Map mapOptions={customMapOptions} />
-        <Draw />
-      </ElementsProvider>
-    );
-  })
-  .add('Button', () => {
-    return (
-      <ElementsProvider>
-        <Map mapOptions={customMapOptions} />
-        <Draw type="button" />
+        <Draw type={radios('type', ['none', 'panel', 'button'], 'panel')} />
       </ElementsProvider>
     );
   });
