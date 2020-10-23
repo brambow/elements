@@ -10,9 +10,12 @@ const LayerList = ({
   layers,
   groupLayers,
   legend = false,
-  panel,
   showActions,
   checkboxStyle,
+  type,
+  buttonOptions,
+  baseSx,
+  sx,
   ...rest
 }) => {
   const config = useContext(Context);
@@ -42,7 +45,7 @@ const LayerList = ({
   }
 
   return (
-    <BaseComponent panel={panel} {...rest}>
+    <BaseComponent type={type} {...rest}>
       <List>{listItems}</List>
       <List> {groupItems}</List>
     </BaseComponent>

@@ -11,8 +11,8 @@ const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
         ...sx,
         bg: 'background',
         padding: 3,
-        paddingTop: 0,
-        paddingRight: 0,
+        paddingTop: closable ? 0 : 3,
+        paddingRight: closable ? 0 : 3,
         width: '300px',
         borderRadius: '4px'
 

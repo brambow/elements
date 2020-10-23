@@ -3,7 +3,7 @@ import Bookmarks from './Bookmarks';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import {
@@ -29,19 +29,13 @@ const goToBookmark = (map, bookmark) => {
 
 storiesOf('Bookmarks', module)
   .addDecorator(withKnobs)
-  .add('Default (In Panel)', () => {
+  .add('Default', () => {
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <Bookmarks type="panel" />
-      </ElementsProvider>
-    );
-  })
-  .add('Out of Panel', () => {
-    return (
-      <ElementsProvider>
-        <Bookmarks type="none" />
-        <Map mapOptions={mapOptions} />
+        <Bookmarks
+          type={radios('type', ['none', 'panel', 'button'], 'panel')}
+        />
       </ElementsProvider>
     );
   })
@@ -49,23 +43,13 @@ storiesOf('Bookmarks', module)
     return (
       <ElementsProvider>
         <Bookmarks
-          type="panel"
+          type={radios('type', ['none', 'panel', 'button'], 'panel')}
           goToBookmark={goToBookmark}
           loadBookmarks={loadBookmarks}
           deleteBookmark={deleteBookmark}
           saveBookmark={saveBookmark}
         />
         <Map mapOptions={mapOptions} />
-      </ElementsProvider>
-    );
-  })
-  .add('Button', () => {
-    return (
-      <ElementsProvider>
-        <Map mapOptions={mapOptions}>
-          {' '}
-          <Bookmarks type="button" />
-        </Map>
       </ElementsProvider>
     );
   });
