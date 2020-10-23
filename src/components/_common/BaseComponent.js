@@ -7,14 +7,9 @@ import Panel from './PanelComponent';
 
 const BaseComponent = ({
   children,
-  // panel,
   open,
-  // top,
-  // left,
-  // bottom,
-  // right,
   sx,
-  type, // 'none', 'panel', 'button'
+  baseType, // 'none', 'panel', 'button'
   buttonOptions, // optional
   // baseSx should only include positional properties for the base component container.
   // i.e. position, top, left,
@@ -72,7 +67,7 @@ const BaseComponent = ({
     </Box>
   );
 
-  switch (type) {
+  switch (baseType) {
     case 'none':
       return defaultType;
     case 'panel':

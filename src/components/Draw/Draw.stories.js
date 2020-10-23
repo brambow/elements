@@ -18,7 +18,9 @@ storiesOf('Draw', module)
     return (
       <ElementsProvider>
         <Map mapOptions={customMapOptions} />
-        <Draw type={radios('type', ['none', 'panel', 'button'], 'panel')} />
+        <Draw
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
+        />
       </ElementsProvider>
     );
   });

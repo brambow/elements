@@ -14,7 +14,7 @@ storiesOf('BasemapSwitcher', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <BasemapSwitcher
-          type={radios('type', ['none', 'panel', 'button'], 'panel')}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
         />
       </ElementsProvider>
@@ -25,7 +25,7 @@ storiesOf('BasemapSwitcher', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <BasemapSwitcher
-          type={radios('type', ['none', 'panel', 'button'], 'panel')}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           basemaps={[
             {
               name: 'light',

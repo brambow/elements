@@ -20,7 +20,7 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ type, buttonOptions, ...rest }) => {
+const AddData = ({ baseType, buttonOptions, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
 
@@ -36,24 +36,24 @@ const AddData = ({ type, buttonOptions, ...rest }) => {
     // Polygon, MultiPolygon
 
     function setType(geomType) {
-      let gType;
+      let type;
       switch (geomType) {
         case 'Point':
         case 'MultiPoint':
-          gType = 'circle';
+          type = 'circle';
           break;
         case 'LineString':
         case 'MultiLineString':
-          gType = 'line';
+          type = 'line';
           break;
         case 'Polygon':
         case 'MultiPolygon':
-          gType = 'fill';
+          type = 'fill';
           break;
         default:
           return '';
       }
-      return gType;
+      return type;
     }
 
     function setPaint(geomType) {
@@ -117,14 +117,14 @@ const AddData = ({ type, buttonOptions, ...rest }) => {
     });
     /* eslint-enable array-callback-return */
 
-    geomTypes.forEach((gType) => {
-      const layerId = `${sourceId}-${gType}`;
+    geomTypes.forEach((type) => {
+      const layerId = `${sourceId}-${type}`;
       map.addLayer({
         id: layerId,
-        type: setType(gType),
+        type: setType(type),
         source: sourceId,
-        paint: setPaint(gType),
-        filter: setFilter(gType),
+        paint: setPaint(type),
+        filter: setFilter(type),
         layout: {
           visibility: 'visible'
         }
@@ -403,7 +403,7 @@ const AddData = ({ type, buttonOptions, ...rest }) => {
 
   return (
     <BaseComponent
-      type={type}
+      baseType={baseType}
       buttonOptions={{
         className: 'add-data-btn',
         icon: <MdLibraryAdd />,

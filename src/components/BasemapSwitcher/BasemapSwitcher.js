@@ -15,7 +15,7 @@ import BaseComponent from '../_common/BaseComponent';
 const BasemapSwitcher = ({
   switcherStyle,
   basemaps,
-  type,
+  baseType,
   buttonOptions,
   baseSx,
   sx,
@@ -108,7 +108,7 @@ const BasemapSwitcher = ({
 
   return (
     <BaseComponent
-      type={type}
+      baseType={baseType}
       buttonOptions={{
         className: 'cl-basemap-btn',
         icon: <FaMap />,

@@ -13,7 +13,9 @@ storiesOf('AddData', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions}></Map>
-        <AddData type={radios('type', ['none', 'panel', 'button'], 'panel')} />
+        <AddData
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
+        />
       </ElementsProvider>
     );
   });

@@ -12,7 +12,7 @@ const LayerList = ({
   legend = false,
   showActions,
   checkboxStyle,
-  type,
+  baseType,
   buttonOptions,
   baseSx,
   sx,
@@ -45,7 +45,7 @@ const LayerList = ({
   }
 
   return (
-    <BaseComponent type={type} {...rest}>
+    <BaseComponent baseType={baseType} {...rest}>
       <List>{listItems}</List>
       <List> {groupItems}</List>
     </BaseComponent>

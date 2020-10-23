@@ -14,7 +14,7 @@ import {
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 
-const Bookmarks = ({ type, buttonOptions, ...rest }) => {
+const Bookmarks = ({ baseType, buttonOptions, ...rest }) => {
   const { _goToBookmark, _loadBookmarks, _deleteBookmark, _saveBookmark } = {
     _goToBookmark: Object.hasOwnProperty.call(rest, 'goToBookmark')
       ? rest.goToBookmark
@@ -99,7 +99,7 @@ const Bookmarks = ({ type, buttonOptions, ...rest }) => {
 
   return (
     <BaseComponent
-      type={type}
+      baseType={baseType}
       buttonOptions={{
         className: 'bookmark-btn',
         icon: <FaBookmark />,

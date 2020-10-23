@@ -5,13 +5,14 @@ import BaseComponent from '../_common/BaseComponent';
 import mapExists from '../../util/mapExists';
 
 const Home = ({
-  sx,
   initBounds,
   initCenter,
   initZoom,
   initPitch,
   initBearing,
   intercept,
+  sx,
+  buttonOptions,
   ...rest
 }) => {
   const config = useContext(Context);
@@ -46,7 +47,7 @@ const Home = ({
     <BaseComponent
       {...rest}
       className="cl-home-button"
-      type="button"
+      baseType="button"
       buttonOptions={{
         icon: <FaHome />,
         title: 'Home',
@@ -72,7 +73,7 @@ const Home = ({
           }
         }
       }}
-     />
+    />
   );
 };
 

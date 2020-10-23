@@ -21,7 +21,7 @@ import StaticMode from './staticDrawMode';
 import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
 
-const Draw = ({ type, buttonOptions, baseSx, sx, ...rest }) => {
+const Draw = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
   const theme = useTheme();
 
   const config = useContext(Context);
@@ -133,7 +133,7 @@ const Draw = ({ type, buttonOptions, baseSx, sx, ...rest }) => {
   return (
     <BaseComponent
       className="draw-tools"
-      type={type || 'none'}
+      baseType={baseType || 'none'}
       buttonOptions={{
         className: 'cl-draw-button',
         icon: <FaPencilAlt />,

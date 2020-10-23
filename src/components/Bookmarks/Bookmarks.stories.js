@@ -34,7 +34,7 @@ storiesOf('Bookmarks', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <Bookmarks
-          type={radios('type', ['none', 'panel', 'button'], 'panel')}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
         />
       </ElementsProvider>
     );
@@ -43,7 +43,7 @@ storiesOf('Bookmarks', module)
     return (
       <ElementsProvider>
         <Bookmarks
-          type={radios('type', ['none', 'panel', 'button'], 'panel')}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           goToBookmark={goToBookmark}
           loadBookmarks={loadBookmarks}
           deleteBookmark={deleteBookmark}
