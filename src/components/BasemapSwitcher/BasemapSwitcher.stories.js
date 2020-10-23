@@ -14,13 +14,25 @@ storiesOf('BasemapSwitcher', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <BasemapSwitcher
-          panel
-          componentStyle={radios(
-            'componentStyle',
-            ['radio', 'buttons'],
-            'radio'
-          )}
+          type="panel"
+          switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
         />
+      </ElementsProvider>
+    );
+  })
+  .add('Button', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions}>
+          <BasemapSwitcher
+            type="button"
+            switcherStyle={radios(
+              'switcherStyle',
+              ['radio', 'buttons'],
+              'radio'
+            )}
+          />
+        </Map>
       </ElementsProvider>
     );
   })
@@ -29,7 +41,7 @@ storiesOf('BasemapSwitcher', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <BasemapSwitcher
-          panel
+          type="panel"
           basemaps={[
             {
               name: 'light',
@@ -44,11 +56,7 @@ storiesOf('BasemapSwitcher', module)
               value: 'dark-v10'
             }
           ]}
-          componentStyle={radios(
-            'componentStyle',
-            ['radio', 'buttons'],
-            'radio'
-          )}
+          switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
         />
       </ElementsProvider>
     );

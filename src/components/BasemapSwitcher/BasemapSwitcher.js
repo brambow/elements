@@ -100,7 +100,8 @@ const BasemapSwitcher = ({ switcherStyle, basemaps, sx, type, ...rest }) => {
   return (
     <BaseComponent
       {...rest}
-      type={switcherStyle === 'buttons' ? 'none' : 'panel'}
+      type={type}
+      // type={switcherStyle === 'buttons' ? 'none' : 'panel'}
       sx={{
         ...sx
       }}

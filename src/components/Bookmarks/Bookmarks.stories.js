@@ -6,7 +6,11 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
-import { loadBookmarks, deleteBookmark, saveBookmark } from './util/bookmarkActions';
+import {
+  loadBookmarks,
+  deleteBookmark,
+  saveBookmark
+} from './util/bookmarkActions';
 
 const goToBookmark = (map, bookmark) => {
   map.flyTo({
@@ -15,14 +19,13 @@ const goToBookmark = (map, bookmark) => {
     bearing: 0,
     speed: 0.5,
     curve: 1.7,
-    easing: function(t) {
+    easing: function (t) {
       return t;
     },
     essential: true
   });
   return true;
-}
-
+};
 
 storiesOf('Bookmarks', module)
   .addDecorator(withKnobs)
@@ -30,14 +33,14 @@ storiesOf('Bookmarks', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <Bookmarks panel={true} />
+        <Bookmarks type="panel" />
       </ElementsProvider>
     );
   })
   .add('Out of Panel', () => {
     return (
       <ElementsProvider>
-        <Bookmarks panel={false} />
+        <Bookmarks type="none" />
         <Map mapOptions={mapOptions} />
       </ElementsProvider>
     );
@@ -45,15 +48,24 @@ storiesOf('Bookmarks', module)
   .add('Custom actions', () => {
     return (
       <ElementsProvider>
-        <Bookmarks 
-          panel={true}
-          goToBookmark={goToBookmark} 
-          loadBookmarks={loadBookmarks} 
-          deleteBookmark={deleteBookmark} 
-          saveBookmark={saveBookmark} 
+        <Bookmarks
+          type="panel"
+          goToBookmark={goToBookmark}
+          loadBookmarks={loadBookmarks}
+          deleteBookmark={deleteBookmark}
+          saveBookmark={saveBookmark}
         />
         <Map mapOptions={mapOptions} />
       </ElementsProvider>
-    )
+    );
   })
-  ;
+  .add('Button', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions}>
+          {' '}
+          <Bookmarks type="button" />
+        </Map>
+      </ElementsProvider>
+    );
+  });
