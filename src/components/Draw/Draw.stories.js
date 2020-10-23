@@ -18,7 +18,15 @@ storiesOf('Draw', module)
     return (
       <ElementsProvider>
         <Map mapOptions={customMapOptions} />
-        <Draw right="1rem" />
+        <Draw />
+      </ElementsProvider>
+    );
+  })
+  .add('Button', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={customMapOptions} />
+        <Draw type="button" />
       </ElementsProvider>
     );
   });
