@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Button } from 'theme-ui';
+import { FaMap } from 'react-icons/fa';
 import DefaultContext from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 import RadioGroup from '../_primitives/RadioGroup';
@@ -11,7 +12,15 @@ import BaseComponent from '../_common/BaseComponent';
  * @class BasemapSwitcher
  */
 
-const BasemapSwitcher = ({ switcherStyle, basemaps, sx, type, ...rest }) => {
+const BasemapSwitcher = ({
+  switcherStyle,
+  basemaps,
+  type,
+  buttonOptions,
+  baseSx,
+  sx,
+  ...rest
+}) => {
   const [basemapValue, setBasemapValue] = useState(
     basemaps ? basemaps[0].value : 'streets-v11'
   );
@@ -99,8 +108,15 @@ const BasemapSwitcher = ({ switcherStyle, basemaps, sx, type, ...rest }) => {
 
   return (
     <BaseComponent
-      {...rest}
       type={type}
+      buttonOptions={{
+        className: 'cl-basemap-btn',
+        icon: <FaMap />,
+        title: 'Basemap Switcher',
+        testId: 'cl-basemap-btn',
+        ...buttonOptions
+      }}
+      {...rest}
       // type={switcherStyle === 'buttons' ? 'none' : 'panel'}
       sx={{
         ...sx
