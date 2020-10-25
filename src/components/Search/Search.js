@@ -24,7 +24,6 @@ const Search = ({
   iconOnly,
   suggestionsZIndex,
   baseType,
-  baseSx,
   buttonOptions,
   sx,
   ...rest
@@ -71,7 +70,7 @@ const Search = ({
   return (
     <BaseComponent
       baseType={baseType}
-      baseSx={baseSx || 'none'}
+      sx={sx || 'none'}
       buttonOptions={{
         icon: <FaSearchLocation />,
         title: 'Search',

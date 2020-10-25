@@ -20,7 +20,7 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ baseType, baseSx, buttonOptions, sx, ...rest }) => {
+const AddData = ({ baseType, buttonOptions, sx, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
 
@@ -410,7 +410,7 @@ const AddData = ({ baseType, baseSx, buttonOptions, sx, ...rest }) => {
         testId: 'add-data-btn',
         ...buttonOptions
       }}
-      baseSx={baseSx}
+      sx={sx}
       {...rest}
     >
       <Body />

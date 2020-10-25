@@ -21,7 +21,7 @@ import StaticMode from './staticDrawMode';
 import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
 
-const Draw = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
+const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
   const theme = useTheme();
 
   const config = useContext(Context);
@@ -140,7 +140,7 @@ const Draw = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
         testId: 'cl-draw-btn',
         ...buttonOptions
       }}
-      baseSx={baseSx}
+      sx={sx}
       {...rest}
     >
       <ButtonGroup>

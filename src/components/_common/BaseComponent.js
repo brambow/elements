@@ -6,59 +6,52 @@ import ButtonComponent from './ButtonComponent';
 import Panel from './PanelComponent';
 
 const BaseComponent = ({
+  baseType, // 'none', 'panel', 'button'
+  buttonOptions, // optional
   children,
   open,
   sx,
-  baseType, // 'none', 'panel', 'button'
-  buttonOptions, // optional
-  // baseSx should only include positional properties for the base component container.
-  // i.e. position, top, left,
-  // should we strictly enforce this by filtering the available props in the object?
-  baseSx,
-  // we should allow rest, but what about the theme-ui/styled system css property?
-  // it could get passed through and cause some unexpected styling behavior.
-  // should we consider removing the 'css' or 'style' properties from ...rest?
   ...rest
 }) => {
-  let topPos = baseSx?.top ?? '1rem';
-  let leftPos = baseSx?.left ?? '1rem';
+  let topPos = sx?.top ?? '1rem';
+  let leftPos = sx?.left ?? '1rem';
 
-  if (baseSx?.bottom) {
+  if (sx?.bottom) {
     topPos = null;
   }
 
-  if (baseSx?.right) {
+  if (sx?.right) {
     leftPos = null;
   }
 
   const baseStyle = {
     fontFamily: 'body',
     bg: 'transparent',
-    position: baseSx?.position || 'absolute',
+    position: sx?.position || 'absolute',
     top: topPos,
     left: leftPos,
-    bottom: baseSx?.bottom,
-    right: baseSx?.right,
-    zIndex: baseSx?.zIndex ?? 2,
-    ...baseSx
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
+    ...sx
   };
 
   const buttonStyle = {
     fontFamily: 'body',
-    bg: baseSx?.bg || 'primary',
-    position: baseSx?.position || 'absolute',
+    bg: sx?.bg || 'primary',
+    position: sx?.position || 'absolute',
     top: topPos,
     left: leftPos,
-    bottom: baseSx?.bottom,
-    right: baseSx?.right,
-    zIndex: baseSx?.zIndex ?? 2,
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
     width: '32px',
     height: '32px',
     minWidth: '25px',
     minHeight: '25px',
     p: 0,
     m: 1,
-    ...baseSx
+    ...sx
   };
 
   const defaultType = (

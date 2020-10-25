@@ -14,7 +14,6 @@ const LayerList = ({
   showActions,
   checkboxStyle,
   baseType,
-  baseSx,
   buttonOptions,
   sx,
   ...rest
@@ -54,7 +53,6 @@ const LayerList = ({
         testId: 'cl-layerlist-btn',
         ...buttonOptions
       }}
-      baseSx={baseSx}
       sx={sx}
       {...rest}
     >

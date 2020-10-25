@@ -14,7 +14,7 @@ import {
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 
-const Bookmarks = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
+const Bookmarks = ({ baseType, buttonOptions, sx, ...rest }) => {
   const { _goToBookmark, _loadBookmarks, _deleteBookmark, _saveBookmark } = {
     _goToBookmark: Object.hasOwnProperty.call(rest, 'goToBookmark')
       ? rest.goToBookmark
@@ -106,7 +106,7 @@ const Bookmarks = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
         testId: 'bookmark-btn',
         ...buttonOptions
       }}
-      baseSx={baseSx}
+      sx={sx}
       {...rest}
     >
       <Box>

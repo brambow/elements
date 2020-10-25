@@ -11,7 +11,6 @@ const Home = ({
   initPitch,
   initBearing,
   intercept,
-  baseSx,
   sx,
   buttonOptions,
   ...rest
@@ -49,7 +48,7 @@ const Home = ({
       {...rest}
       className="cl-home-button"
       baseType="button"
-      baseSx={baseSx}
+      sx={sx}
       buttonOptions={{
         icon: <FaHome />,
         title: 'Home',

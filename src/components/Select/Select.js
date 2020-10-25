@@ -27,7 +27,6 @@ const Select = ({
   onResetCallback,
   selectStyles,
   baseType,
-  baseSx,
   buttonOptions,
   sx,
   ...rest
@@ -268,7 +267,7 @@ const Select = ({
   return (
     <BaseComponent
       baseType={baseType || 'panel'}
-      baseSx={baseSx}
+      sx={sx}
       buttonOptions={{
         icon: <FaHandPointer />,
         title: 'Select',
