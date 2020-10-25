@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { Button } from 'theme-ui';
 import Panel from './PanelComponent';
 
-const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
+const ButtonComponent = ({ children, buttonOptions, sx, ...rest }) => {
   const ref = useRef(null);
   const triggerRect = useRect(ref);
   const [showPanel, setShowPanel] = useState(false);
@@ -13,7 +13,7 @@ const ButtonComponent = ({ children, buttonOptions, sx /* ...rest */ }) => {
       <Button
         ref={ref}
         title={buttonOptions?.title}
-        className={buttonOptions?.className ?? 'cl-btn'}
+        className={rest?.className ?? 'cl-btn'}
         data-testid={buttonOptions?.testId ?? 'cl-btn'}
         onClick={() => {
           if (buttonOptions?.intercept) {

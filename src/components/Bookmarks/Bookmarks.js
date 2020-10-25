@@ -101,7 +101,6 @@ const Bookmarks = ({ baseType, buttonOptions, ...rest }) => {
     <BaseComponent
       baseType={baseType}
       buttonOptions={{
-        className: 'bookmark-btn',
         icon: <FaBookmark />,
         title: 'Bookmarks',
         testId: 'bookmark-btn',

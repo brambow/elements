@@ -179,15 +179,13 @@ const Measure = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
   return (
     <BaseComponent
       className="cl-measure-tools"
-      baseType={baseType}
+      baseSx={baseSx || 'none'}
       buttonOptions={{
-        className: 'cl-measure-btn',
         icon: <FaRuler />,
         title: 'Measure',
         testId: 'cl-measure-btn',
         ...buttonOptions
       }}
-      baseSx={baseSx}
       sx={sx}
       // sx={{
       //   padding: 0,

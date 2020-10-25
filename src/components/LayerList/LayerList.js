@@ -49,7 +49,6 @@ const LayerList = ({
     <BaseComponent
       baseType={baseType}
       buttonOptions={{
-        className: 'cl-layerlist-btn',
         icon: <FaLayerGroup />,
         title: 'Layer List',
         testId: 'cl-layerlist-btn',

@@ -405,7 +405,6 @@ const AddData = ({ baseType, buttonOptions, ...rest }) => {
     <BaseComponent
       baseType={baseType}
       buttonOptions={{
-        className: 'add-data-btn',
         icon: <MdLibraryAdd />,
         title: 'Add Data',
         testId: 'add-data-btn',

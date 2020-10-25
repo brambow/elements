@@ -110,7 +110,6 @@ const BasemapSwitcher = ({
     <BaseComponent
       baseType={baseType}
       buttonOptions={{
-        className: 'cl-basemap-btn',
         icon: <FaMap />,
         title: 'Basemap Switcher',
         testId: 'cl-basemap-btn',

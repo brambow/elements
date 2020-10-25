@@ -135,7 +135,6 @@ const Draw = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
       className="draw-tools"
       baseType={baseType || 'none'}
       buttonOptions={{
-        className: 'cl-draw-btn',
         icon: <FaPencilAlt />,
         title: 'Draw',
         testId: 'cl-draw-btn',
