@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { FaLayerGroup } from 'react-icons/fa';
 import List from '../_primitives/List';
 import BaseComponent from '../_common/BaseComponent';
 import LayerListItem from './LayerListItem';
@@ -45,7 +46,19 @@ const LayerList = ({
   }
 
   return (
-    <BaseComponent baseType={baseType} {...rest}>
+    <BaseComponent
+      baseType={baseType}
+      buttonOptions={{
+        className: 'cl-layerlist-button',
+        icon: <FaLayerGroup />,
+        title: 'Layer List',
+        testId: 'cl-layerlistbtn',
+        ...buttonOptions
+      }}
+      baseSx={baseSx}
+      sx={sx}
+      {...rest}
+    >
       <List>{listItems}</List>
       <List> {groupItems}</List>
     </BaseComponent>

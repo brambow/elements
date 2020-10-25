@@ -184,7 +184,7 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList
-          baseType="panel"
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           layers={layers}
           legend
           checkboxStyle={radios(
@@ -201,7 +201,7 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} mapLayers={mapLayers} />
         <LayerList
-          baseType="panel"
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           layers={layersWithDDS}
           legend
           checkboxStyle={radios(
@@ -235,7 +235,7 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList
-          baseType="panel"
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           layers={layers2}
           groupLayers={groupLayers}
           checkboxStyle={radios(
