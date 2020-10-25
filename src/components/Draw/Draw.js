@@ -143,7 +143,7 @@ const Draw = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
       baseSx={baseSx}
       {...rest}
     >
-      <ButtonGroup sx={sx}>
+      <ButtonGroup>
         <Button
           title="Draw Point"
           className="draw-tool draw-tool--point"

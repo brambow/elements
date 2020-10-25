@@ -109,7 +109,7 @@ const Bookmarks = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
       baseSx={baseSx}
       {...rest}
     >
-      <Box sx={sx}>
+      <Box>
         {toolText}
         {form}
         <List>{bookmarkListItems}</List>
