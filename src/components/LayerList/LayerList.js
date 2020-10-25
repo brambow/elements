@@ -14,8 +14,8 @@ const LayerList = ({
   showActions,
   checkboxStyle,
   baseType,
-  buttonOptions,
   baseSx,
+  buttonOptions,
   sx,
   ...rest
 }) => {

@@ -117,9 +117,7 @@ const BasemapSwitcher = ({
       }}
       {...rest}
       // type={switcherStyle === 'buttons' ? 'none' : 'panel'}
-      sx={{
-        ...sx
-      }}
+      baseSx={baseSx}
       className="cl-basemap-switcher"
     >
       {switcher}

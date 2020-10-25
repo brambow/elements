@@ -17,7 +17,7 @@ import BaseComponent from '../_common/BaseComponent';
 
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
-const Measure = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
+const Measure = ({ baseType, baseSx, buttonOptions, sx, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
   const [measureControl, setMeasureControl] = useState(null);
