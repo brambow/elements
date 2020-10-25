@@ -19,7 +19,7 @@ storiesOf('Draw', module)
       <ElementsProvider>
         <Map mapOptions={customMapOptions} />
         <Draw
-          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'none')}
         />
       </ElementsProvider>
     );
