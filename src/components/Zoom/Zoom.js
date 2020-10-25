@@ -179,7 +179,8 @@ const Zoom = ({
       {...rest}
       sx={{
         display: 'flex',
-        flexDirection
+        flexDirection,
+        ...sx
       }}
       className="cl-zoom-controls"
     >
