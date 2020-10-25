@@ -23,8 +23,10 @@ const Search = ({
   mapboxToken,
   iconOnly,
   suggestionsZIndex,
+  baseType,
+  baseSx,
+  buttonOptions,
   sx,
-  bg,
   ...rest
 }) => {
   if (!mapboxToken) {
@@ -40,9 +42,10 @@ const Search = ({
 
   // eslint-disable-next-line no-underscore-dangle
   const _handleSearchInputChange = useCallback(
-    debounce(input => {
+    debounce((input) => {
       handleSearchInputChange(input, setSuggestions, mapboxToken);
-    }, 500), []
+    }, 500),
+    []
   );
 
   const btnContent = !iconOnly ? (
@@ -67,13 +70,18 @@ const Search = ({
 
   return (
     <BaseComponent
-      {...rest}
-      className="cl-search"
-      sx={{
-        ...sx
+      baseType={baseType}
+      baseSx={baseSx || 'none'}
+      buttonOptions={{
+        icon: <FaSearchLocation />,
+        title: 'Search',
+        testId: 'cl-search-btn',
+        ...buttonOptions
       }}
+      className="cl-search"
+      {...rest}
     >
-      <Flex>
+      <Flex sx={{ ...sx }}>
         <Combobox>
           <ComboboxInput
             style={{ height: '32px', width: '200px' }}
@@ -81,7 +89,7 @@ const Search = ({
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
-              _handleSearchInputChange(e.target.value)
+              _handleSearchInputChange(e.target.value);
             }}
           />
           <SearchSuggestions
@@ -92,7 +100,6 @@ const Search = ({
         </Combobox>
         <Button
           // TO DO: figure out better place for these styles
-          bg={bg} // should we allow this or just enforce theme decisions?
           sx={{
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0,
