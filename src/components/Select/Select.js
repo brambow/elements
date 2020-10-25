@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Heading, Flex } from 'theme-ui';
 import { MdPlace as PointIcon } from 'react-icons/md';
-import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
+import { FaDrawPolygon as PolygonIcon, FaHandPointer } from 'react-icons/fa';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
@@ -26,7 +26,10 @@ const Select = ({
   onSelectCallback, // callback(selectionShape, selectedFeatures)
   onResetCallback,
   selectStyles,
-  panel,
+  baseType,
+  baseSx,
+  buttonOptions,
+  sx,
   ...rest
 }) => {
   const config = useContext(Context);
@@ -206,9 +209,12 @@ const Select = ({
   // use the logic below to accept whether the component should be rendered in a Panel or not.
   const drawButtons = (
     <div>
-      <Heading sx={{ marginBottom: 2, fontSize: [1, 2] }}>
-        Selection Mode
-      </Heading>
+      {baseType !== 'none' && (
+        <Heading sx={{ marginBottom: 2, fontSize: [1, 2] }}>
+          Selection Mode
+        </Heading>
+      )}
+
       <Flex>
         <ButtonGroup className="select-modes">
           <Button
@@ -260,7 +266,17 @@ const Select = ({
   );
 
   return (
-    <BaseComponent panel={panel} {...rest}>
+    <BaseComponent
+      baseType={baseType || 'panel'}
+      baseSx={baseSx}
+      buttonOptions={{
+        icon: <FaHandPointer />,
+        title: 'Select',
+        testId: 'cl-select-btn',
+        ...buttonOptions
+      }}
+      {...rest}
+    >
       {drawButtons}
       {alert}
       {layersSection}
