@@ -4,6 +4,7 @@ import { jsx, Flex, Button, Box, Text, Select } from 'theme-ui';
 import { MdTimeline as LineIcon } from 'react-icons/md';
 import {
   FaDrawPolygon as PolygonIcon,
+  FaRuler,
   FaTrash as TrashIcon
 } from 'react-icons/fa';
 import numeral from 'numeral';
@@ -16,7 +17,7 @@ import BaseComponent from '../_common/BaseComponent';
 
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
-const Measure = ({ sx, ...rest }) => {
+const Measure = ({ baseType, buttonOptions, baseSx, sx, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
   const [measureControl, setMeasureControl] = useState(null);
@@ -177,12 +178,22 @@ const Measure = ({ sx, ...rest }) => {
 
   return (
     <BaseComponent
-      {...rest}
       className="cl-measure-tools"
-      sx={{
-        padding: 0,
-        ...sx
+      baseType={baseType}
+      buttonOptions={{
+        className: 'cl-measure-btn',
+        icon: <FaRuler />,
+        title: 'Measure',
+        testId: 'cl-measure-btn',
+        ...buttonOptions
       }}
+      baseSx={baseSx}
+      sx={sx}
+      // sx={{
+      //   padding: 0,
+      //   ...sx
+      // }}
+      {...rest}
     >
       <ButtonGroup>
         <Button
