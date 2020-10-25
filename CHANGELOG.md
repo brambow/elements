@@ -1,11 +1,14 @@
 # Upcoming
 
-- **BREAKING CHANGES:** `<BaseComponent/>` API has been updated.
-  - Removed the following props: `panel`, `top`, `left`, `bottom`
-  - Added the following props:
-    - `type` - choices are `none` (default), `panel`, `button`
-    - `baseSx` - set of styles that are passed to the base containter and not the children
-- New <ButtonComponent> (`type` prop) provides and out-of-the-box UI option for button triggers
+**BREAKING CHANGES:**
+
+- `<BaseComponent/>` API has been updated.
+- Removed the following props: `panel`, `top`, `left`, `bottom`
+- Added the following props:
+  - `baseType` - choices are `none` (default), `panel`, `button`
+  - `sx` - set of styles that are passed to the base container (this existed but is now passed consistently)
+  - `buttonOptions` - set of options passed to button-style components
+- New <ButtonComponent> (`baseType = 'button`) provides and out-of-the-box UI option for button triggers
 
 # 1.3.7
 
