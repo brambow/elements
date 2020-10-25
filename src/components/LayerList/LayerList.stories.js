@@ -218,7 +218,7 @@ storiesOf('LayerList', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <LayerList
-          baseType="panel"
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           layers={layers}
           showActions
           checkboxStyle={radios(
