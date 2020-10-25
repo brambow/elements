@@ -15,6 +15,7 @@ const ButtonComponent = ({ children, buttonOptions, sx, ...rest }) => {
         title={buttonOptions?.title}
         className={rest?.className ?? 'cl-btn'}
         data-testid={buttonOptions?.testId ?? 'cl-btn'}
+        variant={buttonOptions?.variant ?? 'default'}
         onClick={() => {
           if (buttonOptions?.intercept) {
             try {

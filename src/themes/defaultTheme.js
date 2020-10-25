@@ -97,6 +97,10 @@ const defaultTheme = {
         bg: 'gray'
       }
     },
+    circle: {
+      variant: 'buttons.primary',
+      borderRadius: 'circle'
+    },
     outline: {
       variant: 'buttons.primary',
       color: 'primary',
