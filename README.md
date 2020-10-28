@@ -128,7 +128,8 @@ In most cases the `sx` prop is passed to the base container for the component an
 <Zoom sx={{
   button: {
     backgroundColor: 'secondary'
-}}}>
+  }
+}} />
 ```
 
 ## Component Playground and Docs
