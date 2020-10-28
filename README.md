@@ -122,7 +122,14 @@ We've provided a default theme to help you get started quickly.
 
 Styling can be overridden for each component by passing in an `sx` prop that contains and object of styles (same format that Emotion uses). Like in ThemeUI, the `sx` prop indicates that the component is "theme-aware" and thus can use theme values in the style object, alongside any other valid CSS.
 
-In most cases the `sx` prop is passed to the base container for the component and can be used for positioning, background color changes, etc. Styles can be passed into child components via nested style syntax.
+In most cases the `sx` prop is passed to the base container for the component and can be used for positioning, background color changes, etc. Styles can be passed into child components via nested style syntax. A good example of this is with the `<Zoom>` component, which has two buttons as children of the base component. To change the color of the buttons in the Zoom component, you can do this:
+
+```
+<Zoom sx={{
+  button: {
+    backgroundColor: 'secondary'
+}}}>
+```
 
 ## Component Playground and Docs
 
