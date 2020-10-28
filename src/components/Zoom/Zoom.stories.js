@@ -14,7 +14,6 @@ storiesOf('Zoom', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <Zoom
-          sx={{ bg: 'secondary' }}
           circular={boolean('circular', false)}
           horizontal={boolean('horizontal', false)}
           showZoomLevel={boolean('showZoomLevel', false)}
@@ -27,7 +26,6 @@ storiesOf('Zoom', module)
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
         <Zoom
-          sx={{ bg: 'secondary' }}
           circular={boolean('circular', false)}
           horizontal={boolean('horizontal', false)}
           controlType="slider"

@@ -51,6 +51,7 @@ const BaseComponent = ({
     minHeight: '25px',
     p: 0,
     m: 1,
+    boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
     ...sx
   };
 

@@ -40,12 +40,15 @@ const Zoom = ({
 
   let buttonStyle = {
     borderRadius: 'default',
+    width: '32px',
+    height: '32px',
     minWidth: '25px',
     minHeight: '25px',
+    boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
     padding: 0,
     margin: '1px',
     '&:hover': {
-      bg: 'accent'
+      bg: 'secondary'
     }
   };
 
@@ -177,9 +180,11 @@ const Zoom = ({
   return (
     <BaseComponent
       {...rest}
+      baseType="none"
       sx={{
         display: 'flex',
         flexDirection,
+        m: 1,
         ...sx
       }}
       className="cl-zoom-controls"
