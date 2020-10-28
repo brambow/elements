@@ -48,8 +48,8 @@ const ButtonComponent = ({ children, buttonOptions, sx, ...rest }) => {
             onClose={() => setShowPanel(false)}
             sx={{
               fontFamily: 'body',
-              zIndex: 2,
-              bg: 'transparent'
+              zIndex: sx.zIndex || 2
+              // bg: 'transparent'
             }}
           >
             {children}

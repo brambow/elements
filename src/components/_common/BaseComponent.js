@@ -36,6 +36,18 @@ const BaseComponent = ({
     ...sx
   };
 
+  const panelStyle = {
+    fontFamily: 'body',
+    bg: 'background',
+    position: sx?.position || 'absolute',
+    top: topPos,
+    left: leftPos,
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
+    ...sx
+  };
+
   const buttonStyle = {
     fontFamily: 'body',
     bg: sx?.bg || 'primary',
@@ -66,7 +78,7 @@ const BaseComponent = ({
       return defaultType;
     case 'panel':
       return (
-        <Panel {...rest} sx={baseStyle}>
+        <Panel {...rest} sx={panelStyle}>
           {children}
         </Panel>
       );
