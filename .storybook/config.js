@@ -1,7 +1,6 @@
 import { configure, addParameters, addDecorator } from '@storybook/react';
-// import { themes } from '@storybook/theming';
 import theme from './cartolabTheme';
-import { withThemesProvider } from 'storybook-addon-emotion-theme';
+import { withThemeProvider } from 'storybook-addon-theme-ui';
 import * as themeui from '@theme-ui/presets';
 import defaultTheme from '../src/themes/defaultTheme';
 
@@ -10,19 +9,34 @@ const presets = {
   ...themeui
 };
 
+let t = []
+
 for (let key in presets) {
-  presets[key].name = key;
+  const obj = {
+    name: key,
+    theme: presets[key]
+  }
+
+  t.push(obj)
+  // presets[key].name = key;
 }
 
-const themeUIThemes = Object.values(presets);
-
-const themes = [...themeUIThemes];
-
-addDecorator(withThemesProvider(themes));
+// for (let key in presets) {
+//   presets[key].name = key;
+// }
+// console.log(presets)
+// const themeUIThemes = Object.values(presets);
+// console.log(themeUIThemes)
+// const themes = [...themeUIThemes];
+// console.log(themes)
+addDecorator(withThemeProvider);
 
 addParameters({
   options: {
-    theme: theme
+    theme: theme,
+  },
+  themeUi: {
+    themes: t
   }
 });
 
