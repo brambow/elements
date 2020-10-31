@@ -46,7 +46,7 @@ const Zoom = ({
     minHeight: '25px',
     boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
     padding: 0,
-    margin: '1px',
+    my: '2px',
     '&:hover': {
       bg: 'secondary'
     }
@@ -59,10 +59,22 @@ const Zoom = ({
     };
   }
 
+  if (controlType === 'slider') {
+    buttonStyle = {
+      ...buttonStyle,
+      mx: 0
+    };
+  }
+
   let flexDirection = 'column';
 
   if (horizontal) {
     flexDirection = 'row';
+    buttonStyle = {
+      ...buttonStyle,
+      marginRight: '4px',
+      my: 0
+    };
   }
 
   let zoomLevelIndicator = null;
@@ -157,7 +169,7 @@ const Zoom = ({
             max={22}
             sx={{
               width: '120px',
-              my: 5,
+              my: '58px',
               transform: 'rotate(270deg)'
             }}
             value={zoom}
