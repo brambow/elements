@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Close, Flex } from 'theme-ui';
+import { Card, Close, Flex, useThemeUI } from 'theme-ui';
 
 const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
+  const {theme} = useThemeUI();
+
   return (
     <Card
       className="cl-panel-component"
@@ -13,13 +15,18 @@ const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
         boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
         bg: 'background',
         ...sx,
-        paddingTop: closable ? 0 : 3,
-        paddingRight: closable ? 0 : 3
+        paddingTop: closable ? 0 : 3
+        // paddingRight: closable ? 0 : 3
       }}
       {...rest}
     >
       {closable && (
-        <Flex sx={{ justifyContent: 'flex-end' }}>
+        <Flex
+          sx={{
+            justifyContent: 'flex-end',
+            marginRight: `-${theme.space[3]}px`
+          }}
+        >
           <Close
             sx={{
               color: 'text',
