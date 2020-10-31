@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import React, { useState, useContext } from 'react';
-import { Button } from 'theme-ui';
+import { Button, useThemeUI } from 'theme-ui';
 import {
   MdDelete as DeleteIcon,
   MdPlace as PointIcon,
@@ -10,7 +10,7 @@ import {
 } from 'react-icons/md';
 import { FaDrawPolygon as PolygonIcon, FaPencilAlt } from 'react-icons/fa';
 
-import { useTheme } from 'emotion-theming';
+// import { useTheme } from 'emotion-theming';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -22,7 +22,7 @@ import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
 
 const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
-  const theme = useTheme();
+  const {theme} = useThemeUI();
 
   const config = useContext(Context);
   const { map } = config;

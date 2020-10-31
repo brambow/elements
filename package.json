@@ -39,7 +39,6 @@
     "@turf/boolean-disjoint": "^6.0.2",
     "@turf/length": "^6.0.2",
     "csv2geojson": "^5.1.1",
-    "emotion-theming": "^10.0.27",
     "lodash.debounce": "^4.0.8",
     "numeral": "^2.0.6",
     "react-color": "^2.18.1",
