@@ -37,6 +37,7 @@ const ButtonComponent = ({ children, buttonOptions, sx, ...rest }) => {
 
       {showPanel && (
         <Popover
+        style={{zIndex: sx.zIndex || 2}}
           targetRef={ref}
           position={() => ({
             left: triggerRect?.right + 10,
@@ -48,7 +49,7 @@ const ButtonComponent = ({ children, buttonOptions, sx, ...rest }) => {
             onClose={() => setShowPanel(false)}
             sx={{
               fontFamily: 'body',
-              zIndex: sx.zIndex || 2
+
               // bg: 'transparent'
             }}
           >
