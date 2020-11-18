@@ -4,7 +4,7 @@
 
 [Demo](https://cartolab-gis.github.io/elements/)
 
-CartoLab Elements are a set of reusable and themeable React components for building user interfaces for map-based web applications. 
+CartoLab Elements are a set of reusable and themeable React components for building user interfaces for map-based web applications.
 
 ## Motivation
 
@@ -12,46 +12,46 @@ Similar to paper maps, digital maps generally include a common set of elements �
 
 This idea has been realized to a degree in tools like Esri’s Web AppBuilder – a platform that lets non-developers to configure “widgets” for mapping applications. CartoLab Elements are similar in concept to these “widgets”; however, they are different in that:
 
-a)	They are primarily meant for developers, and  
-b)	Unlike Esri’s widgets, which can only be used in specific application templates, CartoLab Elements will work in any React-based web application  
+a) They are primarily meant for developers, and  
+b) Unlike Esri’s widgets, which can only be used in specific application templates, CartoLab Elements will work in any React-based web application
 
 CartoLab Elements currently works with MapboxGL.js. We chose Mapbox because:
 
-a)	It’s what we use most often at CartoLab in our daily work.  
-b)	Compared to other mapping libraries, it has the fewest UI elements or plugins available.  
-
+a) It’s what we use most often at CartoLab in our daily work.  
+b) Compared to other mapping libraries, it has the fewest UI elements or plugins available.
 
 In the future we may consider expanding support beyond Mapbox to multiple mapping libraries.
 
 ## Comparison to other React mapping projects
+
 Elements is different from libraries like [react-map-gl](https://uber.github.io/react-map-gl/#/) and [react-mapbox-gl](https://github.com/alex3165/react-mapbox-gl) in that it is not an attempt to port the MapboxGL API into React Components. Instead, it is our philosphy that MapboxGL should manage the map and its WebGL Context, while React simply manages all the other UI elements in an application that need to interact with a map. Working with Elements, you should be able to use MapboxGL.js directly or use one of these wrapper libraries (as long as you can pass in the map instance to Elements' Context).
 
-
 ## Usage
+
 ### Installation
+
 `npm install @cartolab/elements`
 or
 `yarn add @cartolab/elements`
 
 **Important:** When cloning the full source from github you need to add a `src/config.js` file that exports an object that has your Mapbox token. This is needed for the Storybook to run in dev mode. This should remain out of version control. There is a `config.template.js` file in `src` to get you started. Just copy it and remove 'template'. Example:
 
-``` javascript
-
+```javascript
 export default {
   mapboxToken: 'your mapbox token'
-}
-
+};
 ```
 
+### Peer Dependencies
 
-### Peer Dependencies 
 In order to CartoLab Elements to work, your project must include the following packages:
 
-* react
-* react-dom
-* mapbox-gl
+- react
+- react-dom
+- mapbox-gl
 
 ### App Initialization
+
 In the entry point/top level of your application, enable Elements by importing and wrapping the app in the `<ElementsProvider>`. The Elements Provider does two things:
 
 a) It passes in theme information. See Theming section for more details.
@@ -59,7 +59,7 @@ b) It creates a shared map context so that the state of the map can be read and 
 
 Example in the index.js file of an app created with Create React App:
 
-``` javascript
+```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -77,14 +77,14 @@ ReactDOM.render(
 
 Example App.js. Note how you can place CartoLab Elements as children or siblings of the Map component. Your choice may depend on how you want to position these components in your application. You can see more examples of usage in the source for our Storybook app and in the tests.
 
-``` javascript
+```javascript
 import React from 'react'
 import {Map, Zoom, BasemapSwitcher} from @cartolab/elements
 
 const App = () => {
   return (
     <div>
-      <Map mapOptions={  
+      <Map mapOptions={
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [-95.7742, 29.80814],
@@ -94,7 +94,7 @@ const App = () => {
         <Zoom>
         <BasemapSwitcher>
       </Map>
-      <LayerList           
+      <LayerList
         panel={false}
         layers={[
           {
@@ -112,34 +112,44 @@ const App = () => {
 }
 ```
 
-
-
 ## Theming
-CartoLab Elements are built with [ThemeUI](https://theme-ui.com/), which uses [Styled System](https://styled-system.com/) and the [System UI Theme Specification](https://system-ui.com/theme). This means that you can use any theme made for Rebass, Styled System, Theme-UI, or any other compliant theme with CartoLab Elements. 
 
-We've provided a default theme to help you get started quickly. 
+CartoLab Elements are built with [ThemeUI](https://theme-ui.com/), which uses [Styled System](https://styled-system.com/) and the [System UI Theme Specification](https://system-ui.com/theme). This means that you can use any theme made for Rebass, Styled System, Theme-UI, or any other compliant theme with CartoLab Elements.
+
+We've provided a default theme to help you get started quickly.
 
 ### Overriding Themes
-CartoLab Elements are extensions of ThemeUI elements, and therefore the `css` prop from Styled System and Emotion can be used in any component to override theme values. In general, it is preferrable to set styles in a theme file and create variants for different presentation options. The `css` prop override shuld be used sparingly or only for positioning of elements.
+
+Styling can be overridden for each component by passing in an `sx` prop that contains and object of styles (same format that Emotion uses). Like in ThemeUI, the `sx` prop indicates that the component is "theme-aware" and thus can use theme values in the style object, alongside any other valid CSS.
+
+In most cases the `sx` prop is passed to the base container for the component and can be used for positioning, background color changes, etc. Styles can be passed into child components via nested style syntax. A good example of this is with the `<Zoom>` component, which has two buttons as children of the base component. To change the color of the buttons in the Zoom component, you can do this:
+
+```
+<Zoom sx={{
+  button: {
+    backgroundColor: 'secondary'
+  }
+}} />
+```
 
 ## Component Playground and Docs
+
 You can explore CartoLab Elements in our interactive playground, built with [Storybook](https://storybook.js.org/). We've included documentation, code examples, and interactive exploration of various props and theming options.
 
 To run the storybook application, clone and run: `yarn dev`
 
 ## Roadmap
+
 We have many ideas for enhancing CartoLab Elements over time. Some possibilities include:
 
-* Adding more components
-* Expanding support to other mapping APIs, like Leaflet and OpenLayers
-* Providing non-React versions (Vue, Vanilla JS, etc.)
+- Adding more components
+- Expanding support to other mapping APIs, like Leaflet and OpenLayers
+- Providing non-React versions (Vue, Vanilla JS, etc.)
 
-## Contributing 
+## Contributing
 
 To run in development mode, install and run `yarn dev`. This will launch a development version of Storybook to create a development environment. Running `yarn test` will run tests against the code. We use Jest and React Testing Library for testing these components.
 
 **Important!** See the instructions under Installation on adding a `src/config.js` file for your Mapbox token or you will get errors when running `yarn dev`
 
-
-
-If you have an idea, question, or issue please open an issue and let us know. 
+If you have an idea, question, or issue please open an issue and let us know.

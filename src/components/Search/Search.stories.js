@@ -2,7 +2,7 @@ import React from 'react';
 import Search from './Search';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import Map from '../Map/Map';
@@ -17,6 +17,7 @@ storiesOf('Search', module)
         <Search
           iconOnly={boolean('iconOnly', false)}
           mapboxToken={config.mapboxToken}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'none')}
         />
       </ElementsProvider>
     );
@@ -25,7 +26,10 @@ storiesOf('Search', module)
     return (
       <ElementsProvider>
         <Map mapOptions={mapOptions} />
-        <Search iconOnly={boolean('iconOnly', false)} />
+        <Search
+          iconOnly={boolean('iconOnly', false)}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'none')}
+        />
       </ElementsProvider>
     );
   });

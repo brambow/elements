@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Button } from 'theme-ui';
+import { FaMap } from 'react-icons/fa';
 import DefaultContext from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 import RadioGroup from '../_primitives/RadioGroup';
@@ -11,7 +12,14 @@ import BaseComponent from '../_common/BaseComponent';
  * @class BasemapSwitcher
  */
 
-const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
+const BasemapSwitcher = ({
+  switcherStyle,
+  basemaps,
+  baseType,
+  buttonOptions,
+  sx,
+  ...rest
+}) => {
   const [basemapValue, setBasemapValue] = useState(
     basemaps ? basemaps[0].value : 'streets-v11'
   );
@@ -63,7 +71,7 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
 
   let switcher;
 
-  switch (componentStyle) {
+  switch (switcherStyle) {
     case 'radio':
       switcher = (
         <RadioGroup
@@ -99,11 +107,16 @@ const BasemapSwitcher = ({ componentStyle, basemaps, sx, panel, ...rest }) => {
 
   return (
     <BaseComponent
-      {...rest}
-      panel={componentStyle === 'buttons' ? false : panel}
-      sx={{
-        ...sx
+      baseType={baseType}
+      buttonOptions={{
+        icon: <FaMap />,
+        title: 'Basemap Switcher',
+        testId: 'cl-basemap-btn',
+        ...buttonOptions
       }}
+      {...rest}
+      // type={switcherStyle === 'buttons' ? 'none' : 'panel'}
+      sx={sx}
       className="cl-basemap-switcher"
     >
       {switcher}

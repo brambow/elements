@@ -1,16 +1,16 @@
 /* eslint-disable no-param-reassign */
 
 import React, { useState, useContext } from 'react';
-import { Button } from 'theme-ui';
+import { Button, useThemeUI } from 'theme-ui';
 import {
   MdDelete as DeleteIcon,
   MdPlace as PointIcon,
   MdTimeline as LineIcon,
   MdTextFormat as TextIcon
 } from 'react-icons/md';
-import { FaDrawPolygon as PolygonIcon } from 'react-icons/fa';
+import { FaDrawPolygon as PolygonIcon, FaPencilAlt } from 'react-icons/fa';
 
-import { useTheme } from 'emotion-theming';
+// import { useTheme } from 'emotion-theming';
 import ButtonGroup from '../_primitives/ButtonGroup';
 import Context from '../../DefaultContext';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
@@ -20,10 +20,9 @@ import GetTextMode from './textDrawMode';
 import StaticMode from './staticDrawMode';
 import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
-// import MapboxDraw from '@mapbox/mapbox-gl-draw';
 
-const Draw = ({ sx, ...rest }) => {
-  const theme = useTheme();
+const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
+  const {theme} = useThemeUI();
 
   const config = useContext(Context);
   const { map } = config;
@@ -34,8 +33,8 @@ const Draw = ({ sx, ...rest }) => {
     return null;
   }
 
-  async function startDraw(type) {
-    // console.log(`start drawing ${type}`);
+  async function startDraw(drawType) {
+    // console.log(`start drawing ${drawType}`);
 
     const draw =
       drawControl ||
@@ -59,7 +58,7 @@ const Draw = ({ sx, ...rest }) => {
       map.addControl(draw);
     }
 
-    const nm = type || 'simple_select';
+    const nm = drawType || 'simple_select';
     setNextMode(nm);
     draw.changeMode(nm);
   }
@@ -133,12 +132,16 @@ const Draw = ({ sx, ...rest }) => {
 
   return (
     <BaseComponent
-      {...rest}
       className="draw-tools"
-      sx={{
-        padding: 0,
-        ...sx
+      baseType={baseType || 'none'}
+      buttonOptions={{
+        icon: <FaPencilAlt />,
+        title: 'Draw',
+        testId: 'cl-draw-btn',
+        ...buttonOptions
       }}
+      sx={sx}
+      {...rest}
     >
       <ButtonGroup>
         <Button

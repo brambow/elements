@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { FaLayerGroup } from 'react-icons/fa';
 import List from '../_primitives/List';
 import BaseComponent from '../_common/BaseComponent';
 import LayerListItem from './LayerListItem';
@@ -10,9 +11,11 @@ const LayerList = ({
   layers,
   groupLayers,
   legend = false,
-  panel,
   showActions,
   checkboxStyle,
+  baseType,
+  buttonOptions,
+  sx,
   ...rest
 }) => {
   const config = useContext(Context);
@@ -42,7 +45,17 @@ const LayerList = ({
   }
 
   return (
-    <BaseComponent panel={panel} {...rest}>
+    <BaseComponent
+      baseType={baseType}
+      buttonOptions={{
+        icon: <FaLayerGroup />,
+        title: 'Layer List',
+        testId: 'cl-layerlist-btn',
+        ...buttonOptions
+      }}
+      sx={sx}
+      {...rest}
+    >
       <List>{listItems}</List>
       <List> {groupItems}</List>
     </BaseComponent>

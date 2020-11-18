@@ -91,11 +91,15 @@ const defaultTheme = {
       boxShadow: '0 2 4px rgba(0, 0, 0, .125)',
       '&:hover': {
         cursor: 'pointer',
-        bg: 'accent'
+        bg: 'secondary'
       },
       '&:disabled': {
         bg: 'gray'
       }
+    },
+    circle: {
+      variant: 'buttons.primary',
+      borderRadius: 'circle'
     },
     outline: {
       variant: 'buttons.primary',

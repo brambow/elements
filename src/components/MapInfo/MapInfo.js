@@ -2,6 +2,7 @@
 
 import React, { useState, useContext, useEffect } from 'react';
 import numeral from 'numeral';
+import { FaInfo } from 'react-icons/fa';
 import DefaultContext from '../../DefaultContext';
 import mapExists from '../../util/mapExists';
 import BaseComponent from '../_common/BaseComponent';
@@ -9,7 +10,7 @@ import BaseComponent from '../_common/BaseComponent';
  * @class MapInfo
  */
 
-const MapInfo = ({ sx, ...rest }) => {
+const MapInfo = ({ baseType, buttonOptions, sx, ...rest }) => {
   const config = useContext(DefaultContext);
   const { map } = config;
   const [mapCenter, setMapCenter] = useState('');
@@ -71,15 +72,22 @@ const MapInfo = ({ sx, ...rest }) => {
 
   return (
     <BaseComponent
-      {...rest}
+      className="cl-mapinfo"
+      baseType={baseType || 'none'}
+      buttonOptions={{
+        icon: <FaInfo />,
+        title: 'Map Info',
+        testId: 'cl-mapinfo-btn',
+        ...buttonOptions
+      }}
       sx={{
         padding: 2,
         fontSize: '9px',
         bg: 'primary',
-        color: 'background',
+        color: baseType === 'panel' ? 'text' : 'background',
         ...sx
       }}
-      className="cl-mapinfo"
+      {...rest}
     >{`Center (lon/lat): ${mapCenter} degrees; Zoom: ${zoom}; Cursor: ${mouseCoords}; Bounds: ${bounds}`}</BaseComponent>
   );
 };

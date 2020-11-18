@@ -3,7 +3,7 @@ import Select from './Select';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
 import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import mapLayers from '../../util/mockMapLayers';
@@ -52,8 +52,8 @@ storiesOf('Select', module)
           mapLayers={[...mapLayers, geojsonLayer]}
         />
         <Select
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           selectableLayers={['states-layer', 'rivers-layer']}
-          panel={true}
         />
       </ElementsProvider>
     );
@@ -82,7 +82,7 @@ storiesOf('Select', module)
         />
         <Select
           selectableLayers={['states-layer', 'rivers-layer']}
-          panel={true}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           onSelectCallback={(selectionGeometry, selectedFeatures) => {
             for (let [key, value] of Object.entries(selectedFeatures)) {
               alert(
@@ -106,7 +106,7 @@ storiesOf('Select', module)
         />
         <Select
           selectableLayers={['states-layer', 'rivers-layer']}
-          panel={true}
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           selectStyles={customStyles}
         />
       </ElementsProvider>

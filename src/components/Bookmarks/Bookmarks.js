@@ -5,50 +5,59 @@ import { Button, Flex, Box, Text, Input } from 'theme-ui';
 import { FaBookmark, FaTrashAlt } from 'react-icons/fa';
 import BaseComponent from '../_common/BaseComponent';
 import Context from '../../DefaultContext';
-import { goToBookmark, loadBookmarks, deleteBookmark, saveBookmark } from './util/bookmarkActions';
+import {
+  goToBookmark,
+  loadBookmarks,
+  deleteBookmark,
+  saveBookmark
+} from './util/bookmarkActions';
 import ListItem from '../_primitives/ListItem';
 import List from '../_primitives/List';
 
-const Bookmarks = ({ panel, ...rest }) => {
+const Bookmarks = ({ baseType, buttonOptions, sx, ...rest }) => {
   const { _goToBookmark, _loadBookmarks, _deleteBookmark, _saveBookmark } = {
-    _goToBookmark: Object.hasOwnProperty.call(rest, 'goToBookmark') ?  rest.goToBookmark : goToBookmark,
-    _loadBookmarks: Object.hasOwnProperty.call(rest, 'loadBookmarks') ? rest.loadBookmarks : loadBookmarks,
-    _deleteBookmark: Object.hasOwnProperty.call(rest, 'deleteBookmark') ? rest.deleteBookmark : deleteBookmark,
-    _saveBookmark: Object.hasOwnProperty.call(rest, 'saveBookmark') ? rest.saveBookmark : saveBookmark
+    _goToBookmark: Object.hasOwnProperty.call(rest, 'goToBookmark')
+      ? rest.goToBookmark
+      : goToBookmark,
+    _loadBookmarks: Object.hasOwnProperty.call(rest, 'loadBookmarks')
+      ? rest.loadBookmarks
+      : loadBookmarks,
+    _deleteBookmark: Object.hasOwnProperty.call(rest, 'deleteBookmark')
+      ? rest.deleteBookmark
+      : deleteBookmark,
+    _saveBookmark: Object.hasOwnProperty.call(rest, 'saveBookmark')
+      ? rest.saveBookmark
+      : saveBookmark
   };
 
   const config = useContext(Context);
-  const {map} = config;
+  const { map } = config;
   const existingBookmarks = JSON.parse(_loadBookmarks()) || [];
   const [bookmarkName, setBookmarkName] = useState('');
   const [bookmarks, setBookmarks] = useState(existingBookmarks);
   const [bookmarkListItems, setBookmarkListItems] = useState([]);
 
   useEffect(() => {
-    const listItems = bookmarks.map(bkmk => {
+    const listItems = bookmarks.map((bkmk) => {
       return (
-        <ListItem
-          selectable
-          key={bkmk.name}
-        >
+        <ListItem selectable key={bkmk.name}>
           <Flex>
             <Box
               onClick={() => {
                 _goToBookmark(map, bkmk);
               }}
-             sx={{ flex: '1 1 auto' }}
+              sx={{ flex: '1 1 auto' }}
             >
               <FaBookmark />
-              {bkmk.name} 
+              {bkmk.name}
             </Box>
             <Box>
-              <FaTrashAlt 
+              <FaTrashAlt
                 onClick={() => {
                   _deleteBookmark(bkmk, setBookmarks);
                 }}
               />
             </Box>
-
           </Flex>
         </ListItem>
       );
@@ -67,10 +76,10 @@ const Bookmarks = ({ panel, ...rest }) => {
     <Flex>
       <Input
         value={bookmarkName}
-        onChange={e => {
+        onChange={(e) => {
           setBookmarkName(e.currentTarget.value);
         }}
-       />
+      />
       <Button
         sx={{
           borderTopLeftRadius: 0,
@@ -89,7 +98,17 @@ const Bookmarks = ({ panel, ...rest }) => {
   );
 
   return (
-    <BaseComponent panel={panel} {...rest}>
+    <BaseComponent
+      baseType={baseType}
+      buttonOptions={{
+        icon: <FaBookmark />,
+        title: 'Bookmarks',
+        testId: 'bookmark-btn',
+        ...buttonOptions
+      }}
+      sx={sx}
+      {...rest}
+    >
       <Box>
         {toolText}
         {form}

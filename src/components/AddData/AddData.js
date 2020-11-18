@@ -10,6 +10,7 @@ import {
   Label
 } from 'theme-ui';
 import bbox from '@turf/bbox';
+import { MdLibraryAdd } from 'react-icons/md';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 import BaseComponent from '../_common/BaseComponent';
@@ -19,7 +20,7 @@ import Importer from './importer/index';
 
 const importer = new Importer();
 
-const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
+const AddData = ({ baseType, buttonOptions, sx, ...rest }) => {
   const config = useContext(Context);
   const { map } = config;
 
@@ -401,7 +402,17 @@ const AddData = ({ /* layers, */ panel /* , ...rest */ }) => {
   if (!mapExists(map)) return null;
 
   return (
-    <BaseComponent panel={panel} sx={{ width: '300px' }}>
+    <BaseComponent
+      baseType={baseType}
+      buttonOptions={{
+        icon: <MdLibraryAdd />,
+        title: 'Add Data',
+        testId: 'add-data-btn',
+        ...buttonOptions
+      }}
+      sx={sx}
+      {...rest}
+    >
       <Body />
     </BaseComponent>
   );

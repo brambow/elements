@@ -2,55 +2,99 @@
 
 import React from 'react';
 import { Box } from 'theme-ui';
+import ButtonComponent from './ButtonComponent';
 import Panel from './PanelComponent';
 
 const BaseComponent = ({
+  baseType, // 'none', 'panel', 'button'
+  buttonOptions, // optional
   children,
-  panel,
   open,
-  top,
-  left,
-  bottom,
-  right,
   sx,
   ...rest
 }) => {
-  let topPos = top || '1rem';
-  let leftPos = left || '1rem';
+  let topPos = sx?.top ?? '1rem';
+  let leftPos = sx?.left ?? '1rem';
 
-  if (bottom) {
-    topPos = undefined;
+  if (sx?.bottom) {
+    topPos = null;
   }
 
-  if (right) {
-    leftPos = undefined;
+  if (sx?.right) {
+    leftPos = null;
   }
 
   const baseStyle = {
     fontFamily: 'body',
-    position: 'absolute',
+    bg: 'transparent',
+    position: sx?.position || 'absolute',
     top: topPos,
     left: leftPos,
-    bottom,
-    right,
-    zIndex: 2,
-    bg: 'transparent',
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
     ...sx
   };
 
-  if (panel) {
-    return (
-      <Panel {...rest} sx={baseStyle}>
-        {children}
-      </Panel>
-    );
-  }
+  const panelStyle = {
+    fontFamily: 'body',
+    bg: 'background',
+    position: sx?.position || 'absolute',
+    top: topPos,
+    left: leftPos,
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
+    ...sx
+  };
 
-  return (
+  const buttonStyle = {
+    fontFamily: 'body',
+    bg: sx?.bg || 'primary',
+    position: sx?.position || 'absolute',
+    top: topPos,
+    left: leftPos,
+    bottom: sx?.bottom,
+    right: sx?.right,
+    zIndex: sx?.zIndex ?? 2,
+    width: '32px',
+    height: '32px',
+    minWidth: '25px',
+    minHeight: '25px',
+    p: 0,
+    m: 1,
+    boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
+    ...sx
+  };
+
+  const defaultType = (
     <Box {...rest} sx={baseStyle}>
       {children}
     </Box>
   );
+
+  switch (baseType) {
+    case 'none':
+      return defaultType;
+    case 'panel':
+      return (
+        <Panel {...rest} sx={panelStyle}>
+          {children}
+        </Panel>
+      );
+    case 'button':
+      return (
+        <ButtonComponent
+          // eslint-disable-next-line react/no-children-prop
+          children={children}
+          buttonOptions={buttonOptions}
+          sx={buttonStyle}
+          {...rest}
+        />
+      );
+    default:
+      return defaultType;
+  }
 };
 
 export default BaseComponent;

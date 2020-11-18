@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ThemeProvider as EmotionProvider } from 'emotion-theming';
+// import { ThemeProvider as EmotionProvider } from 'emotion-theming';
 import { ThemeProvider as ThemeUIProvider } from 'theme-ui';
 import DefaultContext from '../../DefaultContext';
 
@@ -7,7 +7,7 @@ const ElementsProvider = ({
   children,
   context,
   theme,
-  themeUI,
+  // themeUI,
   mapOverride
 }) => {
   const ctx = context || DefaultContext;
@@ -19,15 +19,19 @@ const ElementsProvider = ({
     setMap
   };
 
-  let provider = (
-    <EmotionProvider theme={theme || {}}>{children}</EmotionProvider>
-  );
+  // let provider = (
+  //   <EmotionProvider theme={theme || {}}>{children}</EmotionProvider>
+  // );
 
-  if (themeUI === true) {
-    provider = (
-      <ThemeUIProvider theme={theme || {}}>{children}</ThemeUIProvider>
-    );
-  }
+  // if (themeUI === true) {
+  //   provider = (
+  //     <ThemeUIProvider theme={theme || {}}>{children}</ThemeUIProvider>
+  //   );
+  // }
+
+  const provider = (
+    <ThemeUIProvider theme={theme || {}}>{children}</ThemeUIProvider>
+  );
 
   return <ContextProvider value={value}>{provider}</ContextProvider>;
 };
