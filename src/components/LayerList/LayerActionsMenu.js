@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from 'theme-ui';
+import React from 'react';
 import {
   Menu,
   MenuButton,
@@ -25,7 +24,7 @@ const LayerActionsMenu = ({ layerActions }) => {
         </MenuButton>
         <MenuPopover sx={{ zIndex: 3, fontFamily: 'body' }}>
           <MenuItems>
-            {layerActions.map(action => {
+            {layerActions.map((action) => {
               return (
                 <MenuItem
                   key={action.title}
@@ -41,7 +40,8 @@ const LayerActionsMenu = ({ layerActions }) => {
         </MenuPopover>
       </Menu>
     );
-  } return null;
+  }
+  return null;
 };
 
 export default LayerActionsMenu;

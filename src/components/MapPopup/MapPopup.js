@@ -1,7 +1,6 @@
-/** @jsx jsx */
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { jsx, Box, Link, Image, Text, Spinner } from 'theme-ui';
+import { Box, Link, Image, Text, Spinner } from 'theme-ui';
 import { Popup } from 'mapbox-gl';
 import Context from '../../DefaultContext';
 import List from '../_primitives/List';

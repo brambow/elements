@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { /* React, */ useState, useEffect, useContext } from 'react';
-import { jsx, Flex, Button, Box, Text, Select } from 'theme-ui';
+import { React, useState, useEffect, useContext } from 'react';
+import { Flex, Button, Box, Text, Select } from 'theme-ui';
 import { MdTimeline as LineIcon } from 'react-icons/md';
 import {
   FaDrawPolygon as PolygonIcon,

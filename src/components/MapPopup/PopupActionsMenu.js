@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { useState } from 'react';
-import { jsx, Spinner } from 'theme-ui';
+import React, { useState } from 'react';
+import { Spinner } from 'theme-ui';
 import {
   Menu,
   MenuButton,
