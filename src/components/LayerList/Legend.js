@@ -1,6 +1,6 @@
-/** @jsx jsx */
 /*  eslint-disable no-underscore-dangle */
-import { jsx, Box, Text } from 'theme-ui';
+import React from 'react';
+import { Box, Text } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 
@@ -75,7 +75,13 @@ const buildStyle = (lyr) => {
                   ry="0"
                   width="25"
                   height="25"
-                  sx={{ fill: s[1], stroke: s[2], strokeWidth: 3, fillOpacity: foValue, strokeOpacity: foValue }}
+                  sx={{
+                    fill: s[1],
+                    stroke: s[2],
+                    strokeWidth: 3,
+                    fillOpacity: foValue,
+                    strokeOpacity: foValue
+                  }}
                 />
               </svg>
             </Box>

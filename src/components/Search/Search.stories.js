@@ -6,7 +6,7 @@ import { withKnobs, boolean, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import Map from '../Map/Map';
-import config from '../../config';
+import config from '../../config.template';
 
 storiesOf('Search', module)
   .addDecorator(withKnobs)
