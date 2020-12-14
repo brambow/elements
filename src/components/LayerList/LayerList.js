@@ -33,6 +33,7 @@ const LayerList = ({
         itemActions={item.actions}
         showActions={showActions}
         checkboxStyle={checkboxStyle}
+        baseType={baseType}
       />
     );
   });

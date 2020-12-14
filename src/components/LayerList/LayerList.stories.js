@@ -196,6 +196,18 @@ storiesOf('LayerList', module)
       </ElementsProvider>
     );
   })
+  .add('With Legend (Button Style)', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} />
+        <LayerList
+          baseType='button'
+          layers={layers}
+          legend
+        />
+      </ElementsProvider>
+    );
+  })
   .add('With Data Driven Styles', () => {
     return (
       <ElementsProvider>
