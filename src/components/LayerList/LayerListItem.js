@@ -14,7 +14,8 @@ const LayerListItem = ({
   legend,
   showActions,
   itemActions,
-  checkboxStyle
+  checkboxStyle,
+  baseType
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [checkbox, setCheckbox] = useState(null);
@@ -90,9 +91,8 @@ const LayerListItem = ({
     let layerVisibility;
     let checked;
     if (mapExists(map)) {
-      if (Object.keys(map).length > 0) {
-        map.once('idle', () => {
-          layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
+      const setCurrentState = () => {
+        layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
           checked = layerVisibility !== 'none';
           setIsChecked(checked);
           if (legend) {
@@ -102,7 +102,23 @@ const LayerListItem = ({
                 : buildStyle(map.getLayer(layerIds[0]))
             );
           }
-        });
+      }
+      if (Object.keys(map).length > 0) {
+        if (baseType && baseType === 'button') {
+          try {
+            setCurrentState();
+          } catch (e) {
+            if (e instanceof TypeError) {
+              map.once('idle', () => {
+                setCurrentState();
+              });
+            }
+          }
+        } else {
+          map.once('idle', () => {
+            setCurrentState();
+          });
+        }
       }
     }
   }, [map, layerInfo]);
