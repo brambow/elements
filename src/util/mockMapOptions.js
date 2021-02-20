@@ -1,4 +1,4 @@
-import config from '../config.template';
+import config from '../config';
 
 const mapOptions = {
   container: 'map',
