@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { /* React, */ useState, useEffect, useContext } from 'react';
 import { jsx, Flex, Button, Box, Text, Select } from 'theme-ui';
