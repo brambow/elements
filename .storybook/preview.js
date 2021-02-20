@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { configure, addDecorator } from '@storybook/react';
+import { /* configure, */ addDecorator } from '@storybook/react';
 import { useAddonState } from '@storybook/client-api';
 
 import * as themes from '@theme-ui/presets';
@@ -24,10 +24,10 @@ const Provider = ({ children, theme }) => {
   );
 };
 
-function loadStories() {
-  const req = require.context('../src/components', true, /\.stories\.js$/);
-  req.keys().forEach((filename) => req(filename));
-}
+// function loadStories() {
+//   const req = require.context('../src/components', true, /\.stories\.js$/);
+//   req.keys().forEach((filename) => req(filename));
+// }
 
 export const parameters = { layout: 'fullscreen' };
 
@@ -40,4 +40,4 @@ addDecorator((Story) => {
   );
 });
 
-configure(loadStories, module);
+// configure(loadStories, module);

@@ -4,7 +4,7 @@ import { addons, types } from '@storybook/addons';
 import { useAddonState } from '@storybook/api';
 import { Button, Flex } from 'theme-ui';
 
-import { allThemes } from '../config';
+import { allThemes } from '../preview';
 
 const allThemeNames = Object.keys(allThemes);
 
@@ -46,7 +46,7 @@ const Component = ({ active, key }) => {
 
 addons.register('my/theme-ui-addon', () => {
   addons.add('theme-ui-addon/panel', {
-    title: 'Theme UI Themes',
+    title: 'Themes',
     type: types.PANEL,
     render: ({ active, key }) => <Component active={active} key={key} />
   });
