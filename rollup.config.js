@@ -40,7 +40,8 @@ export default [
       'react-icons/all',
       'react-dom/server',
       'theme-ui',
-      '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw'
+      '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw',
+      '@reach/menubutton/styles.css'
     ]
   }
 ];
