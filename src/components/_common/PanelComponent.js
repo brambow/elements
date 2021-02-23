@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Close, Flex, useThemeUI } from 'theme-ui';
 
 const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
-  const {theme} = useThemeUI();
+  const { theme } = useThemeUI();
 
   return (
     <Card
@@ -24,7 +24,7 @@ const PanelComponent = ({ closable, onClose, sx, children, ...rest }) => {
         <Flex
           sx={{
             justifyContent: 'flex-end',
-            marginRight: `-${theme.space[3]}px`
+            marginRight: `-${theme.space ? theme.space[3] : 16}px`
           }}
         >
           <Close
