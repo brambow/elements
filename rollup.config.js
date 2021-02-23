@@ -41,7 +41,7 @@ export default [
       'react-dom/server',
       'theme-ui',
       '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw',
-      '@reach/menubutton/styles.css'
+      '@reach/menu-button/styles.css'
     ]
   }
 ];
