@@ -8,7 +8,7 @@ module.exports = async ({ config, mode }) => {
   config.node = { fs: 'empty' };
   config.module.rules.push({
     test: /\.stories\.jsx?$/,
-    loaders: [require.resolve('@storybook/addon-storysource/loader')],
+    loaders: [require.resolve('@storybook/source-loader')],
     enforce: 'pre'
   });
   // Return the altered config
