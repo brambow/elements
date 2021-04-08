@@ -1,5 +1,4 @@
 import React from 'react';
-import { create } from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react';
 import Search from './Search';
 import ElementsProvider from '../_common/ElementsProvider';

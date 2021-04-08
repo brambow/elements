@@ -1,6 +1,6 @@
 import React from 'react';
-import { create } from 'react-test-renderer';
 import MapPopup from './MapPopup';
+import { render } from '@testing-library/react';
 
 const popupLayers = [
   {
@@ -28,7 +28,7 @@ const popupLayers = [
         field: 'name',
         label: 'Image',
         type: 'image',
-        expression: function(val) {
+        expression: function (val) {
           return `https://raw.githubusercontent.com/tannerjt/state_images.json/master/images/${val
             .toLowerCase()
             .replace(' ', '_')}.jpg`;
@@ -50,6 +50,6 @@ jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
 
 describe('MapPopup component', () => {
   it('renders without error', () => {
-    create(<MapPopup layers={popupLayers} />);
+    const { getByText } = render(<MapPopup layers={popupLayers} />);
   });
 });
