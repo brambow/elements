@@ -1,3 +1,7 @@
+# 1.3.8
+
+- Fix for Data Driven Legends
+
 # 1.3.7
 
 - Add title to Home button
