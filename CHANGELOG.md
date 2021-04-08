@@ -9,6 +9,7 @@
   - `sx` - set of styles that are passed to the base container (this existed but is now passed consistently)
   - `buttonOptions` - set of options passed to button-style components
 - New <ButtonComponent> (`baseType = 'button`) provides and out-of-the-box UI option for button triggers
+- Fix: Data driven styles in legend for layers with 2 or more stops ( was previously 3 or more)
 
 # 1.3.7
 
