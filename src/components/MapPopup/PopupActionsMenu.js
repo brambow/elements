@@ -1,7 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import { useState } from 'react';
-import { jsx, Spinner } from 'theme-ui';
+import { Spinner } from 'theme-ui';
 import {
   Menu,
   MenuButton,
