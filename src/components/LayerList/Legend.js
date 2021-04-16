@@ -42,11 +42,11 @@ const buildStyle = (lyr) => {
 
     const Items = () => {
       let styles = [];
-      if (fc.length > 2) {
+      if (fc.length > 1) {
         styles = fc.map((l) => {
           return [...l, foc[0]];
         });
-      } else if (foc.length > 2) {
+      } else if (foc.length > 1) {
         styles = foc.map((l) => {
           return [...l, fc[0]];
         });

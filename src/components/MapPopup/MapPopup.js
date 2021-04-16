@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Box, Link, Image, Text, Spinner } from 'theme-ui';
+import { Box, Link, Image, Text, Button } from 'theme-ui';
 import { Popup } from 'mapbox-gl';
 import Context from '../../DefaultContext';
 import List from '../_primitives/List';
@@ -17,7 +17,6 @@ const Container = ({ properties, config, showActions, feature }) => {
         <PopupActionsMenu popupActions={config.actions} feature={feature} />
       );
     } else {
-      console.warn('You passed a showActions prop but no actions');
       actionsMenu = null;
     }
   } else {
@@ -156,10 +155,7 @@ const Items = ({ properties, config }) => {
 // Singleton To Point to Same Function In Memory
 const mPopup = (() => {
   let instance;
-  // let showActions;
-  // let popupContainer;
-  // let map;
-  // let config;
+  let mapInstance;
   const configs = {}; // {layerId: {...config}}
   let busy = false;
   const setBusy = (duration) => {
@@ -169,66 +165,96 @@ const mPopup = (() => {
     }, duration);
   };
 
-  const createInstance = (showActions, popupContainer, map, config) => {
-    // showActions = showActions;
-    // popupContainer = popupContainer;
-    // map = map;
-    // config = config;
+  const createInstance = (showActions, popupContainer, map) => {
+    mapInstance = map;
     return (event) => {
       if (busy) {
         return;
       }
       setBusy(10);
-      const feature = event.features[0];
-      // eslint-disable-next-line no-param-reassign
-      config = configs[feature.layer.id];
-      if (config.intercept) {
-        // Initial render loading icon
-        ReactDOM.render(
-          <Box>
-            <Spinner />
-          </Box>,
-          popupContainer
-        );
 
-        const mapPopup = new Popup()
-          .setLngLat(event.lngLat)
-          .setDOMContent(popupContainer)
-          .addTo(map);
-
-        config
-          .intercept(feature.properties)
-          .then(function (properties) {
-            ReactDOM.render(
-              React.createElement(Container, {
+      async function buildPopupContents(features) {
+        const Pages = [];
+        for (let i = 0; i < features.length; i += 1) {
+          const feature = features[i];
+          let page;
+          if (configs[feature.layer.id].intercept) {
+            try {
+              // eslint-disable-next-line no-await-in-loop
+              const properties = await configs[feature.layer.id].intercept(feature.properties);
+              page = React.createElement(Container, {
                 properties,
-                config,
+                config: configs[feature.layer.id],
                 showActions,
                 feature: feature || null
-              }),
-              popupContainer
-            );
-            mapPopup.setDOMContent(popupContainer);
-          })
-          .catch(function (err) {
-            console.warn(err);
-          });
-      } else {
-        ReactDOM.render(
-          React.createElement(Container, {
+              });
+            } catch (e) {
+              console.error(e);
+              page = null;
+            }
+        } else {
+          page = React.createElement(Container, {
             properties: feature.properties,
-            config,
+            config: configs[feature.layer.id],
             showActions,
             feature: feature || null
-          }),
-          popupContainer
-        );
+          });
+        } 
+          Pages.push(page);
+        }
 
+        const ElementsPopup = ({items}) => {
+          const [currentItem, setCurrentItem] = useState(items[0]);
+          const [currentPage, setCurrentPage] = useState(0);
+
+          const Paginate = () => {
+            const nextPage = (e) => {
+              e.preventDefault();
+              setCurrentItem(items[currentPage + 1]);
+              setCurrentPage(currentPage + 1);
+            }
+            const prevPage = (e) => {
+              e.preventDefault();
+              setCurrentItem(items[currentPage - 1]);
+              setCurrentPage(currentPage - 1);
+            }
+            return (
+              <Box>
+                { (currentPage === 0) ? 
+                  null : 
+                  <Text mr={1} sx={{float: 'left'}}>
+                    <Button sx={{padding: '4px 4px', background: 'background'}} href="#" onClick={prevPage}>Previous</Button>
+                  </Text> 
+                }
+                { (currentPage === items.length - 1) ? 
+                  null : 
+                  <Text mr={1} sx={{float: 'left'}}>
+                    <Button sx={{padding: '4px 4px', background: 'background'}} href="#" onClick={nextPage}>Next</Button>
+                  </Text> 
+                }
+                <Text sx={{float: 'right'}} mt='4px'>{currentPage + 1}/{items.length}</Text>
+              </Box>
+            );
+          }
+
+          return (
+            <Box>
+              {currentItem}
+              {(items.length > 1) ? <Paginate />: null}
+            </Box>
+          );
+        }
+
+        ReactDOM.render(<ElementsPopup items={Pages} />, popupContainer);
         new Popup()
           .setLngLat(event.lngLat)
           .setDOMContent(popupContainer)
           .addTo(map);
       }
+
+      const layerIds = Object.keys(configs);
+      const features = map.queryRenderedFeatures(event.point, { layers: layerIds });
+      buildPopupContents(features);
     };
   };
 
@@ -238,7 +264,9 @@ const mPopup = (() => {
         configs[config.layerId] = { ...config };
       }
       if (!instance) {
-        instance = createInstance(showActions, popupContainer, map, config);
+        instance = createInstance(showActions, popupContainer, map);
+      } else if (map !== mapInstance) {
+        instance = createInstance(showActions, popupContainer, map);
       }
       return instance;
     },
@@ -254,7 +282,7 @@ const mPopup = (() => {
 const MapPopup = ({ layers, showActions, disabled }) => {
   const config = useContext(Context);
   const { map } = config;
-  const popupContainer = document.createElement('div');
+  const popupContainer = document.createElement('Box');
 
   if (!mapExists(map)) {
     return null;

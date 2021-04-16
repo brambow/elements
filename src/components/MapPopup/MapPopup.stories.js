@@ -15,6 +15,25 @@ const customMapOptions = Object.assign({}, mapOptions, {
 
 const popupLayers = [
   {
+    layerId: 'dc-art-layer',
+    title: {
+      field: 'ART_TYPE'
+    },
+    attributes: [{
+      field: 'LOCATION',
+      label: 'Location',
+      type: 'text'
+    }, {
+      field: 'ARTIST',
+      label: 'Artist',
+      type: 'text'
+    }, {
+      field: 'TITLE',
+      label: 'Title',
+      type: 'text'
+    }]
+  },
+  {
     layerId: 'football-stadiums-layer',
     title: {
       field: 'name1'
@@ -30,12 +49,12 @@ const popupLayers = [
     title: {
       field: 'name'
     }, // popup title field
-    intercept: function(properties) {
+    intercept: async function(properties) {
       // mock getting some external data
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
           resolve(Object.assign(properties, { source: 'intercept' }));
-        }, 150);
+        }, 250);
       });
     },
     attributes: [
