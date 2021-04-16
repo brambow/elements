@@ -157,6 +157,7 @@ const Items = ({ properties, config }) => {
 // Singleton To Point to Same Function In Memory
 const mPopup = (() => {
   let instance;
+  let mapInstance;
   // let showActions;
   // let popupContainer;
   // let map;
@@ -171,6 +172,7 @@ const mPopup = (() => {
   };
 
   const createInstance = (showActions, popupContainer, map, config) => {
+    mapInstance = map;
     // showActions = showActions;
     // popupContainer = popupContainer;
     // map = map;
@@ -239,6 +241,8 @@ const mPopup = (() => {
         configs[config.layerId] = { ...config };
       }
       if (!instance) {
+        instance = createInstance(showActions, popupContainer, map, config);
+      } else if (map !== mapInstance) {
         instance = createInstance(showActions, popupContainer, map, config);
       }
       return instance;
