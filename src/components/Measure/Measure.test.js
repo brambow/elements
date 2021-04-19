@@ -16,7 +16,7 @@ jest.mock('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw', () =>
     deleteAll: () => jest.fn()
   }))
 );
-console.log('duh');
+
 describe('Measure component', () => {
   it('renders without error', () => {
     const { container, getByText, getByTitle } = render(

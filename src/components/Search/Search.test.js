@@ -40,7 +40,10 @@ describe('Search component and utils', () => {
     fireEvent.change(searchInput, {
       target: { value: '1600 Pennsylvania' }
     });
-    expect(handleSearchInputChange).toHaveBeenCalled();
+    // use timeout to account for debounce
+    setTimeout(() => {
+      expect(handleSearchInputChange).toHaveBeenCalled();
+    }, 500);
   });
 
   it('calls the search function when clicked', () => {
