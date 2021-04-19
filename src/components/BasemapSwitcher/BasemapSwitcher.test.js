@@ -8,12 +8,12 @@ describe('BasemapSwitcher component', () => {
     expect(container.firstChild).toBeInTheDocument();
   });
   it('Radio style renders without error', () => {
-    const { getAllByRole } = render(<BasemapSwitcher componentStyle="radio" />);
+    const { getAllByRole } = render(<BasemapSwitcher switcherStyle="radio" />);
     expect(getAllByRole('radio')[0]).toBeInTheDocument();
   });
   it('Button style renders without error', () => {
     const { getAllByRole } = render(
-      <BasemapSwitcher componentStyle="buttons" />
+      <BasemapSwitcher switcherStyle="buttons" />
     );
     expect(getAllByRole('button')[0]).toBeInTheDocument();
   });

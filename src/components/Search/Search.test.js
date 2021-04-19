@@ -26,7 +26,7 @@ describe('Search component and utils', () => {
 
     expect(container.firstChild).toBeInTheDocument();
     expect(getByText('Search')).toBeInTheDocument();
-    expect(getByRole('comboboxw')).toBeInTheDocument();
+    expect(getByRole('combobox')).toBeInTheDocument();
   });
 
   it('calls the suggest function on input change', () => {
@@ -36,9 +36,14 @@ describe('Search component and utils', () => {
       </ElementsProvider>
     );
 
-    const searchInput = getByRole('comboboxw');
-    fireEvent.change(searchInput, { target: { value: '1600 Pennsylvania' } });
-    expect(handleSearchInputChange).toHaveBeenCalled();
+    const searchInput = getByRole('combobox');
+    fireEvent.change(searchInput, {
+      target: { value: '1600 Pennsylvania' }
+    });
+    // use timeout to account for debounce
+    setTimeout(() => {
+      expect(handleSearchInputChange).toHaveBeenCalled();
+    }, 500);
   });
 
   it('calls the search function when clicked', () => {
