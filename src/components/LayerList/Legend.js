@@ -1,7 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 /*  eslint-disable no-underscore-dangle */
-import { jsx, Box, Text } from 'theme-ui';
+import { Box, Text } from 'theme-ui';
 import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 

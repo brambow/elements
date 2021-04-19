@@ -1,8 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource theme-ui */
 import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { jsx, Box, Link, Image, Text, Button } from 'theme-ui';
+import { Box, Link, Image, Text, Button } from 'theme-ui';
 import { Popup } from 'mapbox-gl';
 import Context from '../../DefaultContext';
 import List from '../_primitives/List';
