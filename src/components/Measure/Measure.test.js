@@ -16,7 +16,7 @@ jest.mock('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw', () =>
     deleteAll: () => jest.fn()
   }))
 );
-
+console.log('duh');
 describe('Measure component', () => {
   it('renders without error', () => {
     const { container, getByText, getByTitle } = render(
@@ -42,7 +42,7 @@ describe('Measure component', () => {
 
     fireEvent.click(lineBtn);
 
-    const listbox = await waitForElement(() => getByRole('listbox'));
+    const listbox = await waitForElement(() => getByRole('combobox'));
     const deleteBtn = await waitForElement(() =>
       getByTitle('Delete Measurement')
     );
@@ -61,7 +61,7 @@ describe('Measure component', () => {
     const areaBtn = getByTitle('Measure Area');
     fireEvent.click(areaBtn);
 
-    const listbox = await waitForElement(() => getByRole('listbox'));
+    const listbox = await waitForElement(() => getByRole('combobox'));
     const deleteBtn = await waitForElement(() =>
       getByTitle('Delete Measurement')
     );
