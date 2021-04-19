@@ -1,9 +1,14 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Bookmarks from './Bookmarks';
-import saveBookmark from './util/saveBookmark';
+import { saveBookmark } from './util/bookmarkActions';
 
-jest.mock('./util/saveBookmark', () => jest.fn());
+jest.mock('./util/bookmarkActions', () => {
+  return {
+    loadBookmarks: jest.fn(() => '[]'),
+    saveBookmark: jest.fn()
+  };
+});
 
 describe('Bookmarks component', () => {
   it('renders without error', () => {
