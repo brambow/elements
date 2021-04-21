@@ -76,7 +76,8 @@ const BasemapSwitcher = ({
       name: 'streets',
       key: 'streets',
       label: 'Streets',
-      value: 'streets-v11'
+      value: 'streets-v11',
+      checked: true
     },
     {
       name: 'terrain',
