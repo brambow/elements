@@ -51,7 +51,7 @@ const BasemapSwitcher = ({
             map.addSource(p.layer.source, p.source);
             map.addLayer(p.layer);
           }
-        }, 100);
+        }, 200);
 
         map.on('style.load', () => {
           const waiting = () => {
