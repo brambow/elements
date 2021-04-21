@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BasemapSwitcher from './BasemapSwitcher';
 import Map from '../Map/Map';
 import ElementsProvider from '../_common/ElementsProvider';
@@ -6,14 +6,51 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
+import mapExists from '../../util/mapExists';
+import useElements from '../../util/useElements';
+
+const customLayers = [
+  {
+    source: {
+      type: 'geojson',
+      data:
+        'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
+    },
+    layer: {
+      id: 'states',
+      source: 'states',
+      type: 'line',
+      paint: {
+        'line-color': 'red',
+        'line-width': 2
+      }
+    }
+  }
+];
+
+const customMapOptions = Object.assign({}, mapOptions, {
+  center: [-100.207672, 39.581878],
+  zoom: 3,
+  bounds: null
+});
 
 storiesOf('BasemapSwitcher', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
+    const { map } = useElements();
+    useEffect(() => {
+      if (mapExists(map)) {
+        map.on('load', () => {
+          map.addSource(customLayers.layer.source, customLayers.source);
+          map.addLayer(customLayer.layer);
+        });
+      }
+    }, [map]);
     return (
       <ElementsProvider>
-        <Map mapOptions={mapOptions} />
+        <Map mapOptions={customMapOptions} />
         <BasemapSwitcher
+          preserveLayers={customLayers}
           baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
         />
