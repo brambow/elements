@@ -1,7 +1,7 @@
 import { babel } from '@rollup/plugin-babel';
+import image from '@rollup/plugin-image';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import svg from 'rollup-plugin-svg';
 import autoExternal from 'rollup-plugin-auto-external';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -27,7 +27,7 @@ export default [
         exclude: 'node_modules/**'
       }),
       autoExternal(),
-      svg(),
+      image(),
       postcss({
         extensions: ['.css']
       })
