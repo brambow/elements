@@ -12,7 +12,7 @@ import selectByPolygon from './util/selectByPolygon';
 import List from '../_primitives/List';
 
 const listener = {
-  pointEvent: undefined
+  pointEvent: null
 };
 function pointEvent(e) {
   if (listener.pointEvent) {
