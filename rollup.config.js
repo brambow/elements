@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import { babel } from '@rollup/plugin-babel';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
