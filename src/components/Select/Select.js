@@ -82,7 +82,7 @@ const Select = ({
         return true;
       case 'draw_polygon':
         map.once('draw.create', (e) => {
-          polyEvent.call(this, e, select);
+          polyEvent(e, select);
         });
         return true;
       default:
