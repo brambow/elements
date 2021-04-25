@@ -37,23 +37,32 @@ const customMapOptions = Object.assign({}, mapOptions, {
 storiesOf('BasemapSwitcher', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { map } = useElements();
-    useEffect(() => {
-      if (mapExists(map)) {
-        map.on('load', () => {
-          map.addSource(customLayers.layer.source, customLayers.source);
-          map.addLayer(customLayer.layer);
-        });
-      }
-    }, [map]);
+    const App = () => {
+      const { map } = useElements();
+      useEffect(() => {
+        if (mapExists(map)) {
+          map.on('load', () => {
+            customLayers.forEach(customLayer => {
+              map.addSource(customLayer.layer.source, customLayer.source);
+              map.addLayer(customLayer.layer);
+            });
+          });
+        }
+      }, [map]);
+      return (
+        <React.Fragment>
+          <Map mapOptions={customMapOptions} />
+          <BasemapSwitcher
+            preserveLayers={customLayers}
+            baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
+            switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
+          />
+        </React.Fragment>
+      );
+    };
     return (
       <ElementsProvider>
-        <Map mapOptions={customMapOptions} />
-        <BasemapSwitcher
-          preserveLayers={customLayers}
-          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
-          switcherStyle={radios('switcherStyle', ['radio', 'buttons'], 'radio')}
-        />
+        <App />
       </ElementsProvider>
     );
   })
