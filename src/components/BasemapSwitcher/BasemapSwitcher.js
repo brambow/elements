@@ -45,23 +45,18 @@ const BasemapSwitcher = ({
     if (mapExists(map)) {
       map.on('load', () => {
         map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
-        setTimeout(() => {
-          for (let i = 0; i < preserveLayers?.length; i += 1) {
-            const p = preserveLayers[i];
-            map.addSource(p.layer.source, p.source);
-            map.addLayer(p.layer);
-          }
-        }, 200);
 
-        map.on('style.load', () => {
+        map.on('styledata', () => {
           const waiting = () => {
             if (!map.isStyleLoaded()) {
               setTimeout(waiting, 200);
             } else {
               for (let i = 0; i < preserveLayers?.length; i += 1) {
                 const p = preserveLayers[i];
-                map.addSource(p.layer.source, p.source);
-                map.addLayer(p.layer);
+                if (!map.getSource(p.layer.source)) {
+                  map.addSource(p.layer.source, p.source);
+                  map.addLayer(p.layer);
+                }
               }
             }
           };
