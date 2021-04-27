@@ -12,7 +12,7 @@ import selectByPolygon from './util/selectByPolygon';
 import List from '../_primitives/List';
 
 const listener = {
-  pointEvent: undefined
+  pointEvent: null
 };
 function pointEvent(e) {
   if (listener.pointEvent) {
@@ -82,7 +82,7 @@ const Select = ({
         return true;
       case 'draw_polygon':
         map.once('draw.create', (e) => {
-          polyEvent.call(this, e, select);
+          polyEvent(e, select);
         });
         return true;
       default:
