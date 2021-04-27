@@ -90,8 +90,8 @@
   },
   "peerDependencies": {
     "mapbox-gl": "^1.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^16.8.6 || ^17.0.2",
+    "react-dom": "^16.8.6 || ^17.0.2"
   },
   "files": [
     "dist/"
