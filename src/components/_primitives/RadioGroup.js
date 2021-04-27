@@ -41,6 +41,7 @@ const RadioGroup = (props) => {
             key={item.value}
             name={name}
             item={item}
+            defaultChecked={item.checked}
             checkedChanged={checkedValueChange}
           />
         );

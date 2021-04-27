@@ -8,7 +8,8 @@ import mapOptions from '../../util/mockMapOptions';
 
 const customMapOptions = Object.assign({}, mapOptions, {
   center: [-100.207672, 39.581878],
-  zoom: 3
+  zoom: 3,
+  bounds: null
 });
 
 const posLabel = 'position';

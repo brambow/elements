@@ -10,7 +10,8 @@ import mapLayers from '../../util/mockMapLayers';
 
 const customMapOptions = Object.assign({}, mapOptions, {
   center: [-100.207672, 39.581878],
-  zoom: 3
+  zoom: 3,
+  bounds: null
 });
 
 const geojsonLayer = {

@@ -15,6 +15,7 @@ import BaseComponent from '../_common/BaseComponent';
 const BasemapSwitcher = ({
   switcherStyle,
   basemaps,
+  preserveLayers, // array of objects, each with 'source' and 'layer' properties. see https://bl.ocks.org/ryanbaumann/7f9a353d0a1ae898ce4e30f336200483/96bea34be408290c161589dcebe26e8ccfa132d7
   baseType,
   buttonOptions,
   sx,
@@ -44,6 +45,23 @@ const BasemapSwitcher = ({
     if (mapExists(map)) {
       map.on('load', () => {
         map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
+
+        map.on('styledata', () => {
+          const waiting = () => {
+            if (!map.isStyleLoaded()) {
+              setTimeout(waiting, 200);
+            } else {
+              for (let i = 0; i < preserveLayers?.length; i += 1) {
+                const p = preserveLayers[i];
+                if (!map.getSource(p.layer.source)) {
+                  map.addSource(p.layer.source, p.source);
+                  map.addLayer(p.layer);
+                }
+              }
+            }
+          };
+          waiting();
+        });
       });
     }
   }, [map]);
@@ -53,7 +71,8 @@ const BasemapSwitcher = ({
       name: 'streets',
       key: 'streets',
       label: 'Streets',
-      value: 'streets-v11'
+      value: 'streets-v11',
+      checked: true
     },
     {
       name: 'terrain',

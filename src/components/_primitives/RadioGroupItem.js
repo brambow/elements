@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label, Radio } from 'theme-ui';
 
-const RadioGroupItem = props => {
+const RadioGroupItem = (props) => {
   const { name, item, defaultChecked, checkedChanged } = props;
 
   return (
@@ -31,7 +31,7 @@ const RadioGroupItem = props => {
             bg: 'highlight'
           }
         }}
-        onChange={e => checkedChanged(e, item)}
+        onChange={(e) => checkedChanged(e, item)}
       />
       <span>{item.label}</span>
     </Label>
