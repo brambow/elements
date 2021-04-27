@@ -10,6 +10,18 @@
   - `buttonOptions` - set of options passed to button-style components
 - New <ButtonComponent> (`baseType = 'button`) provides and out-of-the-box UI option for button triggers
 - Fix: Data driven styles in legend for layers with 2 or more stops ( was previously 3 or more)
+- Storybook: new custom addon for ThemeUI & update config for v6.x
+- Chore: Update ReachUI and ThemeUI versions
+- Fix: non-responsive popups when new map loads
+- Feature: Multi-feature popups with "page" navigation
+- Feature: Update support for React 17
+- Chore: passing all unit test suites again
+- Feature: add `preserveLayers` prop to `<BasemapSwitcher />` to support keeping overlay layers when map style changes
+- Chore: update bundler to Rollup v2
+
+# 1.3.8
+
+- Fix: support data driven layers with 2 or more categories.
 
 # 1.3.7
 
