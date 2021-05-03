@@ -48,7 +48,8 @@ const buildStyle = (lyr) => {
         });
       } else if (foc.length > 1) {
         styles = foc.map((l) => {
-          return [...l, fc[0]];
+          l.splice(1,0,fc[0]);
+          return l;
         });
       } else {
         styles = [[null, fc[0], foc[0]]];
