@@ -158,6 +158,10 @@ const layersWithDDS = [
   {
     layerIds: ['river-centerlines-layer'],
     layerName: ['River Centerlines']
+  },
+  {
+    layerIds: ['south-carolina'],
+    layerName: 'South Carolina'
   }
 ];
 

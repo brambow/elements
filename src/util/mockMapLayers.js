@@ -21,6 +21,32 @@ const statesLayer = {
   }
 };
 
+const statesLayerVaried = {
+  id: 'south-carolina',
+  type: 'fill',
+  source: {
+    type: 'geojson',
+    data:
+      'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
+  },
+  paint: {
+    'fill-color': [
+      'match',
+      ['get', 'name'],
+      ['South Carolina'],
+      'rgba(255,0,0,0.5)',
+      'rgba(0,255,0, 0.25)'
+    ],
+    'fill-outline-color': [
+      'match',
+      ['get', 'name'],
+      ['South Carolina'],
+      'rgba(255,0,0,1)',
+      'rgba(0,255,0,1)'
+    ]
+  }
+};
+
 // Point Layer
 const dcArtLayer = {
   id: 'dc-art-layer',
@@ -90,6 +116,7 @@ const riverLakeCenterlines = {
 
 const layers = [
   statesLayer,
+  statesLayerVaried,
   dcArtLayer,
   footballStadiums,
   riverLakeCenterlines
