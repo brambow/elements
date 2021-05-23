@@ -25,7 +25,7 @@ const buildStyle = (lyr) => {
       // });
       fc = fcValue._parameters.stops;
       if (fcValue._parameters.default) {
-        fc = [...fc, ['', fcValue._parameters.default]]
+        fc = [...fc, ['', fcValue._parameters.default]];
       }
     } else if  (
       fcValue._styleExpression
@@ -54,7 +54,7 @@ const buildStyle = (lyr) => {
       // });
       foc = focValue._parameters.stops;
       if (focValue._parameters.default) {
-        foc = [...fc, ['', focValue._parameters.default]]
+        foc = [...fc, ['', focValue._parameters.default]];
       }
     } else if  (
       focValue._styleExpression
@@ -175,7 +175,7 @@ const buildStyle = (lyr) => {
       textAlign = 'center';
       cr = crValue._parameters.stops;
       if (crValue._parameters.default) {
-        cr = [...cr, ['', crValue._parameters.default]]
+        cr = [...cr, ['', crValue._parameters.default]];
       }
     } else {
       flexGrow = 1;

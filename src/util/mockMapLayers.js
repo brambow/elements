@@ -142,6 +142,6 @@ const layers = [
 export const edgeCases = [
   statesWithExpression,
   statesWithCategoricalDefault
-]
+];
 
 export default layers;

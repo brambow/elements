@@ -171,7 +171,7 @@ const layerEdgeCases = [
     layerIds: ['edge-categorical-default'],
     layerName: 'Default Style'
   }
-]
+];
 
 storiesOf('LayerList', module)
   .addDecorator(withKnobs)
