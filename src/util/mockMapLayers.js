@@ -90,8 +90,8 @@ const riverLakeCenterlines = {
 
 // EDGE CASES
 // Layers where custom logic may need to be applied
-const statesLayerVaried = {
-  id: 'south-carolina',
+const statesWithExpression = {
+  id: 'edge-expression',
   type: 'fill',
   source: {
     type: 'geojson',
@@ -109,8 +109,8 @@ const statesLayerVaried = {
   }
 };
 
-const statesLayerWithDefault = {
-  id: 'oregon',
+const statesWithCategoricalDefault = {
+  id: 'edge-categorical-default',
   type: 'fill',
   source: {
     type: 'geojson',
@@ -140,8 +140,8 @@ const layers = [
 ];
 
 export const edgeCases = [
-  statesLayerVaried,
-  statesLayerWithDefault
+  statesWithExpression,
+  statesWithCategoricalDefault
 ]
 
 export default layers;

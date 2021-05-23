@@ -164,11 +164,11 @@ const layersWithDDS = [
 
 const layerEdgeCases = [
   {
-    layerIds: ['south-carolina'],
-    layerName: 'Mapbox Expression'
+    layerIds: ['edge-expression'],
+    layerName: 'Style Expression'
   },
   {
-    layerIds: ['oregon'],
+    layerIds: ['edge-categorical-default'],
     layerName: 'Default Style'
   }
 ]

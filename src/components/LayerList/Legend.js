@@ -263,6 +263,20 @@ const buildStyle = (lyr) => {
         if (lcValue._parameters.default) {
           lc = [...lc, ['', lcValue._parameters.default]]
         }
+      } else if  (
+        lcValue._styleExpression
+      ) {
+        const flattened = [];
+        Object.keys(lcValue._styleExpression.expression.cases).forEach(k => {
+          const value = lcValue._styleExpression.expression
+            .outputs[+lcValue._styleExpression.expression.cases[k]].value.toString();
+          const item = [k, value];
+          flattened.push(item);
+        });
+        if(lcValue._styleExpression.expression.otherwise) {
+          flattened.push(['', lcValue._styleExpression.expression.otherwise.value.toString()]);
+        }
+        lc = flattened;
       } else {
         lc = [lcValue.value.toString()];
       }
