@@ -8,6 +8,7 @@ import { withKnobs, radios } from '@storybook/addon-knobs';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapOptions from '../../util/mockMapOptions';
 import mapLayers from '../../util/mockMapLayers';
+import { edgeCases } from '../../util/mockMapLayers';
 
 const layers = [
   {
@@ -158,12 +159,19 @@ const layersWithDDS = [
   {
     layerIds: ['river-centerlines-layer'],
     layerName: ['River Centerlines']
-  },
-  {
-    layerIds: ['south-carolina'],
-    layerName: 'South Carolina'
   }
 ];
+
+const layerEdgeCases = [
+  {
+    layerIds: ['south-carolina'],
+    layerName: 'Mapbox Expression'
+  },
+  {
+    layerIds: ['oregon'],
+    layerName: 'Default Style'
+  }
+]
 
 storiesOf('LayerList', module)
   .addDecorator(withKnobs)
@@ -254,6 +262,23 @@ storiesOf('LayerList', module)
           baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
           layers={layers2}
           groupLayers={groupLayers}
+          checkboxStyle={radios(
+            'checkboxStyle',
+            ['checkbox', 'switch', 'eye'],
+            'checkbox'
+          )}
+        />
+      </ElementsProvider>
+    );
+  })
+  .add('Edge Cases', () => {
+    return (
+      <ElementsProvider>
+        <Map mapOptions={mapOptions} mapLayers={edgeCases} />
+        <LayerList
+          baseType={radios('baseType', ['none', 'panel', 'button'], 'panel')}
+          layers={layerEdgeCases}
+          legend
           checkboxStyle={radios(
             'checkboxStyle',
             ['checkbox', 'switch', 'eye'],

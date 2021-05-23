@@ -24,6 +24,9 @@ const buildStyle = (lyr) => {
       //   return [s[0], s[1]];
       // });
       fc = fcValue._parameters.stops;
+      if (fcValue._parameters.default) {
+        fc = [...fc, ['', fcValue._parameters.default]]
+      }
     } else if  (
       fcValue._styleExpression
     ) {
@@ -50,6 +53,9 @@ const buildStyle = (lyr) => {
       //   return [s[0], s[1]];
       // });
       foc = focValue._parameters.stops;
+      if (focValue._parameters.default) {
+        foc = [...fc, ['', focValue._parameters.default]]
+      }
     } else if  (
       focValue._styleExpression
     ) {

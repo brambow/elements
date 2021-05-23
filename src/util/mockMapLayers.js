@@ -21,25 +21,6 @@ const statesLayer = {
   }
 };
 
-const statesLayerVaried = {
-  id: 'south-carolina',
-  type: 'fill',
-  source: {
-    type: 'geojson',
-    data:
-      'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
-  },
-  paint: {
-    'fill-color': [
-      'match',
-      ['get', 'name'],
-      ['South Carolina'],
-      'rgba(255,0,0,0.5)',
-      'rgba(0,255,0, 0.25)'
-    ]
-  }
-};
-
 // Point Layer
 const dcArtLayer = {
   id: 'dc-art-layer',
@@ -107,12 +88,60 @@ const riverLakeCenterlines = {
   }
 };
 
+// EDGE CASES
+// Layers where custom logic may need to be applied
+const statesLayerVaried = {
+  id: 'south-carolina',
+  type: 'fill',
+  source: {
+    type: 'geojson',
+    data:
+      'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
+  },
+  paint: {
+    'fill-color': [
+      'match',
+      ['get', 'name'],
+      ['South Carolina'],
+      'rgba(255,0,0,0.5)',
+      'rgba(0,255,0, 0.25)'
+    ]
+  }
+};
+
+const statesLayerWithDefault = {
+  id: 'oregon',
+  type: 'fill',
+  source: {
+    type: 'geojson',
+    data:
+      'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces_shp.geojson'
+  },
+  paint: {
+    'fill-color': {
+      property: 'name',
+      type: 'categorical',
+      stops: [
+        ['Oregon', 'rgba(254, 229, 217, 0.4)'],
+        ['South Carolina', 'rgba(252, 174, 145, 0.4)'],
+        ['Washington', 'rgba(251, 106, 74, 0.4)'],
+        ['North Carolina', 'rgba(203, 24, 29, 0.4)']
+      ],
+      default: 'rgba(0, 0, 255, 0.5)'
+    },
+  }
+};
+
 const layers = [
   statesLayer,
-  statesLayerVaried,
   dcArtLayer,
   footballStadiums,
   riverLakeCenterlines
 ];
+
+export const edgeCases = [
+  statesLayerVaried,
+  statesLayerWithDefault
+]
 
 export default layers;
