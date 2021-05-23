@@ -36,13 +36,6 @@ const statesLayerVaried = {
       ['South Carolina'],
       'rgba(255,0,0,0.5)',
       'rgba(0,255,0, 0.25)'
-    ],
-    'fill-outline-color': [
-      'match',
-      ['get', 'name'],
-      ['South Carolina'],
-      'rgba(255,0,0,1)',
-      'rgba(0,255,0,1)'
     ]
   }
 };
