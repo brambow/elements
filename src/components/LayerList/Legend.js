@@ -174,6 +174,9 @@ const buildStyle = (lyr) => {
       flexGrow = 6;
       textAlign = 'center';
       cr = crValue._parameters.stops;
+      if (crValue._parameters.default) {
+        cr = [...cr, ['', crValue._parameters.default]]
+      }
     } else {
       flexGrow = 1;
       textAlign = 'left';
@@ -257,6 +260,9 @@ const buildStyle = (lyr) => {
         Object.prototype.hasOwnProperty.call(lcValue._parameters, 'stops')
       ) {
         lc = lcValue._parameters.stops;
+        if (lcValue._parameters.default) {
+          lc = [...lc, ['', lcValue._parameters.default]]
+        }
       } else {
         lc = [lcValue.value.toString()];
       }
