@@ -178,7 +178,7 @@ const AddData = ({ baseType, buttonOptions, sx, ...rest }) => {
             borderRightWidth: '.5px',
             borderBottomWidth: '0.5px',
             boxShadow: 'none',
-            '&:hover': {
+            ':hover': {
               bg: 'primary',
               color: 'background'
             }
@@ -201,7 +201,7 @@ const AddData = ({ baseType, buttonOptions, sx, ...rest }) => {
             borderRightWidth: 0,
             borderBottomWidth: '0.5px',
             boxShadow: 'none',
-            '&:hover': {
+            ':hover': {
               bg: 'primary',
               color: 'background'
             }

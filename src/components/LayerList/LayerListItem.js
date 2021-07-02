@@ -93,16 +93,16 @@ const LayerListItem = ({
     if (mapExists(map)) {
       const setCurrentState = () => {
         layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
-          checked = layerVisibility !== 'none';
-          setIsChecked(checked);
-          if (legend) {
-            setStyle(
-              layerInfo.legendStyle
-                ? layerInfo.legendStyle()
-                : buildStyle(map.getLayer(layerIds[0]))
-            );
-          }
-      }
+        checked = layerVisibility !== 'none';
+        setIsChecked(checked);
+        if (legend) {
+          setStyle(
+            layerInfo.legendStyle
+              ? layerInfo.legendStyle()
+              : buildStyle(map.getLayer(layerIds[0]))
+          );
+        }
+      };
       if (Object.keys(map).length > 0) {
         if (baseType && baseType === 'button') {
           try {
@@ -155,7 +155,7 @@ const LayerListItem = ({
               sx={{
                 fontWeight: 'bold',
                 cursor: 'pointer',
-                '&:hover': { textDecoration: 'underline' }
+                ':hover': { textDecoration: 'underline' }
               }}
               onClick={showHideLegend}
             >

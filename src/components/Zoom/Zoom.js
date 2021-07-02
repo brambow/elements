@@ -47,7 +47,7 @@ const Zoom = ({
     boxShadow: '0 0 4px rgba(0, 0, 0, .6)',
     padding: 0,
     my: '2px',
-    '&:hover': {
+    ':hover': {
       bg: 'secondary'
     }
   };
