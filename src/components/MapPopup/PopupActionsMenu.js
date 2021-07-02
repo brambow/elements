@@ -26,7 +26,10 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
             bg: 'white', // why does theme 'background' not work?
             borderStyle: 'none',
             fontSize: 1,
-            float: 'right'
+            float: 'right',
+            ':hover': {
+              cursor: 'pointer'
+            }
           }}
         >
           {loading ? <Spinner size={14} /> : '...'}
