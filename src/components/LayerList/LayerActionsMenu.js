@@ -18,7 +18,7 @@ const LayerActionsMenu = ({ layerActions }) => {
             bg: 'background',
             borderStyle: 'none',
             fontSize: 1,
-            '&:hover': {
+            ':hover': {
               cursor: 'pointer'
             }
           }}
