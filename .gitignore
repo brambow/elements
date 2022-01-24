@@ -6,3 +6,5 @@ node_modules/
 src/config.js
 
 dist/
+
+.yarn/cache/*

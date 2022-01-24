@@ -5,18 +5,18 @@ object-assign
 */
 
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
 
 /*!
- * Fuse.js v3.6.1 - Lightweight fuzzy-search (http://fusejs.io)
- * 
- * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
- * All Rights Reserved. Apache Software License 2.0
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * escape-html
+ * Copyright(c) 2012-2013 TJ Holowaychuk
+ * Copyright(c) 2015 Andreas Lubbe
+ * Copyright(c) 2015 Tiancheng "Timothy" Gu
+ * MIT Licensed
  */
 
 /*!
@@ -41,6 +41,18 @@ object-assign
  * Copyright (c) 2014-2017, Jon Schlinkert.
  * Released under the MIT License.
  */
+
+/*! @preserve
+ * numeral.js
+ * version : 2.0.6
+ * author : Adam Draper
+ * license : MIT
+ * http://adamwdraper.github.com/Numeral-js/
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /** @license React v0.20.2
  * scheduler.production.min.js
@@ -70,7 +82,7 @@ object-assign
  */
 
 /** @license React v17.0.2
- * react-is.production.min.js
+ * react-jsx-runtime.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
