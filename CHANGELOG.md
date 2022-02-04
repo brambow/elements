@@ -18,6 +18,7 @@
 - Chore: passing all unit test suites again
 - Feature: add `preserveLayers` prop to `<BasemapSwitcher />` to support keeping overlay layers when map style changes
 - Chore: update bundler to Rollup v2
+- Feature: enable mapbox 2 support
 
 # 1.3.8
 

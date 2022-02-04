@@ -1,6 +1,6 @@
 {
   "name": "@cartolab/elements",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "React components for map-based web applications",
   "repository": {
     "url": "https://github.com/cartolab-gis/elements",
@@ -89,7 +89,7 @@
     "rollup-plugin-postcss": "^4.0.0"
   },
   "peerDependencies": {
-    "mapbox-gl": "^1.5.0",
+    "mapbox-gl": "^1.5.0 || ^2.0.0",
     "react": "^16.8.6 || ^17.0.2",
     "react-dom": "^16.8.6 || ^17.0.2"
   },
