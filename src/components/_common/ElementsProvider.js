@@ -6,13 +6,16 @@ const ElementsProvider = ({ children, context, theme, mapOverride }) => {
   const ctx = context || DefaultContext;
   const ContextProvider = ctx.Provider || ctx;
   const [map, setMap] = useState(null);
-  const [drawMode, setDrawMode] = useState(null);
+  const [drawMode, setDrawMode] = useState('none');
+  const [selectMode, setSelectMode] = useState('none');
 
   const value = {
     map: mapOverride || map,
     setMap,
     drawMode,
-    setDrawMode
+    setDrawMode,
+    selectMode,
+    setSelectMode
   };
 
   const provider = (

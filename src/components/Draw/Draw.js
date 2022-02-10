@@ -22,10 +22,10 @@ import allowMapInteractions from './allowMapInteractions';
 import BaseComponent from '../_common/BaseComponent';
 
 const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
-  const {theme} = useThemeUI();
+  const { theme } = useThemeUI();
 
   const config = useContext(Context);
-  const { map } = config;
+  const { map, setDrawMode } = config;
   const [drawControl, setDrawControl] = useState(null);
   const [nextMode, setNextMode] = useState(null);
 
@@ -60,6 +60,7 @@ const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
 
     const nm = drawType || 'simple_select';
     setNextMode(nm);
+    setDrawMode(nm);
     draw.changeMode(nm);
   }
 
@@ -70,6 +71,7 @@ const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
       while (el.length > 0) {
         el[0].remove();
       }
+      setDrawMode('none');
     }
   }
 
@@ -105,6 +107,7 @@ const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
         el[i].addEventListener('click', () => {
           // console.log('click');
           drawControl.changeMode('static');
+          setDrawMode('static');
           showTextArea(el[i]);
         });
       }
@@ -114,6 +117,7 @@ const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
         if (e.keyCode === 13) {
           if (drawControl.getMode() === 'static') {
             drawControl.changeMode('simple_select');
+            setDrawMode('none');
             allowMapInteractions(map, true);
           }
           hideTextArea(el[el.length - 1]);
@@ -123,6 +127,7 @@ const Draw = ({ baseType, buttonOptions, sx, ...rest }) => {
       addEventListener('dblclick', () => {
         if (drawControl.getMode() === 'static') {
           drawControl.changeMode('simple_select');
+          setDrawMode('none');
           allowMapInteractions(map, true);
         }
         hideTextArea(el[el.length - 1]);
