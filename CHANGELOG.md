@@ -1,4 +1,4 @@
-# Upcoming
+# 2.0.0
 
 **BREAKING CHANGES:**
 
@@ -9,8 +9,9 @@
   - `sx` - set of styles that are passed to the base container (this existed but is now passed consistently)
   - `buttonOptions` - set of options passed to button-style components
 - New <ButtonComponent> (`baseType = 'button`) provides and out-of-the-box UI option for button triggers
+- Additional Context values: `drawMode` and `selectMode`
 - Fix: Data driven styles in legend for layers with 2 or more stops ( was previously 3 or more)
-- Storybook: new custom addon for ThemeUI & update config for v6.x
+- Storybook: new custom addon for ThemeUI & update config for v0.12.x
 - Chore: Update ReachUI and ThemeUI versions
 - Fix: non-responsive popups when new map loads
 - Feature: Multi-feature popups with "page" navigation
@@ -18,7 +19,8 @@
 - Chore: passing all unit test suites again
 - Feature: add `preserveLayers` prop to `<BasemapSwitcher />` to support keeping overlay layers when map style changes
 - Chore: update bundler to Rollup v2
-- Feature: enable mapbox 2 support
+- Feature: enable Mapbox 2 support
+- Chore: Upgrade to Node 16 and Yarn 3
 
 # 1.3.8
 
