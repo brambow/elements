@@ -1,7 +1,7 @@
 // @description Load various file format
 // returns GeoJSON
 import csv2geojson from 'csv2geojson'; // csv
-import togeojson from '@mapbox/togeojson'; // kml, gpx
+import togeojson from '@tmcw/togeojson'; // kml, gpx
 import shpjs from 'shpjs'; // zipped shapefile
 
 const config = {
@@ -150,8 +150,8 @@ class Importer {
   //   console.log('handle as igc');
   // }
 
-  handleSHP(evt) {
-    const geojson = shpjs.parseZip(evt.target.result);
+  async handleSHP(evt) {
+    const geojson = await shpjs.parseZip(evt.target.result);
     this.cb(this.fileDetails, geojson);
   }
 

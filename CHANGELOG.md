@@ -1,3 +1,9 @@
+# 2.0.2
+
+- Fix: Two fixes for the AddData component due to reported security vulnerabilities in dependencies:
+  - Update `@mapbox/togeojson` to maintained `@tmcw/togeojson`
+  - Update `shpjs` dependency from v3 to v4
+
 # 2.0.1
 
 - Fix: new context values were never merged for 2.0.0 release.

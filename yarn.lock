@@ -1606,7 +1606,6 @@ __metadata:
     "@babel/preset-react": ^7.0.0
     "@emotion/styled": ^11.6.0
     "@mapbox/mapbox-gl-draw": ^1.3.0
-    "@mapbox/togeojson": ^0.16.0
     "@reach/combobox": ^0.15.0
     "@reach/menu-button": ^0.15.0
     "@reach/popover": ^0.15.0
@@ -1623,6 +1622,7 @@ __metadata:
     "@testing-library/jest-dom": ^4.2.4
     "@testing-library/react": ^9.3.2
     "@theme-ui/presets": ^0.12.0
+    "@tmcw/togeojson": ^4.5.0
     "@turf/area": ^6.0.1
     "@turf/bbox": ^6.0.1
     "@turf/boolean-disjoint": ^6.0.2
@@ -1654,7 +1654,7 @@ __metadata:
     react-icons: ^3.7.0
     rollup: ^2.45.2
     rollup-plugin-postcss: ^4.0.0
-    shpjs: ^3.4.3
+    shpjs: ^4.0.2
     theme-ui: ^0.12.0
   peerDependencies:
     mapbox-gl: ^1.5.0 || ^2.0.0
@@ -2322,19 +2322,6 @@ __metadata:
   version: 2.0.5
   resolution: "@mapbox/tiny-sdf@npm:2.0.5"
   checksum: 23fd158ea795592cf1f825fcac20d48230c54a6985a931f609af8b4e69cd99f1c798dc893baec63f4fd6f42ffc3e7292b39f4126966412edd4606eb3dbf86b54
-  languageName: node
-  linkType: hard
-
-"@mapbox/togeojson@npm:^0.16.0":
-  version: 0.16.0
-  resolution: "@mapbox/togeojson@npm:0.16.0"
-  dependencies:
-    concat-stream: ~1.5.1
-    minimist: 1.2.0
-    xmldom: ~0.1.19
-  bin:
-    togeojson: togeojson
-  checksum: 634bdd2fa6f6c7b4352d6f8c135c881476ff054617d204928d3023427a2008f4bb4d011d68c26e7aff1b7d7c1b1faec7fb5b78f5104b8ac4942f7764c1c69b7d
   languageName: node
   linkType: hard
 
@@ -3978,6 +3965,13 @@ __metadata:
   peerDependencies:
     react: ^16 || ^17
   checksum: e3c26cbd70f6d273a50fba74ad1a558f841698798b408323cd0acb3727d4ddbb1934c24adb2660ac63dfa982bfbf6eed7696224e28221f9100ce040dd7570727
+  languageName: node
+  linkType: hard
+
+"@tmcw/togeojson@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "@tmcw/togeojson@npm:4.5.0"
+  checksum: 36347ccc82aa9a497e23398db0eace909698edd6a75da9037264506b17a33d0249af79f79eb9d7dbd74c4078f655d22c72c62d1a055e72145d6b5d227ec3f713
   languageName: node
   linkType: hard
 
@@ -11335,12 +11329,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jszip@npm:^2.4.0":
-  version: 2.6.1
-  resolution: "jszip@npm:2.6.1"
+"jszip@npm:^3.5.0":
+  version: 3.7.1
+  resolution: "jszip@npm:3.7.1"
   dependencies:
+    lie: ~3.3.0
     pako: ~1.0.2
-  checksum: 0a7e928162c73114621a5d610a54aa9c64ae718fc75f0765a74a1b855a08fec0167bf0b2bf8285b7adcba66f7cdacde5432dde281dc56c1ee9471da30f85e680
+    readable-stream: ~2.3.6
+    set-immediate-shim: ~1.0.1
+  checksum: 67d737a82b294cc102e7451e32d5acbbab29860399be460cae598084327e6f2ea0c9bca2d3dad701da6a75ddf77f34c6a1dd7db0c3d5c0fec5998b7e56d6d59d
   languageName: node
   linkType: hard
 
@@ -11479,7 +11476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lie@npm:^3.0.1":
+"lie@npm:^3.0.1, lie@npm:~3.3.0":
   version: 3.3.0
   resolution: "lie@npm:3.3.0"
   dependencies:
@@ -12245,13 +12242,6 @@ __metadata:
     is-plain-obj: ^1.1.0
     kind-of: ^6.0.3
   checksum: 8c040b3068811e79de1140ca2b708d3e203c8003eb9a414c1ab3cd467fc5f17c9ca02a5aef23bedc51a7f8bfbe77f87e9a7e31ec81fba304cda675b019496f4e
-  languageName: node
-  linkType: hard
-
-"minimist@npm:1.2.0":
-  version: 1.2.0
-  resolution: "minimist@npm:1.2.0"
-  checksum: 72473f0fce6692cf1e134dfdccfcfddd64d354d465dac3e43053e0c6d398eb9684c9d964f666e3c1be93829de47cb1ddf3cd26d4071322ed25fbaa625441dd85
   languageName: node
   linkType: hard
 
@@ -15636,6 +15626,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"set-immediate-shim@npm:~1.0.1":
+  version: 1.0.1
+  resolution: "set-immediate-shim@npm:1.0.1"
+  checksum: 5085c84039d1e5eee73d2bf48ce765fcec76159021d0cc7b40e23bcdf62cb6d450ffb781e3c62c1118425242c48eae96df712cba0a20a437e86b0d4a15d51a11
+  languageName: node
+  linkType: hard
+
 "set-value@npm:^2.0.0, set-value@npm:^2.0.1":
   version: 2.0.1
   resolution: "set-value@npm:2.0.1"
@@ -15729,16 +15726,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shpjs@npm:^3.4.3":
-  version: 3.6.3
-  resolution: "shpjs@npm:3.6.3"
+"shpjs@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "shpjs@npm:4.0.2"
   dependencies:
-    jszip: ^2.4.0
+    jszip: ^3.5.0
     lie: ^3.0.1
     lru-cache: ^2.7.0
     parsedbf: ^1.1.0
     proj4: ^2.1.4
-  checksum: 2121078aa03f216305bb561d9c10a4ade90ffc2a6a0b58271f78e37a7d3cbe5b19f8ec79eb221f2f1a118b367717f6049c38934c3eab49b9ac88fd885350c098
+  checksum: 2677f1327069d73d72c76af057e176564fdd5e9282c670bb708197597ae48f2f12a438bf4fc5eec2335d37f8d162e505177a443ff5e5db492489372cf67339ff
   languageName: node
   linkType: hard
 
@@ -17918,13 +17915,6 @@ __metadata:
   version: 3.0.0
   resolution: "xml-name-validator@npm:3.0.0"
   checksum: b3ac459afed783c285bb98e4960bd1f3ba12754fd4f2320efa0f9181ca28928c53cc75ca660d15d205e81f92304419afe94c531c7cfb3e0649aa6d140d53ecb0
-  languageName: node
-  linkType: hard
-
-"xmldom@npm:~0.1.19":
-  version: 0.1.31
-  resolution: "xmldom@npm:0.1.31"
-  checksum: 3073ca4a096892f86991ad0fce9aa1e874f16a974aa2c0911b1a218922d80fe3762b56aa3a2d9fe4a46d61416193c6dc0839776748b24e0cfb56197babf77a94
   languageName: node
   linkType: hard
 
