@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fix: new context values were never merged for 2.0.0 release.
+
 # 2.0.0
 
 **BREAKING CHANGES:**
