@@ -143,14 +143,6 @@ You can explore CartoLab Elements in our interactive playground, built with [Sto
 
 To run the storybook application, clone and run: `yarn dev`
 
-## Roadmap
-
-We have many ideas for enhancing CartoLab Elements over time. Some possibilities include:
-
-- Adding more components
-- Expanding support to other mapping APIs, like Leaflet and OpenLayers
-- Providing non-React versions (Vue, Vanilla JS, etc.)
-
 ## Contributing
 
 To run in development mode, install and run `yarn dev`. This will launch a development version of Storybook to create a development environment. Running `yarn test` will run tests against the code. We use Jest and React Testing Library for testing these components.
