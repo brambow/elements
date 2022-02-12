@@ -1,6 +1,11 @@
-# CartoLab Elements
+# CartoLab
 
 <img src="./logo.png" height="250">
+
+![GitHub package.json version](https://img.shields.io/github/package-json/v/cartolab-gis/elements?color=658e9c)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@cartolab/elements?color=658e9c)
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@cartolab/elements?color=658e9c)
+![tree shaking](https://img.shields.io/badge/tree%20shaking-supported-658e9c)
 
 [Demo](https://cartolab-gis.github.io/elements/)
 
