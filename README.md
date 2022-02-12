@@ -100,7 +100,7 @@ const App = () => {
         <BasemapSwitcher>
       </Map>
       <LayerList
-        panel={false}
+        baseType='panel'
         layers={[
           {
             layerIds: ['water', 'water-shadow'], //fill
