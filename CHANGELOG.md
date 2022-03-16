@@ -1,3 +1,7 @@
+# 2.0.3
+
+- Fix: make sure `selectMode` context value is being set.
+
 # 2.0.2
 
 - Fix: Two fixes for the AddData component due to reported security vulnerabilities in dependencies:
