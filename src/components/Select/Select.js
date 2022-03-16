@@ -32,13 +32,12 @@ const Select = ({
   ...rest
 }) => {
   const config = useContext(Context);
-  const { map } = config;
+  const { map, setSelectMode } = config;
   // const [selectActive, setSelectActive] = useState(false);
   // @options:currentMode - off, draw_polygon, draw_point
   const [currentMode, setCurrentMode] = useState('none');
-  const [activeSelectLayers, setActiveSelectLayers] = useState(
-    selectableLayers
-  );
+  const [activeSelectLayers, setActiveSelectLayers] =
+    useState(selectableLayers);
   const [selectedFeatures, setSelectedFeatures] = useState({});
   const [selectControl, setSelectControl] = useState();
   const [alert, setAlert] = useState(null);
@@ -92,6 +91,7 @@ const Select = ({
 
   useEffect(() => {
     if (!mapExists(map)) return;
+    setSelectMode(currentMode);
     if (currentMode === 'none') {
       return;
     }
