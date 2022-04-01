@@ -1,3 +1,7 @@
+# 2.1.1
+
+- Fix: remove some errors and console messages that were ending up in applications
+
 # 2.1.0
 
 - Feature: expose current basemap/mapStyle name in Elements context
