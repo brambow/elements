@@ -8,6 +8,7 @@ const ElementsProvider = ({ children, context, theme, mapOverride }) => {
   const [map, setMap] = useState(null);
   const [drawMode, setDrawMode] = useState('none');
   const [selectMode, setSelectMode] = useState('none');
+  const [mapStyle, setMapStyle] = useState('streets');
 
   const value = {
     map: mapOverride || map,
@@ -15,7 +16,9 @@ const ElementsProvider = ({ children, context, theme, mapOverride }) => {
     drawMode,
     setDrawMode,
     selectMode,
-    setSelectMode
+    setSelectMode,
+    mapStyle,
+    setMapStyle
   };
 
   const provider = (

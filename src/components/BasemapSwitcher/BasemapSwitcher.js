@@ -25,12 +25,13 @@ const BasemapSwitcher = ({
     basemaps ? basemaps[0].value : 'streets-v11'
   );
   const config = useContext(DefaultContext);
-  const { map } = config;
+  const { map, setMapStyle } = config;
 
   const didMountRef = useRef(false);
 
   const handleChange = (e, props) => {
     setBasemapValue(props.value);
+    setMapStyle(props.name);
   };
 
   // useEffect(() => {
