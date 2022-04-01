@@ -52,7 +52,7 @@ const BasemapSwitcher = ({
               if (!map.getSource(p.layer.source)) {
                 map.addSource(p.layer.source, p.source);
               }
-              if (!map.getLayer(p.layer)) {
+              if (!map.getLayer(p.layer.id)) {
                 map.addLayer(p.layer);
               }
             }
