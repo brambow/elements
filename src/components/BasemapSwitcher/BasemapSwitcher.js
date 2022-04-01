@@ -33,38 +33,42 @@ const BasemapSwitcher = ({
     setBasemapValue(props.value);
   };
 
-  useEffect(() => {
-    if (didMountRef.current) {
-      map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
-    } else {
-      didMountRef.current = true;
-    }
-  }, [basemapValue]);
+  // useEffect(() => {
+  //   if (didMountRef.current) {
+  //     map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
+  //   } else {
+  //     didMountRef.current = true;
+  //   }
+  // }, [basemapValue]);
 
   useEffect(() => {
     if (mapExists(map)) {
-      map.on('load', () => {
+      if (didMountRef.current) {
         map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
+      } else {
+        didMountRef.current = true;
+      }
 
-        map.on('styledata', () => {
-          const waiting = () => {
-            if (!map.isStyleLoaded()) {
-              setTimeout(waiting, 200);
-            } else {
-              for (let i = 0; i < preserveLayers?.length; i += 1) {
-                const p = preserveLayers[i];
-                if (!map.getSource(p.layer.source)) {
-                  map.addSource(p.layer.source, p.source);
-                  map.addLayer(p.layer);
-                }
+      map.once('styledata', () => {
+        const waiting = () => {
+          if (!map.isStyleLoaded()) {
+            setTimeout(waiting, 200);
+          } else {
+            for (let i = 0; i < preserveLayers?.length; i += 1) {
+              const p = preserveLayers[i];
+              if (!map.getSource(p.layer.source)) {
+                map.addSource(p.layer.source, p.source);
+              }
+              if (!map.getLayer(p.layer)) {
+                map.addLayer(p.layer);
               }
             }
-          };
-          waiting();
-        });
+          }
+        };
+        waiting();
       });
     }
-  }, [map]);
+  }, [map, basemapValue, preserveLayers]);
 
   const basemapOptions = basemaps || [
     {
@@ -84,7 +88,7 @@ const BasemapSwitcher = ({
       name: 'satellite',
       key: 'satellite',
       label: 'Satellite',
-      value: 'satellite-streets-v9'
+      value: 'satellite-streets-v11'
     }
   ];
 

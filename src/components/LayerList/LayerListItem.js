@@ -92,9 +92,13 @@ const LayerListItem = ({
     let checked;
     if (mapExists(map)) {
       const setCurrentState = () => {
-        layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
-        checked = layerVisibility !== 'none';
-        setIsChecked(checked);
+        if (map.getLayer(layerIds[0])) {
+          layerVisibility = map.getLayoutProperty(layerIds[0], 'visibility');
+          checked = layerVisibility !== 'none';
+          setIsChecked(checked);
+        } else {
+          console.warn(`${layerIds[0]  } is not in map yet`);
+        }
         if (legend) {
           setStyle(
             layerInfo.legendStyle
