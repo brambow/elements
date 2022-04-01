@@ -34,14 +34,6 @@ const BasemapSwitcher = ({
     setMapStyle(props.name);
   };
 
-  // useEffect(() => {
-  //   if (didMountRef.current) {
-  //     map.setStyle(`mapbox://styles/mapbox/${basemapValue}`);
-  //   } else {
-  //     didMountRef.current = true;
-  //   }
-  // }, [basemapValue]);
-
   useEffect(() => {
     if (mapExists(map)) {
       if (didMountRef.current) {
