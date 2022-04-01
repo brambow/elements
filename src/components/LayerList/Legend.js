@@ -5,8 +5,9 @@ import List from '../_primitives/List';
 import ListItem from '../_primitives/ListItem';
 
 const buildStyle = (lyr) => {
+  if (!lyr) return false;
   const { type } = lyr;
-  
+
   // fill-color, fill-opacity, fill-outline-color, fill-pattern
   function fill(paint) {
     let fc;
@@ -27,18 +28,21 @@ const buildStyle = (lyr) => {
       if (fcValue._parameters.default) {
         fc = [...fc, ['', fcValue._parameters.default]];
       }
-    } else if  (
-      fcValue._styleExpression
-    ) {
+    } else if (fcValue._styleExpression) {
       const flattened = [];
-      Object.keys(fcValue._styleExpression.expression.cases).forEach(k => {
-        const value = fcValue._styleExpression.expression
-          .outputs[+fcValue._styleExpression.expression.cases[k]].value.toString();
+      Object.keys(fcValue._styleExpression.expression.cases).forEach((k) => {
+        const value =
+          fcValue._styleExpression.expression.outputs[
+            +fcValue._styleExpression.expression.cases[k]
+          ].value.toString();
         const item = [k, value];
         flattened.push(item);
       });
-      if(fcValue._styleExpression.expression.otherwise) {
-        flattened.push(['', fcValue._styleExpression.expression.otherwise.value.toString()]);
+      if (fcValue._styleExpression.expression.otherwise) {
+        flattened.push([
+          '',
+          fcValue._styleExpression.expression.otherwise.value.toString()
+        ]);
       }
       fc = flattened;
     } else {
@@ -56,18 +60,21 @@ const buildStyle = (lyr) => {
       if (focValue._parameters.default) {
         foc = [...fc, ['', focValue._parameters.default]];
       }
-    } else if  (
-      focValue._styleExpression
-    ) {
+    } else if (focValue._styleExpression) {
       const flattened = [];
-      Object.keys(focValue._styleExpression.expression.cases).forEach(k => {
-        const value = focValue._styleExpression.expression
-          .outputs[+focValue._styleExpression.expression.cases[k]].value.toString();
+      Object.keys(focValue._styleExpression.expression.cases).forEach((k) => {
+        const value =
+          focValue._styleExpression.expression.outputs[
+            +focValue._styleExpression.expression.cases[k]
+          ].value.toString();
         const item = [k, value];
         flattened.push(item);
       });
-      if(focValue._styleExpression.expression.otherwise) {
-        flattened.push(['', focValue._styleExpression.expression.otherwise.value.toString()]);
+      if (focValue._styleExpression.expression.otherwise) {
+        flattened.push([
+          '',
+          focValue._styleExpression.expression.otherwise.value.toString()
+        ]);
       }
       foc = flattened;
     } else {
@@ -82,7 +89,7 @@ const buildStyle = (lyr) => {
         });
       } else if (foc.length > 1) {
         styles = foc.map((l) => {
-          l.splice(1,0,fc[0]);
+          l.splice(1, 0, fc[0]);
           return l;
         });
       } else {
@@ -261,20 +268,23 @@ const buildStyle = (lyr) => {
       ) {
         lc = lcValue._parameters.stops;
         if (lcValue._parameters.default) {
-          lc = [...lc, ['', lcValue._parameters.default]]
+          lc = [...lc, ['', lcValue._parameters.default]];
         }
-      } else if  (
-        lcValue._styleExpression
-      ) {
+      } else if (lcValue._styleExpression) {
         const flattened = [];
-        Object.keys(lcValue._styleExpression.expression.cases).forEach(k => {
-          const value = lcValue._styleExpression.expression
-            .outputs[+lcValue._styleExpression.expression.cases[k]].value.toString();
+        Object.keys(lcValue._styleExpression.expression.cases).forEach((k) => {
+          const value =
+            lcValue._styleExpression.expression.outputs[
+              +lcValue._styleExpression.expression.cases[k]
+            ].value.toString();
           const item = [k, value];
           flattened.push(item);
         });
-        if(lcValue._styleExpression.expression.otherwise) {
-          flattened.push(['', lcValue._styleExpression.expression.otherwise.value.toString()]);
+        if (lcValue._styleExpression.expression.otherwise) {
+          flattened.push([
+            '',
+            lcValue._styleExpression.expression.otherwise.value.toString()
+          ]);
         }
         lc = flattened;
       } else {
