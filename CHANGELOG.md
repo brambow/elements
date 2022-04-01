@@ -1,3 +1,8 @@
+# 2.1.0
+
+- Feature: expose current basemap/mapStyle name in Elements context
+- Fix: function and performance of layer preservation on <BasemapSwitcher>
+
 # 2.0.3
 
 - Fix: make sure `selectMode` context value is being set.
