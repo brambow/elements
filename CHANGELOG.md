@@ -1,3 +1,7 @@
+# 2.2.0-alpha.1
+
+- Feature: emit layer list info (name, layer ids, and whether on/off) to Elements Context so it can be read in apps
+
 # 2.1.1
 
 - Fix: remove some errors and console messages that were ending up in applications
