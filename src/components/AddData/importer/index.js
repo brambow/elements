@@ -1,7 +1,7 @@
 // @description Load various file format
 // returns GeoJSON
 import csv2geojson from 'csv2geojson'; // csv
-import togeojson from '@tmcw/togeojson'; // kml, gpx
+import { gpx, kml } from '@tmcw/togeojson'; // kml, gpx
 import shpjs from 'shpjs'; // zipped shapefile
 
 const config = {
@@ -125,7 +125,7 @@ class Importer {
       evt.target.result,
       'application/xml'
     );
-    const geojson = togeojson.kml(xml, { style: true });
+    const geojson = kml(xml, { style: true });
     this.cb(this.fileDetails, geojson);
   }
 
@@ -142,7 +142,7 @@ class Importer {
       evt.target.result,
       'application/xml'
     );
-    const geojson = togeojson.gpx(xml);
+    const geojson = gpx(xml);
     this.cb(this.fileDetails, geojson);
   }
 
