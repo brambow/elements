@@ -22,13 +22,17 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
       <Menu className="cl-popup-action-menu">
         <MenuButton
           sx={{
+            marginTop: 2,
             color: 'text',
             bg: 'white', // why does theme 'background' not work?
-            borderStyle: 'none',
+            borderColor: '#ebecf0',
+            borderStyle: 'solid',
+            borderRadius: 4,
             fontSize: 1,
             float: 'right',
             ':hover': {
-              cursor: 'pointer'
+              cursor: 'pointer',
+              bg: 'highlight'
             }
           }}
         >

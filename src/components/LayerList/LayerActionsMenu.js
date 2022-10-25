@@ -16,10 +16,13 @@ const LayerActionsMenu = ({ layerActions }) => {
           sx={{
             color: 'text',
             bg: 'background',
-            borderStyle: 'none',
+            borderColor: '#ebecf0',
+            borderStyle: 'solid',
+            borderRadius: 4,
             fontSize: 1,
             ':hover': {
-              cursor: 'pointer'
+              cursor: 'pointer',
+              bg: 'highlight'
             }
           }}
         >
