@@ -21,6 +21,7 @@ const PopupActionsMenu = ({ feature, popupActions }) => {
     return (
       <Menu className="cl-popup-action-menu">
         <MenuButton
+          className="cl-popup-action-menu-btn"
           sx={{
             marginTop: 2,
             color: 'text',

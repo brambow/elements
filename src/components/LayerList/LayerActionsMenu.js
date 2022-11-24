@@ -13,6 +13,7 @@ const LayerActionsMenu = ({ layerActions }) => {
     return (
       <Menu className="cl-layer-list-action-menu">
         <MenuButton
+          className="cl-layer-list-action-menu-btn"
           sx={{
             color: 'text',
             bg: 'background',
