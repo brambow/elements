@@ -1,3 +1,7 @@
+# 2.2.0
+
+- UI: update default style of action menu buttons
+
 # 2.2.0-alpha.2
 
 - Feature: emit layer list info (name, layer ids, and whether on/off) to Elements Context so it can be read in apps
